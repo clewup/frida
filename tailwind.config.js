@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,10 +9,19 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Mabry', ...defaultTheme.fontFamily.sans]
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+      },
+      height: {
+        'screen-header': '85vh'
+      },
+      minHeight: {
+        'screen-header': '85vh'
       }
     }
   },
@@ -19,11 +30,11 @@ module.exports = {
     themes: [
       {
         store: {
-          primary: '#1FB2A5',
-          secondary: '#037d50',
-          accent: '#1FB2A5',
+          primary: '#04945f',
+          secondary: '#04945f',
+          accent: '#04945f',
           neutral: '#CCCCCC',
-          'base-100': '#3e3e42',
+          'base-100': '#fafa00',
           info: '#3ABFF8',
           success: '#198754',
           warning: '#FBBD23',
