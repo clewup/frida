@@ -18,7 +18,7 @@ const Header = () => {
         <Link href="/catalogue">
           <button className="btn btn-outline btn-lg">Catalogue</button>
         </Link>
-        <Link href="/">
+        <Link href="/cart">
           <button className="btn btn-outline btn-lg gap-5">
             Cart
             <CartIcon />
