@@ -40,7 +40,7 @@ model Cart {
   updatedAt DateTime @updatedAt
   updatedBy String
 
-  user     String
+  user     String    @unique
   products Product[]
   total    Decimal
 }

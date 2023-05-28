@@ -1,3 +1,6 @@
+"use client";
+
+import useCart from "@/hooks/useCart/useCart";
 import { Product } from "@prisma/client";
 import { FC } from "react";
 import { ShoppingCart as CartIcon } from "react-feather";
@@ -6,9 +9,11 @@ interface ProductProps {
   product: Product;
 }
 
-const Product: FC<ProductProps> = ({
-  product: { id, name, description, image, price },
-}) => {
+const Product: FC<ProductProps> = ({ product }) => {
+  const { addToCart } = useCart();
+
+  const { id, name, description, image, price } = product;
+
   return (
     <div className="border-[1px] border-black rounded-md">
       <div className="p-10">
@@ -20,7 +25,10 @@ const Product: FC<ProductProps> = ({
       </div>
       <div className="p-10 flex justify-between items-center">
         <p className="text-3xl">£{Number(price).toFixed(2)}</p>
-        <button className="btn btn-lg btn-ghost">
+        <button
+          className="btn btn-lg btn-ghost"
+          onClick={() => addToCart(product)}
+        >
           <CartIcon />
         </button>
       </div>
