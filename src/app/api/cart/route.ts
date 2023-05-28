@@ -32,6 +32,15 @@ export async function PATCH(request: NextRequest) {
   const products = await prisma.product.findMany({
     where: { id: { in: body.products.map((product: Product) => product.id) } },
   });
+  const cart = await prisma.cart.findUnique({
+    include: { products: true },
+    where: { user: user },
+  });
+
+  let removedProducts: Product[] = [];
+  if (cart) {
+    removedProducts = getRemovedProducts(cart, body);
+  }
 
   const total = calculateTotal(products);
 
@@ -43,6 +52,8 @@ export async function PATCH(request: NextRequest) {
       products: {
         connect:
           body.products.map((product: Product) => ({ id: product.id })) || [],
+        disconnect:
+          removedProducts.map((product: Product) => ({ id: product.id })) || [],
       },
       total: total,
     },
@@ -69,6 +80,16 @@ function calculateTotal(products: Product[]) {
   }
 
   return total;
+}
+
+function getRemovedProducts(
+  originalCart: Cart & { products: Product[] },
+  newCart: Cart & { products: Product[] }
+) {
+  return originalCart.products.filter(
+    (origProd) =>
+      !newCart.products.find((newProd) => newProd.id === origProd.id)
+  );
 }
 
 function validate(body: Partial<Cart & { products: Product[] }>) {

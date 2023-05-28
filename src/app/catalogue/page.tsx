@@ -55,7 +55,7 @@ export default function Catalogue() {
   }, [searchParams]);
 
   return (
-    <PageWrapper className="relative flex flex-col gap-5 pb-20">
+    <PageWrapper className="relative flex flex-col gap-5 pb-20 min-h-screen-header">
       <Filter searchResults={searchResults} />
 
       {isLoading ? (

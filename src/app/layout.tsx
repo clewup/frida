@@ -1,5 +1,6 @@
 import "./globals.css";
 import Header from "@/components/Header/Header";
+import { CartProvider } from "@/contexts/CartContext/CartContext";
 import { LockrProvider } from "@/lib/common/contexts/LockrContext/LockrContext";
 
 export const metadata = {
@@ -14,10 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="store">
       <LockrProvider>
-        <body>
-          <Header />
-          {children}
-        </body>
+        <CartProvider>
+          <body>
+            <Header />
+            {children}
+          </body>
+        </CartProvider>
       </LockrProvider>
     </html>
   );

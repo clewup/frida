@@ -1,6 +1,6 @@
 "use client";
 
-import useCart from "@/hooks/useCart/useCart";
+import { useCart } from "@/contexts/CartContext/CartContext";
 import { Product } from "@prisma/client";
 import { FC } from "react";
 import { ShoppingCart as CartIcon } from "react-feather";

@@ -2,27 +2,19 @@
 
 import CartProduct from "@/components/CartProduct/CartProduct";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import useCart from "@/hooks/useCart/useCart";
+import { useCart } from "@/contexts/CartContext/CartContext";
 import { useLockr } from "@/lib/common/contexts/LockrContext/LockrContext";
 import { Cart as PrismaCart, Product } from "@prisma/client";
-import constants from "@/constants/constants";
 import { useEffect, useState } from "react";
 
 export default function Cart() {
-  const [cart, setCart] = useState<PrismaCart & { products: Product[] }>();
-  const { getCart } = useCart();
+  const { cart, getCart } = useCart();
   const { user } = useLockr();
 
-  async function getSetCart() {
-    const cart = await getCart();
-    setCart(cart);
-  }
-
   useEffect(() => {
-    if (!user) return;
-
-    getSetCart();
-  }, [user]);
+    if (!user || cart) return;
+    getCart();
+  }, [user, cart]);
 
   return (
     <PageWrapper className="min-h-screen-header flex justify-center items-center">
