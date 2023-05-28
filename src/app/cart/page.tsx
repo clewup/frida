@@ -5,6 +5,7 @@ import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import { useCart } from "@/contexts/CartContext/CartContext";
 import { useLockr } from "@/lib/common/contexts/LockrContext/LockrContext";
 import { Cart as PrismaCart, Product } from "@prisma/client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Cart() {
@@ -37,6 +38,15 @@ export default function Cart() {
             {cart && cart.products ? Number(cart.total).toFixed(2) : "0.00"}
           </p>
         </div>
+
+        <Link href={"/checkout"}>
+          <button
+            className="btn btn-accent btn-lg text-base-100 mt-5 w-full"
+            disabled={cart?.products.length === 0}
+          >
+            Checkout
+          </button>
+        </Link>
       </div>
     </PageWrapper>
   );

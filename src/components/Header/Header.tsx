@@ -3,7 +3,6 @@
 import { useLockr } from "@/lib/common/contexts/LockrContext/LockrContext";
 import useAuth from "@/lib/common/hooks/useAuth/useAuth";
 import useQueryParams from "@/lib/common/hooks/useQueryParams/useQueryParams";
-import Avvvatars from "avvvatars-react";
 import { Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -14,7 +13,6 @@ import {
 } from "react-feather";
 import { Search as SearchIcon } from "react-feather";
 import constants from "@/constants/constants";
-import Image from "next/image";
 
 const Header = () => {
   const { queryParams, setQueryParams } = useQueryParams();
@@ -73,33 +71,9 @@ const Header = () => {
                 </button>
               </Link>
 
-              <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                  <div>
-                    {user.image ? (
-                      <span className="avatar">
-                        <Image
-                          src={user.image}
-                          alt="user_image"
-                          width={50}
-                          height={50}
-                          className="mask mask-squircle"
-                        />
-                      </span>
-                    ) : (
-                      <Avvvatars value={user.email} size={45} />
-                    )}
-                  </div>
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="mt-3 p-2 border-[1px] border-black menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-                >
-                  <li onClick={signOut}>
-                    <a>Logout</a>
-                  </li>
-                </ul>
-              </div>
+              <button className="btn btn-ghost btn-lg" onClick={signOut}>
+                Log Out
+              </button>
             </>
           )}
         </div>
