@@ -7,9 +7,10 @@ import { useLockr } from "@/lib/common/contexts/LockrContext/LockrContext";
 import { Cart as PrismaCart, Product } from "@prisma/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { TailSpin } from "react-loader-spinner";
 
 export default function Cart() {
-  const { cart, getCart } = useCart();
+  const { cart, isLoading, getCart } = useCart();
   const { user } = useLockr();
 
   useEffect(() => {
@@ -21,13 +22,22 @@ export default function Cart() {
     <PageWrapper className="min-h-screen-header flex justify-center items-center">
       <div className="w-1/3 flex flex-col border-[1px] border-black rounded-md p-5">
         <div className="flex flex-col gap-5">
-          {cart && cart.products?.length > 0 ? (
+          {isLoading && (
+            <div className="w-full h-60 flex justify-center items-center">
+              <TailSpin color="#111111" />
+            </div>
+          )}
+
+          {!isLoading && (!cart || !cart?.products.length) && (
+            <p className="text-2xl text-center">Your cart is empty.</p>
+          )}
+
+          {!isLoading &&
+            cart &&
+            cart.products.length &&
             cart.products.map((product, index) => (
               <CartProduct product={product} key={index} />
-            ))
-          ) : (
-            <p className="text-2xl">Your cart is empty.</p>
-          )}
+            ))}
         </div>
 
         <span className="divider" />
