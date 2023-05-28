@@ -42,17 +42,21 @@ const useCart = () => {
     throw new Error("useCart may only be used within the CartContext");
 
   const { cart, setCart } = context;
-
   const { get, patch } = useApi();
 
+  const [isLoading, setLoading] = useState(false);
+
   async function getCart() {
+    setLoading(true);
     const cart = await get<Cart & { products: Product[] }>("/api/cart");
     setCart(cart);
+    setLoading(false);
     return cart;
   }
 
   async function addToCart(product: Product) {
     if (cart) {
+      setLoading(true);
       const formattedCart = {
         ...cart,
         products: [...cart.products, product],
@@ -63,9 +67,11 @@ const useCart = () => {
       );
 
       setCart(updatedCart);
+      setLoading(false);
       return updatedCart;
     }
 
+    setLoading(true);
     const newCart: Partial<Cart & { products: Product[] }> = {
       products: [product],
     };
@@ -75,11 +81,13 @@ const useCart = () => {
     );
 
     setCart(createdCart);
+    setLoading(false);
     return createdCart;
   }
 
   async function removeFromCart(product: Product) {
     if (cart) {
+      setLoading(true);
       const formattedCart = {
         ...cart,
         products: cart.products.filter((prod) => prod.id !== product.id),
@@ -90,12 +98,14 @@ const useCart = () => {
       );
 
       setCart(updatedCart);
+      setLoading(false);
       return updatedCart;
     }
   }
 
   return {
     ...context,
+    isLoading,
     getCart,
     addToCart,
     removeFromCart,

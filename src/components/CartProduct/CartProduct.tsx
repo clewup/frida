@@ -2,6 +2,7 @@
 
 import { useCart } from "@/contexts/CartContext/CartContext";
 import { Product } from "@prisma/client";
+import cx from "classnames";
 import { FC } from "react";
 import { Trash2 as RemoveIcon } from "react-feather";
 
@@ -10,7 +11,7 @@ interface CartProductProps {
 }
 
 const CartProduct: FC<CartProductProps> = ({ product }) => {
-  const { removeFromCart } = useCart();
+  const { isLoading, removeFromCart } = useCart();
 
   const { name, image, price } = product;
 
@@ -27,8 +28,9 @@ const CartProduct: FC<CartProductProps> = ({ product }) => {
       </div>
 
       <button
-        className="btn btn-ghost btn-sm"
+        className={cx("btn btn-ghost btn-sm", { loading: isLoading })}
         onClick={() => removeFromCart(product)}
+        disabled={isLoading}
       >
         <RemoveIcon size={20} />
       </button>

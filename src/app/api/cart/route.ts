@@ -2,8 +2,6 @@ import { Cart, Product } from "@prisma/client";
 import { NextRequest, NextResponse as response } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-
   const user = request.headers.get("x-user");
   if (!user) return response.json({ error: "Missing user" }, { status: 400 });
 
@@ -29,19 +27,17 @@ export async function PATCH(request: NextRequest) {
   const user = request.headers.get("x-user");
   if (!user) return response.json({ error: "Missing user" }, { status: 400 });
 
-  const products = await prisma.product.findMany({
-    where: { id: { in: body.products.map((product: Product) => product.id) } },
-  });
+  // determine what products have been removed from the cart
   const cart = await prisma.cart.findUnique({
     include: { products: true },
     where: { user: user },
   });
+  let removedProducts: Product[] = getRemovedProducts(cart, body);
 
-  let removedProducts: Product[] = [];
-  if (cart) {
-    removedProducts = getRemovedProducts(cart, body);
-  }
-
+  // calculate the total using live product data
+  const products = await prisma.product.findMany({
+    where: { id: { in: body.products.map((product: Product) => product.id) } },
+  });
   const total = calculateTotal(products);
 
   const upsertedCart = await prisma.cart.upsert({
@@ -83,9 +79,11 @@ function calculateTotal(products: Product[]) {
 }
 
 function getRemovedProducts(
-  originalCart: Cart & { products: Product[] },
+  originalCart: (Cart & { products: Product[] }) | null,
   newCart: Cart & { products: Product[] }
 ) {
+  if (!originalCart) return [];
+
   return originalCart.products.filter(
     (origProd) =>
       !newCart.products.find((newProd) => newProd.id === origProd.id)

@@ -2,6 +2,7 @@
 
 import { useCart } from "@/contexts/CartContext/CartContext";
 import { Product } from "@prisma/client";
+import cx from "classnames";
 import { FC } from "react";
 import { ShoppingCart as CartIcon } from "react-feather";
 
@@ -10,7 +11,7 @@ interface ProductProps {
 }
 
 const Product: FC<ProductProps> = ({ product }) => {
-  const { addToCart } = useCart();
+  const { isLoading, addToCart } = useCart();
 
   const { id, name, description, image, price } = product;
 
@@ -26,7 +27,7 @@ const Product: FC<ProductProps> = ({ product }) => {
       <div className="p-10 flex justify-between items-center">
         <p className="text-3xl">£{Number(price).toFixed(2)}</p>
         <button
-          className="btn btn-lg btn-ghost"
+          className={cx("btn btn-lg btn-ghost", { loading: isLoading })}
           onClick={() => addToCart(product)}
         >
           <CartIcon />
