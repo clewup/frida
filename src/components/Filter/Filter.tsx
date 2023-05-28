@@ -59,7 +59,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
     >
       {({ values, handleChange }) => {
         return (
-          <Form className="flex flex-col items-center justify-between bg-black rounded-md text-base-100 px-2 gap-5 py-1 md:flex-row md:gap-20">
+          <Form className="flex flex-col items-center justify-between bg-black rounded-md text-base-100 p-2 gap-5 md:flex-row md:gap-20">
             <span className="form-control flex-row gap-2">
               <label className="label">Category</label>
               <Field name="category">
