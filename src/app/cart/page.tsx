@@ -1,10 +1,10 @@
 import CartProduct from "@/components/CartProduct/CartProduct";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import { env } from "@/constants/env";
 import { Cart, Product } from "@prisma/client";
+import constants from "@/constants/constants";
 
 async function getCart(): Promise<(Cart & { products: Product[] }) | null> {
-  const cartReponse = await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/cart?id=1`);
+  const cartReponse = await fetch(`${constants.APP_URL}/api/cart?id=1`);
   return await cartReponse.json();
 }
 

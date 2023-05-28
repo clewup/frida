@@ -1,22 +1,24 @@
-import './globals.css'
+import "./globals.css";
 import Header from "@/components/Header/Header";
-import MusicPlayer from "@/components/MusicPlayer/MusicPlayer";
+import { LockrProvider } from "@/lib/common/contexts/LockrContext/LockrContext";
 
 export const metadata = {
-  title: 'Store',
-}
+  title: "Store",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" data-theme="store">
-      <body>
-      <Header/>
-      {children}
-      </body>
+      <LockrProvider>
+        <body>
+          <Header />
+          {children}
+        </body>
+      </LockrProvider>
     </html>
-  )
+  );
 }

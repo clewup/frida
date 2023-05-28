@@ -1,12 +1,10 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Product from "@/components/Product/Product";
-import { env } from "@/constants/env";
+import constants from "@/constants/constants";
 import { Product as PrismaProduct } from "@prisma/client";
 
 async function getProducts(): Promise<PrismaProduct[]> {
-  const productsResponse = await fetch(
-    `${env.NEXT_PUBLIC_APP_URL}/api/product`
-  );
+  const productsResponse = await fetch(`${constants.APP_URL}/api/product`);
   return await productsResponse.json();
 }
 
