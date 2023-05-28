@@ -40,6 +40,8 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  console.log(filteredProducts);
+
   const paginatedProducts = filteredProducts.slice(
     (Number(page) - 1) * PAGE_SIZE,
     Number(page) * PAGE_SIZE

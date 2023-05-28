@@ -4,6 +4,7 @@ export type SearchRequestType = {
   search?: string;
   category?: string;
   page?: string;
+  sort?: string;
 };
 
 export type SearchResponseType = {

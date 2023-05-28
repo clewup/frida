@@ -42,11 +42,13 @@ export default function Catalogue() {
     const search = searchParams.get("search");
     const category = searchParams.get("category");
     const page = searchParams.get("page");
+    const sort = searchParams.get("sort");
 
     const queryObject: SearchRequestType = {};
     if (search) queryObject.search = search;
     if (category) queryObject.category = category;
     if (page) queryObject.page = page;
+    if (sort) queryObject.sort = sort;
 
     const formattedQuery = stringify(queryObject);
     getFilteredProducts(formattedQuery);
