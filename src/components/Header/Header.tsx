@@ -40,7 +40,7 @@ const Header = () => {
                 placeholder="Search"
                 className="input border-black placeholder-black text-black input-lg"
               />
-              <button className="btn btn-square btn-lg btn-accent">
+              <button className="btn btn-square btn-lg btn-accent text-base-100">
                 <SearchIcon />
               </button>
             </div>

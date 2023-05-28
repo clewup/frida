@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
   const search = searchParams.get("search");
   const category = searchParams.get("category");
   const page = searchParams.get("page") || "1";
+  const sort = searchParams.get("sort");
 
   const products = await prisma.product.findMany({
     include: { categories: true },
@@ -26,6 +27,18 @@ export async function GET(request: NextRequest) {
         (cat) => cat.name.toLowerCase() === category.toLowerCase()
       )
     );
+  if (sort) {
+    if (sort === "price-asc") {
+      filteredProducts = filteredProducts.sort(
+        (a, b) => Number(a.price) - Number(b.price)
+      );
+    }
+    if (sort === "price-desc") {
+      filteredProducts = filteredProducts.sort(
+        (a, b) => Number(b.price) - Number(a.price)
+      );
+    }
+  }
 
   const paginatedProducts = filteredProducts.slice(
     (Number(page) - 1) * PAGE_SIZE,
