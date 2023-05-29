@@ -4,7 +4,6 @@ import CartProduct from "@/components/CartProduct/CartProduct";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import { useCart } from "@/contexts/CartContext/CartContext";
 import { useLockr } from "@/lib/common/contexts/LockrContext/LockrContext";
-import { Cart as PrismaCart, Product } from "@prisma/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
