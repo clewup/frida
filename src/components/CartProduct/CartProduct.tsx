@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import { useCart } from "@/contexts/CartContext/CartContext";
-import { Product } from "@prisma/client";
-import cx from "classnames";
-import { FC } from "react";
-import { Trash2 as RemoveIcon } from "react-feather";
+import { useCart } from '@/contexts/CartContext/CartContext'
+import { type Product } from '@prisma/client'
+import cx from 'classnames'
+import { type FC } from 'react'
+import { Trash2 as RemoveIcon } from 'react-feather'
 
 interface CartProductProps {
-  product: Product;
+  product: Product
 }
 
 const CartProduct: FC<CartProductProps> = ({ product }) => {
-  const { isLoading, removeFromCart } = useCart();
+  const { isLoading, removeFromCart } = useCart()
 
-  const { name, image, price } = product;
+  const { name, image, price } = product
 
   return (
     <div className="flex justify-between">
@@ -28,14 +28,14 @@ const CartProduct: FC<CartProductProps> = ({ product }) => {
       </div>
 
       <button
-        className={cx("btn btn-ghost btn-sm", { loading: isLoading })}
-        onClick={() => removeFromCart(product)}
+        className={cx('btn btn-ghost btn-sm', { loading: isLoading })}
+        onClick={async () => await removeFromCart(product)}
         disabled={isLoading}
       >
         <RemoveIcon size={20} />
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default CartProduct;
+export default CartProduct

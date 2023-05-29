@@ -1,21 +1,21 @@
-import { Product } from "@prisma/client";
+import { type Product } from '@prisma/client'
 
-export type SearchRequestType = {
-  search?: string;
-  category?: string;
-  page?: string;
-  sort?: string;
-};
+export interface SearchRequestType {
+  search?: string
+  category?: string
+  page?: string
+  sort?: string
+}
 
-export type SearchResponseType = {
-  results: Product[];
-  pagination: Pagination;
-};
+export interface SearchResponseType {
+  results: Product[]
+  pagination: Pagination
+}
 
-export type Pagination = {
-  totalResults: number;
-  pageResults: number;
-  page: number;
-  totalPages: number;
-  resultsPerPage: number;
-};
+export interface Pagination {
+  totalResults: number
+  pageResults: number
+  page: number
+  totalPages: number
+  resultsPerPage: number
+}

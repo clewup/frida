@@ -1,16 +1,16 @@
-import "./globals.css";
-import Header from "@/components/Header/Header";
-import { CartProvider } from "@/contexts/CartContext/CartContext";
-import { LockrProvider } from "@/lib/common/contexts/LockrContext/LockrContext";
+import './globals.css'
+import Header from '@/components/Header/Header'
+import { CartProvider } from '@/contexts/CartContext/CartContext'
+import { LockrProvider } from '@/lib/common/contexts/LockrContext/LockrContext'
 
 export const metadata = {
-  title: "Store",
-};
+  title: 'Store'
+}
 
-export default function RootLayout({
-  children,
+export default function RootLayout ({
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en" data-theme="store">
@@ -23,5 +23,5 @@ export default function RootLayout({
         </CartProvider>
       </LockrProvider>
     </html>
-  );
+  )
 }

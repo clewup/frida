@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/client": "4.11.0",
+    "@stripe/stripe-js": "^1.53.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
@@ -27,12 +28,14 @@
     "react-dom": "18.2.0",
     "react-feather": "^2.0.10",
     "react-loader-spinner": "^5.3.4",
+    "stripe": "^12.7.0",
     "tailwindcss": "3.3.2",
     "typescript": "*",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/stripe": "^8.0.417",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "eslint-config-standard-with-typescript": "^34.0.1",
     "eslint-plugin-import": "^2.25.2",

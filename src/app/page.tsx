@@ -1,15 +1,15 @@
-import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Product from "@/components/Product/Product";
-import constants from "@/constants/constants";
-import { Product as PrismaProduct } from "@prisma/client";
+import PageWrapper from '@/components/PageWrapper/PageWrapper'
+import Product from '@/components/Product/Product'
+import constants from '@/constants/constants'
+import { type Product as PrismaProduct } from '@prisma/client'
 
-async function getProducts(): Promise<PrismaProduct[]> {
-  const productsResponse = await fetch(`${constants.APP_URL}/api/product`);
-  return await productsResponse.json();
+async function getProducts (): Promise<PrismaProduct[]> {
+  const productsResponse = await fetch(`${constants.APP_URL}/api/product`)
+  return await productsResponse.json()
 }
 
-export default async function Home() {
-  const products = await getProducts();
+export default async function Home () {
+  const products = await getProducts()
 
   return (
     <PageWrapper className="min-h-screen-header">
@@ -20,5 +20,5 @@ export default async function Home() {
         ))}
       </div>
     </PageWrapper>
-  );
+  )
 }

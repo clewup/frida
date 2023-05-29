@@ -1,58 +1,58 @@
-"use client";
+'use client'
 
-import AutoSubmit from "@/lib/common/components/AutoSubmit/AutoSubmit";
-import useApi from "@/lib/common/hooks/useApi/useApi";
-import useQueryParams from "@/lib/common/hooks/useQueryParams/useQueryParams";
-import { SearchResponseType } from "@/types/searchTypes";
-import { Field, Form, Formik, FormikValues } from "formik";
-import { useSearchParams } from "next/navigation";
-import { FC, useEffect, useState } from "react";
-import { Category } from "@prisma/client";
+import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
+import useApi from '@/lib/common/hooks/useApi/useApi'
+import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
+import { type SearchResponseType } from '@/types/searchTypes'
+import { Field, Form, Formik, type FormikValues } from 'formik'
+import { useSearchParams } from 'next/navigation'
+import { type FC, useEffect, useState } from 'react'
+import { type Category } from '@prisma/client'
 
 interface FilterProps {
-  searchResults: SearchResponseType;
+  searchResults: SearchResponseType
 }
 
 const Filter: FC<FilterProps> = ({ searchResults }) => {
-  const searchParams = useSearchParams();
-  const { queryParams, setQueryParams } = useQueryParams();
-  const { get } = useApi();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const searchParams = useSearchParams()
+  const { queryParams, setQueryParams } = useQueryParams()
+  const { get } = useApi()
+  const [categories, setCategories] = useState<Category[]>([])
 
-  async function getCategories() {
-    const categoriesData = await get<Category[]>("/api/category");
-    setCategories(categoriesData);
+  async function getCategories () {
+    const categoriesData = await get<Category[]>('/api/category')
+    setCategories(categoriesData)
   }
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    getCategories()
+  }, [])
 
-  type FilterFormValues = {
-    category: string;
-    sort: string;
-  };
+  interface FilterFormValues {
+    category: string
+    sort: string
+  }
 
   const initialValues: FilterFormValues = {
-    category: searchParams.get("category") || "default",
-    sort: searchParams.get("sort") || "default",
-  };
+    category: searchParams.get('category') || 'default',
+    sort: searchParams.get('sort') || 'default'
+  }
 
-  function onSubmit(formValues: FormikValues) {
-    const reservedValues = ["default"];
-    let updatedQuery = queryParams;
+  function onSubmit (formValues: FormikValues) {
+    const reservedValues = ['default']
+    let updatedQuery = queryParams
 
     Object.entries(formValues).forEach(([key, value]) => {
-      const isNotFiltered = reservedValues.includes(value);
+      const isNotFiltered = reservedValues.includes(value)
 
       updatedQuery = {
         ...updatedQuery,
         page: null,
-        [key]: isNotFiltered ? null : value,
-      };
-    });
+        [key]: isNotFiltered ? null : value
+      }
+    })
 
-    setQueryParams(updatedQuery);
+    setQueryParams(updatedQuery)
   }
 
   return (
@@ -72,7 +72,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                     <select
                       name="category"
                       className="select select-bordered w-60 text-black"
-                      disabled={!categories.length}
+                      disabled={categories.length === 0}
                       value={values.category}
                       onChange={handleChange}
                     >
@@ -116,10 +116,10 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
 
             <AutoSubmit />
           </Form>
-        );
+        )
       }}
     </Formik>
-  );
-};
+  )
+}
 
-export default Filter;
+export default Filter
