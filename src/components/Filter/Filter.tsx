@@ -6,7 +6,7 @@ import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type SearchResponseType } from '@/types/searchTypes'
 import { Field, Form, Formik, type FormikValues } from 'formik'
 import { useSearchParams } from 'next/navigation'
-import { type FC, useEffect, useState } from 'react'
+import React, { type FC, useEffect, useState } from 'react'
 import { type Category } from '@prisma/client'
 
 interface FilterProps {
@@ -34,8 +34,8 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
   }
 
   const initialValues: FilterFormValues = {
-    category: searchParams.get('category') || 'default',
-    sort: searchParams.get('sort') || 'default'
+    category: searchParams.get('category') ?? 'default',
+    sort: searchParams.get('sort') ?? 'default'
   }
 
   function onSubmit (formValues: FormikValues) {

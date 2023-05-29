@@ -2,7 +2,7 @@
 
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import { type Cart, type Product } from '@prisma/client'
-import {
+import React, {
   createContext,
   type Dispatch,
   type FC,
@@ -17,7 +17,10 @@ interface CartContextValues {
   setCart: Dispatch<SetStateAction<(Cart & { products: Product[] }) | null>>
 }
 
-const CartContext = createContext<CartContextValues>({} as CartContextValues)
+const CartContext = createContext<CartContextValues>({
+  cart: null,
+  setCart: () => null
+})
 
 interface CartProviderProps {
   children: ReactNode

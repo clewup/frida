@@ -2,6 +2,7 @@ import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Product from '@/components/Product/Product'
 import constants from '@/constants/constants'
 import { type Product as PrismaProduct } from '@prisma/client'
+import React from 'react'
 
 async function getProducts (): Promise<PrismaProduct[]> {
   const productsResponse = await fetch(`${constants.APP_URL}/api/product`)

@@ -1,19 +1,19 @@
 'use client'
 
 import { useCart } from '@/contexts/CartContext/CartContext'
-import { Product } from '@prisma/client'
+import { type Product as PrismaProduct } from '@prisma/client'
 import cx from 'classnames'
-import { type FC } from 'react'
+import React, { type FC } from 'react'
 import { ShoppingCart as CartIcon } from 'react-feather'
 
 interface ProductProps {
-  product: Product
+  product: PrismaProduct
 }
 
 const Product: FC<ProductProps> = ({ product }) => {
   const { isLoading, addToCart } = useCart()
 
-  const { id, name, description, image, price } = product
+  const { name, description, image, price } = product
 
   return (
     <div className="border-[1px] border-black rounded-md flex flex-col justify-between">

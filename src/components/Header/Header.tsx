@@ -27,7 +27,7 @@ const Header = () => {
       </Link>
       <div className="flex gap-10 items-center">
         <Formik
-          initialValues={{ search: searchParams.get('search') || '' }}
+          initialValues={{ search: searchParams.get('search') ?? '' }}
           onSubmit={(formValues) => {
             const updatedQuery = {
               ...queryParams,

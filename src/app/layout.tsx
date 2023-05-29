@@ -2,6 +2,7 @@ import './globals.css'
 import Header from '@/components/Header/Header'
 import { CartProvider } from '@/contexts/CartContext/CartContext'
 import { LockrProvider } from '@/lib/common/contexts/LockrContext/LockrContext'
+import React from 'react'
 
 export const metadata = {
   title: 'Store'

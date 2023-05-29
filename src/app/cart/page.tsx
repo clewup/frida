@@ -7,8 +7,7 @@ import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import getStripe from '@/lib/stripe'
 import { Form, Formik, type FormikValues } from 'formik'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 
 export default function Cart () {
@@ -61,7 +60,7 @@ export default function Cart () {
               <div className="flex justify-end">
                 <p className="text-2xl">
                   Total: £
-                  {(cart != null) && cart.products
+                  {cart?.products
                     ? Number(cart.total).toFixed(2)
                     : '0.00'}
                 </p>

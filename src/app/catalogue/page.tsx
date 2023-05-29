@@ -9,7 +9,7 @@ import { type SearchRequestType, type SearchResponseType } from '@/types/searchT
 import cx from 'classnames'
 import { useSearchParams } from 'next/navigation'
 import { stringify } from 'querystring'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 
 export default function Catalogue () {

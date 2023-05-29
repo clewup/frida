@@ -8,7 +8,7 @@ export async function GET (request: NextRequest) {
 
   const search = searchParams.get('search')
   const category = searchParams.get('category')
-  const page = searchParams.get('page') || '1'
+  const page = searchParams.get('page') ?? '1'
   const sort = searchParams.get('sort')
 
   const products = await prisma.product.findMany({

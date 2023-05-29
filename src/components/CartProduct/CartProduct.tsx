@@ -3,7 +3,7 @@
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type Product } from '@prisma/client'
 import cx from 'classnames'
-import { type FC } from 'react'
+import React, { type FC } from 'react'
 import { Trash2 as RemoveIcon } from 'react-feather'
 
 interface CartProductProps {

@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from 'react'
+import React, { type FC, type ReactNode } from 'react'
 import cx from 'classnames'
 
 interface PageWrapperProps {
