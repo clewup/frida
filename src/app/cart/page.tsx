@@ -29,7 +29,7 @@ export default function Cart () {
   return (
     <PageWrapper className="min-h-screen-header flex justify-center items-center">
       <Formik
-        initialValues={(cart != null) || {}}
+        initialValues={cart ?? {}}
         onSubmit={onSubmit}
         enableReinitialize={true}
       >
