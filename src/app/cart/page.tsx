@@ -6,8 +6,9 @@ import { useCart } from '@/contexts/CartContext/CartContext'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import getStripe from '@/lib/stripe'
+import cx from 'classnames'
 import { Form, Formik, type FormikValues } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 
 export default function Cart () {
@@ -15,15 +16,19 @@ export default function Cart () {
   const { user } = useLockr()
   const { post } = useApi()
 
+  const [isRedirecting, setRedirecting] = useState(false)
+
   useEffect(() => {
     if ((user == null) || (cart != null)) return
     getCart()
   }, [user, cart])
 
   async function onSubmit (formValues: FormikValues) {
+    setRedirecting(true)
     const stripe = await getStripe()
     const stripeData = await post<{ id: string }>('/api/stripe', formValues)
     stripe.redirectToCheckout({ sessionId: stripeData.id })
+    setRedirecting(false)
   }
 
   return (
@@ -67,7 +72,7 @@ export default function Cart () {
               </div>
 
               <button
-                className="btn btn-accent btn-lg text-base-100 mt-5 w-full"
+                className={cx('btn btn-accent btn-lg text-base-100 mt-5 w-full', { loading: isRedirecting })}
                 disabled={cart?.products.length === 0}
               >
                 Checkout

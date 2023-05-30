@@ -52,12 +52,12 @@ model Order {
   updatedAt DateTime @updatedAt
   updatedBy String
 
-  user          String
-  status        OrderStatus @default(Pending)
-  products      Product[]
-  total         Decimal
-  transaction   Transaction @relation(fields: [transactionId], references: [id])
-  transactionId String      @unique
+  email       String
+  name        String
+  status      OrderStatus @default(Pending)
+  products    Product[]
+  total       Decimal
+  transaction String      @unique
 }
 
 enum OrderStatus {
@@ -68,15 +68,5 @@ enum OrderStatus {
   Cancelled
   Refunded
   Returned
-  Completed
-}
-
-model Transaction {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  createdBy String
-  updatedAt DateTime @updatedAt
-  updatedBy String
-
-  order Order?
+  Complete
 }

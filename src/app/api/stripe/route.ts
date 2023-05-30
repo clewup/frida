@@ -14,7 +14,6 @@ export async function POST (request: NextRequest) {
     submit_type: 'pay',
     mode: 'payment',
     payment_method_types: ['card'],
-    billing_address_collection: 'auto',
     shipping_options: [
       {
         shipping_rate: constants.STRIPE_SHIPPING_RATE
@@ -34,8 +33,8 @@ export async function POST (request: NextRequest) {
       },
       quantity: 1
     })),
-    success_url: `${constants.APP_URL}/?success=true`,
-    cancel_url: `${constants.APP_URL}/?canceled=true`,
+    success_url: `${constants.APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${constants.APP_URL}`,
     automatic_tax: { enabled: true }
   })
 

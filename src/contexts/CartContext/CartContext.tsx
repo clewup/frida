@@ -105,12 +105,31 @@ const useCart = () => {
     }
   }
 
+  async function clearCart () {
+    if (cart != null) {
+      setLoading(true)
+      const formattedCart = {
+        ...cart,
+        products: []
+      }
+      const updatedCart = await patch<Cart & { products: Product[] }>(
+        '/api/cart',
+        formattedCart
+      )
+
+      setCart(updatedCart)
+      setLoading(false)
+      return updatedCart
+    }
+  }
+
   return {
     ...context,
     isLoading,
     getCart,
     addToCart,
-    removeFromCart
+    removeFromCart,
+    clearCart
   }
 }
 
