@@ -33,6 +33,10 @@ export async function POST (request: NextRequest) {
       },
       quantity: 1
     })),
+    metadata: {
+      cart: body.id,
+      products: body.products.map((product: Product) => product.id).join(',')
+    },
     success_url: `${constants.APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${constants.APP_URL}`,
     automatic_tax: { enabled: true }

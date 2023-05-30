@@ -48,13 +48,13 @@ export default function Cart () {
                   </div>
                 )}
 
-                {!isLoading && ((cart == null) || !cart?.products.length) && (
+                {!isLoading && (!cart?.products?.length) && (
                   <p className="text-2xl text-center">Your cart is empty.</p>
                 )}
 
                 {!isLoading &&
-                  (cart != null) &&
-                  (cart.products.length > 0) &&
+                  cart &&
+                  cart.products?.length > 0 &&
                   cart.products.map((product, index) => (
                     <CartProduct product={product} key={index} />
                   ))}
@@ -73,7 +73,7 @@ export default function Cart () {
 
               <button
                 className={cx('btn btn-accent btn-lg text-base-100 mt-5 w-full', { loading: isRedirecting })}
-                disabled={cart?.products.length === 0}
+                disabled={!cart?.products || cart?.products?.length === 0}
               >
                 Checkout
               </button>
