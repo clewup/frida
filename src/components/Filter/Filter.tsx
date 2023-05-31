@@ -72,7 +72,6 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                     <select
                       name="category"
                       className="select select-bordered w-60 text-black"
-                      disabled={categories.length === 0}
                       value={values.category}
                       onChange={handleChange}
                     >

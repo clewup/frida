@@ -28,9 +28,9 @@ const CartProduct: FC<CartProductProps> = ({ product }) => {
       </div>
 
       <button
+          type="button"
         className={cx('btn btn-ghost btn-sm', { loading: isLoading })}
         onClick={async () => await removeFromCart(product)}
-        disabled={isLoading}
       >
         <RemoveIcon size={20} />
       </button>

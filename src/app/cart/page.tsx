@@ -71,12 +71,13 @@ export default function Cart () {
                 </p>
               </div>
 
-              <button
-                className={cx('btn btn-accent btn-lg text-base-100 mt-5 w-full', { loading: isRedirecting })}
-                disabled={!cart?.products || cart?.products?.length === 0}
-              >
-                Checkout
-              </button>
+              {cart?.products && cart?.products?.length > 0 &&
+                  <button
+                      className={cx('btn btn-accent btn-lg text-base-100 mt-5 w-full', { loading: isRedirecting })}
+                  >
+                    Checkout
+                  </button>
+              }
             </Form>
           )
         }}

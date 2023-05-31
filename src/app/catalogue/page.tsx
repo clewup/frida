@@ -88,13 +88,15 @@ export default function Catalogue () {
                 {
                   'btn-accent text-base-100':
                     pageNumber === searchResults.pagination.page
+                },
+                {
+                  loading: searchResults.pagination.page > 1 && isLoading
                 }
               )}
               onClick={() => {
                 const updatedQuery = { ...queryParams, page: pageNumber }
                 setQueryParams(updatedQuery)
               }}
-              disabled={searchResults.pagination.page > 1 && isLoading}
             >
               {pageNumber}
             </button>
