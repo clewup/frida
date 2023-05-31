@@ -49,7 +49,7 @@ export default async function Home () {
 
       <div className="flex flex-col gap-5 bg-primary rounded-md p-5">
         <span className="flex gap-5 items-center text-base-100">
-        <h1 className="text-9xl font-bold ">TESTIMONIALS </h1>
+        <h1 className="text-9xl font-bold text-base-100">TESTIMONIALS </h1>
           <UsersIcon size={100}/>
         </span>
         <div className="grid grid-cols-3 gap-20">

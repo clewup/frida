@@ -71,7 +71,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   {() => (
                     <select
                       name="category"
-                      className="select w-60 text-white"
+                      className="select w-60 text-primary"
                       value={values.category}
                       onChange={handleChange}
                     >
@@ -94,7 +94,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   {() => (
                     <select
                       name="sort"
-                      className="select select-bordered w-44 text-white"
+                      className="select select-bordered w-44 text-primary"
                       value={values.sort}
                       onChange={handleChange}
                     >
