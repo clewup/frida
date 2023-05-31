@@ -39,7 +39,7 @@ export default async function Home () {
   return (
     <PageWrapper className="min-h-screen-header flex flex-col gap-20">
       <div className="flex flex-col gap-5">
-        <h1 className="text-9xl font-bold">STORE</h1>
+        <h1 className="text-9xl font-bold">TOP SELLERS</h1>
         <div className="grid grid-cols-4 gap-5">
           {products.splice(0, 4).map((product, index) => (
               <Product product={product} key={index} />
@@ -47,7 +47,7 @@ export default async function Home () {
         </div>
       </div>
 
-      <div className="flex flex-col gap-5 bg-black rounded-md p-5">
+      <div className="flex flex-col gap-5 bg-primary rounded-md p-5">
         <span className="flex gap-5 items-center text-base-100">
         <h1 className="text-9xl font-bold ">TESTIMONIALS </h1>
           <UsersIcon size={100}/>

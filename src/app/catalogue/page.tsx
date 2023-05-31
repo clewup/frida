@@ -86,7 +86,7 @@ export default function Catalogue () {
                   'btn-ghost': pageNumber !== searchResults.pagination.page
                 },
                 {
-                  'btn-accent text-base-100':
+                  'btn-primary text-base-100':
                     pageNumber === searchResults.pagination.page
                 },
                 {

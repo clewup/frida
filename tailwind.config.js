@@ -30,11 +30,11 @@ module.exports = {
     themes: [
       {
         store: {
-          primary: '#bfff00',
+          primary: '#BFFF00',
           secondary: '#04945f',
-          accent: '#000000',
-          neutral: '#CCCCCC',
-          'base-100': '#bfff00',
+          accent: '#BFFF00',
+          neutral: '#FFFFFF',
+          'base-100': '#111111',
           info: '#3ABFF8',
           success: '#198754',
           warning: '#FBBD23',

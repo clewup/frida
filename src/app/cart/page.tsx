@@ -40,7 +40,7 @@ export default function Cart () {
       >
         {() => {
           return (
-            <Form className="w-1/3 flex flex-col border-[1px] border-black rounded-md p-5">
+            <Form className="w-1/3 flex flex-col border-[1px] border-primary rounded-md p-5">
               <div className="flex flex-col gap-5">
                 {isLoading && (
                   <div className="w-full h-60 flex justify-center items-center">
@@ -60,7 +60,7 @@ export default function Cart () {
                   ))}
               </div>
 
-              <span className="divider" />
+              <span className="border-b-[1px] my-5 border-neutral" />
 
               <div className="flex justify-end">
                 <p className="text-2xl">
@@ -73,7 +73,7 @@ export default function Cart () {
 
               {cart?.products && cart?.products?.length > 0 &&
                   <button
-                      className={cx('btn btn-accent btn-lg text-base-100 mt-5 w-full', { loading: isRedirecting })}
+                      className={cx('btn btn-primary btn-lg text-base-100 mt-5 w-full', { loading: isRedirecting })}
                   >
                     Checkout
                   </button>

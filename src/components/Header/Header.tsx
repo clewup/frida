@@ -22,9 +22,20 @@ const Header = () => {
 
   return (
     <div className="h-[15vh] flex items-center justify-between px-10">
-      <Link href={'/'}>
-        <BagIcon size={30} />
-      </Link>
+      <div className="flex gap-10 items-center">
+        <Link href="/" className="flex flex-col items-center">
+          <BagIcon size={60} className="text-primary" />
+          <p className="text-white">
+            STORE
+          </p>
+        </Link>
+        <Link href="/catalogue" className="text-4xl">
+          <p>
+            CATALOGUE
+          </p>
+        </Link>
+      </div>
+
       <div className="flex gap-10 items-center">
         <Formik
           initialValues={{ search: searchParams.get('search') ?? '' }}
@@ -43,23 +54,20 @@ const Header = () => {
                 name="search"
                 type="text"
                 placeholder="Search"
-                className="input border-black placeholder-black text-black input-lg"
+                className="input input-primary input-lg text-white placeholder-white"
               />
-              <button className="btn btn-square btn-lg btn-accent text-base-100">
+              <button className="btn btn-square btn-lg btn-primary text-base-100">
                 <SearchIcon />
               </button>
             </div>
           </Form>
         </Formik>
-        <Link href="/catalogue">
-          <button className="btn btn-outline btn-lg">Catalogue</button>
-        </Link>
 
         <div className="flex justify-end items-center gap-10">
           {(user == null)
             ? (
             <span>
-              <button className="btn btn-ghost btn-lg" onClick={signIn}>
+              <button className="btn btn-ghost btn-lg btn-primary" onClick={signIn}>
                 Log in
               </button>
             </span>
@@ -67,13 +75,12 @@ const Header = () => {
             : (
             <>
               <Link href="/cart">
-                <button className="btn btn-outline btn-lg gap-5">
-                  Cart
+                <button className="btn btn-outline btn-lg gap-5 btn-primary">
                   <CartIcon />
                 </button>
               </Link>
 
-              <button className="btn btn-ghost btn-lg" onClick={signOut}>
+              <button className="btn btn-primary btn-lg" onClick={signOut}>
                 Log Out
               </button>
             </>
