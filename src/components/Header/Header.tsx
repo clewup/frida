@@ -24,8 +24,8 @@ const Header = () => {
     <div className="h-[15vh] flex items-center justify-between px-10">
       <div className="flex gap-10 items-center">
         <Link href="/" className="flex flex-col items-center">
-          <BagIcon size={60} className="text-primary" />
-          <p className="text-white">
+          <BagIcon size={45} className="text-primary" />
+          <p className="text-white text-xs">
             STORE
           </p>
         </Link>
