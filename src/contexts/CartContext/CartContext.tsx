@@ -57,11 +57,11 @@ const useCart = () => {
   }
 
   async function addToCart (product: Product) {
-    if (cart != null) {
+    if (cart) {
       setLoading(true)
       const formattedCart = {
         ...cart,
-        products: [...cart?.products, product]
+        products: [...cart.products, product]
       }
       const updatedCart = await patch<Cart & { products: Product[] }>(
         '/api/cart',
