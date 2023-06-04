@@ -6,10 +6,9 @@ import { type TestimonialType } from '@/types/testimonialTypes'
 import { type Category, type Product as PrismaProduct } from '@prisma/client'
 import Link from 'next/link'
 import React from 'react'
-import { Users as UsersIcon } from 'react-feather'
 
-async function getProducts (): Promise<PrismaProduct[]> {
-  const productsResponse = await fetch(`${constants.APP_URL}/api/product`)
+async function getLatestProducts (): Promise<PrismaProduct[]> {
+  const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`)
   return await productsResponse.json()
 }
 
@@ -40,33 +39,33 @@ const mockTestimonials: TestimonialType[] = [
 ]
 
 export default async function Home () {
-  const products = await getProducts()
+  const latestProducts = await getLatestProducts()
   const categories = await getCategories()
 
   return (
     <PageWrapper className="min-h-screen-header flex flex-col gap-20">
       <div className="flex flex-col gap-5">
-        <h1 className="text-6xl font-bold text-center">TOP SELLERS</h1>
+        <h1 className="text-9xl font-bold">JUST DROPPED</h1>
         <div className="grid grid-cols-4 gap-5">
-          {products.splice(0, 4).map((product, index) => (
+          {latestProducts.splice(0, 4).map((product, index) => (
               <Product product={product} key={index} />
           ))}
         </div>
       </div>
 
-      <div className={`grid grid-cols-${categories.length} gap-5 h-60`}>
-        {categories.map((category, index) => (
-            <Link href={`/catalogue?category=${category.name}`} key={index} className="border-[1px] border-primary rounded-md p-10 flex flex-col items-center justify-center">
-              <h1 className="uppercase text-4xl">{category.name}</h1>
-            </Link>
-        ))}
+      <div className="flex flex-col gap-5">
+        <h1 className="text-9xl font-bold">BROWSE BY CATEGORY</h1>
+
+        <div className={`grid grid-cols-${categories.length} gap-5 h-60`}>
+          {categories.map((category, index) => (
+              <Link href={`/catalogue?category=${category.name}`} key={index} className="border-[1px] border-primary rounded-md p-10 flex flex-col items-center justify-center">
+                <h1 className="uppercase text-4xl">{category.name}</h1>
+              </Link>
+          ))}
+        </div>
       </div>
 
-      <div className="flex flex-col gap-5 bg-primary rounded-md p-5">
-        <span className="flex gap-5 items-center text-base-100 justify-center">
-        <h1 className="text-6xl font-bold text-base-100">TESTIMONIALS </h1>
-          <UsersIcon size={55}/>
-        </span>
+      <div className="bg-primary rounded-md p-5">
         <div className="grid grid-cols-3 gap-20">
           {mockTestimonials.map((testimonial, index) => (<Testimonial key={index} testimonial={testimonial}/>))}
         </div>
