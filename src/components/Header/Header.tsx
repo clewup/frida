@@ -9,8 +9,9 @@ import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import {
   ShoppingCart as CartIcon,
-  ShoppingBag as BagIcon
-  , Search as SearchIcon
+  ShoppingBag as BagIcon,
+  Search as SearchIcon,
+  User as UserIcon
 } from 'react-feather'
 import constants from '@/constants/constants'
 
@@ -18,7 +19,7 @@ const Header = () => {
   const { queryParams, setQueryParams } = useQueryParams()
   const searchParams = useSearchParams()
   const { user } = useLockr()
-  const { signIn, signOut } = useAuth({ redirectUri: constants.APP_URL })
+  const { signIn } = useAuth({ redirectUri: constants.APP_URL })
 
   return (
     <div className="h-[10vh] flex items-center justify-between px-10">
@@ -29,9 +30,9 @@ const Header = () => {
             STORE
           </p>
         </Link>
-        <Link href="/catalogue" className="text-2xl">
+        <Link href="/search" className="text-2xl">
           <p>
-            CATALOGUE
+            SHOP ALL
           </p>
         </Link>
       </div>
@@ -45,7 +46,7 @@ const Header = () => {
               search: formValues.search,
               page: null
             }
-            setQueryParams(updatedQuery, '/catalogue')
+            setQueryParams(updatedQuery, '/search')
           }}
         >
           <Form>
@@ -63,26 +64,28 @@ const Header = () => {
           </Form>
         </Formik>
 
-        <div className="flex justify-end items-center gap-10">
+        <div className="flex justify-end items-center gap-2">
           {(user == null)
             ? (
             <span>
-              <button className="btn btn-ghost  btn-primary" onClick={signIn}>
-                Log in
+              <button className="btn btn-outline btn-circle btn-sm btn-primary" onClick={signIn}>
+                  <UserIcon size={15}/>
               </button>
             </span>
               )
             : (
             <>
               <Link href="/cart">
-                <button className="btn btn-outline  gap-5 btn-primary">
-                  <CartIcon />
+                <button className="btn btn-outline btn-circle btn-sm btn-primary">
+                  <CartIcon size={15}/>
                 </button>
               </Link>
 
-              <button className="btn btn-primary " onClick={signOut}>
-                Log Out
-              </button>
+              <Link href="/account">
+                <button className="btn btn-outline btn-circle btn-sm btn-primary">
+                  <UserIcon size={15}/>
+                </button>
+              </Link>
             </>
               )}
         </div>

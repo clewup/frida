@@ -58,7 +58,7 @@ export default async function Home () {
 
         <div className={`grid grid-cols-${categories.length} gap-5 h-60`}>
           {categories.map((category, index) => (
-              <Link href={`/catalogue?category=${category.name}`} key={index} className="border-[1px] border-primary rounded-md p-10 flex flex-col items-center justify-center">
+              <Link href={`/search?category=${category.name}`} key={index} className="border-[1px] border-primary rounded-md p-10 flex flex-col items-center justify-center">
                 <h1 className="uppercase text-4xl">{category.name}</h1>
               </Link>
           ))}

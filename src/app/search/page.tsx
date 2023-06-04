@@ -12,7 +12,7 @@ import { stringify } from 'querystring'
 import React, { useEffect, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 
-export default function Catalogue () {
+export default function Search () {
   const { queryParams, setQueryParams } = useQueryParams()
   const searchParams = useSearchParams()
   const { get } = useApi()
