@@ -18,10 +18,10 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
       },
       height: {
-        'screen-header': '85vh'
+        'screen-header': '90vh'
       },
       minHeight: {
-        'screen-header': '85vh'
+        'screen-header': '90vh'
       }
     }
   },

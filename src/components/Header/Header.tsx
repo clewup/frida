@@ -21,15 +21,15 @@ const Header = () => {
   const { signIn, signOut } = useAuth({ redirectUri: constants.APP_URL })
 
   return (
-    <div className="h-[15vh] flex items-center justify-between px-10">
+    <div className="h-[10vh] flex items-center justify-between px-10">
       <div className="flex gap-10 items-center">
         <Link href="/" className="flex flex-col items-center">
-          <BagIcon size={45} className="text-primary" />
-          <p className="text-white text-xs">
+          <BagIcon size={30} className="text-primary" />
+          <p className="text-white text-[8px]">
             STORE
           </p>
         </Link>
-        <Link href="/catalogue" className="text-4xl">
+        <Link href="/catalogue" className="text-2xl">
           <p>
             CATALOGUE
           </p>
@@ -54,9 +54,9 @@ const Header = () => {
                 name="search"
                 type="text"
                 placeholder="Search"
-                className="input input-primary input-lg text-white placeholder-white"
+                className="input input-primary text-white placeholder-white"
               />
-              <button className="btn btn-square btn-lg btn-primary text-base-100">
+              <button className="btn btn-square  btn-primary text-base-100">
                 <SearchIcon />
               </button>
             </div>
@@ -67,7 +67,7 @@ const Header = () => {
           {(user == null)
             ? (
             <span>
-              <button className="btn btn-ghost btn-lg btn-primary" onClick={signIn}>
+              <button className="btn btn-ghost  btn-primary" onClick={signIn}>
                 Log in
               </button>
             </span>
@@ -75,12 +75,12 @@ const Header = () => {
             : (
             <>
               <Link href="/cart">
-                <button className="btn btn-outline btn-lg gap-5 btn-primary">
+                <button className="btn btn-outline  gap-5 btn-primary">
                   <CartIcon />
                 </button>
               </Link>
 
-              <button className="btn btn-primary btn-lg" onClick={signOut}>
+              <button className="btn btn-primary " onClick={signOut}>
                 Log Out
               </button>
             </>

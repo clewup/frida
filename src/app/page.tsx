@@ -46,7 +46,7 @@ export default async function Home () {
   return (
     <PageWrapper className="min-h-screen-header flex flex-col gap-20">
       <div className="flex flex-col gap-5">
-        <h1 className="text-9xl font-bold">TOP SELLERS</h1>
+        <h1 className="text-6xl font-bold text-center">TOP SELLERS</h1>
         <div className="grid grid-cols-4 gap-5">
           {products.splice(0, 4).map((product, index) => (
               <Product product={product} key={index} />
@@ -54,26 +54,24 @@ export default async function Home () {
         </div>
       </div>
 
+      <div className={`grid grid-cols-${categories.length} gap-5 h-60`}>
+        {categories.map((category, index) => (
+            <Link href={`/catalogue?category=${category.name}`} key={index} className="border-[1px] border-primary rounded-md p-10 flex flex-col items-center justify-center">
+              <h1 className="uppercase text-4xl">{category.name}</h1>
+            </Link>
+        ))}
+      </div>
+
       <div className="flex flex-col gap-5 bg-primary rounded-md p-5">
-        <span className="flex gap-5 items-center text-base-100">
-        <h1 className="text-9xl font-bold text-base-100">TESTIMONIALS </h1>
-          <UsersIcon size={100}/>
+        <span className="flex gap-5 items-center text-base-100 justify-center">
+        <h1 className="text-6xl font-bold text-base-100">TESTIMONIALS </h1>
+          <UsersIcon size={55}/>
         </span>
         <div className="grid grid-cols-3 gap-20">
           {mockTestimonials.map((testimonial, index) => (<Testimonial key={index} testimonial={testimonial}/>))}
         </div>
       </div>
 
-      <div className="flex flex-col gap-5">
-        <h1 className="text-9xl font-bold">CATEGORIES</h1>
-        <div className={`grid grid-cols-${categories.length} gap-5 h-60`}>
-          {categories.map((category, index) => (
-              <Link href={`/catalogue?category=${category.name}`} key={index} className="border-[1px] border-primary rounded-md p-10 flex flex-col items-center justify-center">
-                <h1 className="uppercase text-4xl">{category.name}</h1>
-              </Link>
-          ))}
-        </div>
-      </div>
     </PageWrapper>
   )
 }
