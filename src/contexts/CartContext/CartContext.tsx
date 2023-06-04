@@ -57,7 +57,7 @@ const useCart = () => {
   }
 
   async function addToCart (product: Product) {
-    if (cart) {
+    if (cart?.products) {
       setLoading(true)
       const formattedCart = {
         ...cart,
