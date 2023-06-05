@@ -9,6 +9,15 @@ const stripe = new Stripe(constants.STRIPE_SECRET_KEY, {
 })
 
 export async function GET (request: NextRequest) {
+  const user = request.headers.get('x-user')
+  if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
+
+  const orders = await prisma.order.findMany({ where: { createdBy: user }, orderBy: { createdAt: 'desc' } })
+
+  return response.json(orders)
+}
+
+export async function POST (request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const sessionId = searchParams.get('session_id')
   if (!sessionId) return response.json({ error: 'Missing session' }, { status: 400 })

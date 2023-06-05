@@ -6,7 +6,7 @@ import React from 'react'
 
 async function getOrder (session: string) {
   const orderResponse = await fetch(`${constants.APP_URL}/api/order?session_id=${session}`, {
-    method: 'GET',
+    method: 'POST',
     cache: 'no-store'
   })
   return await orderResponse.json()
