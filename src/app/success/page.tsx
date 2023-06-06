@@ -12,6 +12,10 @@ async function getOrder (session: string) {
   return await orderResponse.json()
 }
 
+export const metadata = {
+  title: 'Store - Order Success!'
+}
+
 export default async function Success ({ searchParams }: PageContext) {
   const order = await getOrder(searchParams.session_id)
 
