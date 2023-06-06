@@ -23,8 +23,8 @@ model Product {
   price       Decimal
   stock       Int
   categories  Category[]
-  cartItems   CartItem[]
-  orderItems  OrderItem[]
+  carts       Cart[]
+  orders      Order[]
 }
 
 model Category {
@@ -40,23 +40,9 @@ model Cart {
   updatedAt DateTime @updatedAt
   updatedBy String
 
-  user  String     @unique
-  items CartItem[]
-  total Decimal
-}
-
-model CartItem {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  createdBy String
-  updatedAt DateTime @updatedAt
-  updatedBy String
-
-  quantity  Int
-  cart      Cart    @relation(fields: [cartId], references: [id])
-  cartId    String
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
+  user     String    @unique
+  products Product[]
+  total    Decimal
 }
 
 model Order {
@@ -69,23 +55,9 @@ model Order {
   email       String
   name        String
   status      OrderStatus @default(Pending)
-  items       OrderItem[]
+  products    Product[]
   total       Decimal
   transaction String      @unique
-}
-
-model OrderItem {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  createdBy String
-  updatedAt DateTime @updatedAt
-  updatedBy String
-
-  quantity  Int
-  order     Order   @relation(fields: [orderId], references: [id])
-  orderId   String
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
 }
 
 enum OrderStatus {
