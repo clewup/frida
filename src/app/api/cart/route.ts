@@ -86,11 +86,11 @@ export async function PATCH (request: NextRequest) {
   // check to see if the actioned product exists in the cart
   const existingItem = cart.items.find((item) => item.product.id === product.id)
 
-  if (action === 'add') {
+  async function addToCart () {
     // add to the quantity if product already exists in the cart, otherwise create it
     if (existingItem) {
       await prisma.cart.update({
-        where: { id: cart.id },
+        where: { id: cart?.id },
         data: {
           items: {
             update: {
@@ -106,12 +106,12 @@ export async function PATCH (request: NextRequest) {
       })
     } else {
       await prisma.cart.update({
-        where: { id: cart.id },
+        where: { id: cart?.id },
         data: {
           items: {
             create: {
-              createdBy: user,
-              updatedBy: user,
+              createdBy: user as string,
+              updatedBy: user as string,
               product: {
                 connect: { id: product.id }
               },
@@ -123,11 +123,11 @@ export async function PATCH (request: NextRequest) {
     }
   }
 
-  if (action === 'remove') {
+  async function removeFromCart () {
     // deduct a quantity from the item if more than one, otherwise remove it
     if (existingItem && existingItem.quantity > 1) {
       await prisma.cart.update({
-        where: { id: cart.id },
+        where: { id: cart?.id },
         data: {
           items: {
             update: {
@@ -143,7 +143,7 @@ export async function PATCH (request: NextRequest) {
       })
     } else {
       await prisma.cart.update({
-        where: { id: cart.id },
+        where: { id: cart?.id },
         data: {
           items: {
             delete: {
@@ -155,9 +155,9 @@ export async function PATCH (request: NextRequest) {
     }
   }
 
-  if (action === 'clear') {
+  async function clearCart () {
     await prisma.cart.update({
-      where: { id: cart.id },
+      where: { id: cart?.id },
       data: {
         items: {
           deleteMany: {}
@@ -165,6 +165,10 @@ export async function PATCH (request: NextRequest) {
       }
     })
   }
+
+  if (action === 'add') await addToCart()
+  if (action === 'remove') await removeFromCart()
+  if (action === 'clear') await clearCart()
 
   const actionedCart = await prisma.cart.findUnique({
     include: {
