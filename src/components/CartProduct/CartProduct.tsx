@@ -23,19 +23,19 @@ const CartProduct: FC<CartProductProps> = ({ product, quantity }) => {
           <img src={image} alt={name} className="rounded-md" />
         </span>
         <span>
-          <h1 className="text-2xl">{name}</h1>
-          <p className="text-2xl">£{Number(price).toFixed(2)}</p>
+            <h1 className="text-2xl">{name}</h1>
+            <p className="text-2xl">£{Number(price).toFixed(2)}</p>
+            <p className="text-2xl">x{quantity}</p>
         </span>
-          <span>x{quantity}</span>
       </div>
 
-      <button
-          type="button"
-        className={cx('btn btn-ghost btn-sm', { loading: isLoading })}
-        onClick={async () => await removeFromCart(product)}
-      >
-        <RemoveIcon size={20} />
-      </button>
+        <button
+            type="button"
+            className={cx('btn btn-ghost btn-sm', { loading: isLoading })}
+            onClick={async () => await removeFromCart(product)}
+        >
+            <RemoveIcon size={20} />
+        </button>
     </div>
   )
 }
