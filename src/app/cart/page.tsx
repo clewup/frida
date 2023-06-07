@@ -10,6 +10,7 @@ import cx from 'classnames'
 import { Form, Formik, type FormikValues } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
+import { ShoppingCart as CartIcon } from 'react-feather'
 
 export default function Cart () {
   const { cart, isLoading, getCart } = useCart()
@@ -49,7 +50,10 @@ export default function Cart () {
                 )}
 
                 {!isLoading && (!cart?.items?.length) && (
-                  <p className="text-2xl text-center">Your cart is empty.</p>
+                    <div className="flex flex-col gap-5 p-10 items-center">
+                      <CartIcon className="my-5 text-primary"/>
+                      <p className="text-2xl text-center">Your cart is empty.</p>
+                    </div>
                 )}
 
                 {!isLoading &&
