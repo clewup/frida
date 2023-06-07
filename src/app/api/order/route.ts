@@ -24,7 +24,16 @@ export async function POST (request: NextRequest) {
 
   const session = await stripe.checkout.sessions.retrieve(sessionId)
 
-  const existingOrder = await prisma.order.findUnique({ where: { transaction: sessionId } })
+  const existingOrder = await prisma.order.findUnique({
+    include: {
+      items: {
+        include: {
+          product: true
+        }
+      }
+    },
+    where: { transaction: sessionId }
+  })
   if (existingOrder) return response.json(existingOrder)
 
   if (!session.metadata?.cart) return response.json({ error: 'Missing cart' }, { status: 400 })
@@ -38,6 +47,7 @@ export async function POST (request: NextRequest) {
     },
     where: { id: session.metadata.cart }
   })
+  if (!cart) return response.json({ error: 'Cart not found' }, { status: 400 })
 
   const order = await prisma.order.create({
     include: {
@@ -48,18 +58,40 @@ export async function POST (request: NextRequest) {
       }
     },
     data: {
-      createdBy: cart?.user ?? '',
-      updatedBy: cart?.user ?? '',
-      email: session.customer_details?.email ?? '',
-      name: session.customer_details?.name ?? '',
+      createdBy: cart.user,
+      updatedBy: cart.user,
+      email: session.customer_details?.email ?? cart.user,
+      name: session.customer_details?.name ?? cart.user,
       status: sanitizeOrderStatus(session.status),
-      // TODO: implement items
+      items: {
+        createMany: {
+          data: cart.items.map((item) => ({
+            createdBy: cart.user,
+            updatedBy: cart.user,
+            productId: Number(item.product.id),
+            quantity: item.quantity
+          }))
+        }
+      },
       total: Number(session.amount_total) / 100,
       transaction: session.id
     }
   })
 
-  await prisma.cart.delete({ where: { id: cart?.id } })
+  // reduce product stock
+  for (const item of cart.items) {
+    const product = await prisma.product.findUnique({ where: { id: item.product.id } })
+    if (!product) return
+
+    await prisma.product.update({
+      where: { id: item.product.id },
+      data: {
+        stock: product.stock - item.quantity
+      }
+    })
+  }
+
+  await prisma.cart.delete({ where: { id: cart.id } })
 
   return response.json(order)
 }

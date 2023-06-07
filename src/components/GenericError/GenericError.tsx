@@ -14,14 +14,14 @@ const GenericError: FC<GenericErrorProps> = ({ error, reset }) => {
           <input type="checkbox" id="my-modal" className="modal-toggle" checked={true} onChange={() => null} />
           <div className="modal">
               <div className="modal-box">
-                  <h3 className="font-bold text-lg text-center">Uh oh! Something went wrong!</h3>
-                  {error && <p className="py-4">Error: {error.message}</p>}
+                  <h3 className="font-bold text-2xl text-center">Uh oh! Something went wrong!</h3>
+                  {error && <p className="pt-4 text-center">Error: {error.message}</p>}
                   <div className="modal-action justify-center gap-10">
                       <button className="btn btn-primary" onClick={() => { router.push('/') }}>
                           Home
                       </button>
                       {reset && (
-                          <button className="btn btn-secondary" onClick={reset}>
+                          <button className="btn btn-primary" onClick={reset}>
                               Try Again
                           </button>
                       )}

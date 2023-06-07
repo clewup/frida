@@ -1,5 +1,5 @@
 import constants from '@/constants/constants'
-import { type Product } from '@prisma/client'
+import { type CartItem, type Product } from '@prisma/client'
 import { type NextRequest, NextResponse as response } from 'next/server'
 import Stripe from 'stripe'
 
@@ -19,23 +19,22 @@ export async function POST (request: NextRequest) {
         shipping_rate: constants.STRIPE_SHIPPING_RATE
       }
     ],
-    line_items: body.products.map((product: Product) => ({
+    line_items: body.items.map((item: (CartItem & { product: Product })) => ({
       price_data: {
         currency: 'gbp',
         product_data: {
-          name: product.name,
-          images: [product.image]
+          name: item.product.name,
+          images: [item.product.image]
         },
-        unit_amount: Number(product.price) * 100
+        unit_amount: Number(item.product.price) * 100
       },
       adjustable_quantity: {
         enabled: false
       },
-      quantity: 1
+      quantity: item.quantity
     })),
     metadata: {
-      cart: body.id,
-      products: body.products.map((product: Product) => product.id).join(',')
+      cart: body.id
     },
     success_url: `${constants.APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${constants.APP_URL}`,
