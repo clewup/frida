@@ -8,9 +8,10 @@ import { Trash2 as RemoveIcon } from 'react-feather'
 
 interface CartProductProps {
   product: Product
+  quantity: number
 }
 
-const CartProduct: FC<CartProductProps> = ({ product }) => {
+const CartProduct: FC<CartProductProps> = ({ product, quantity }) => {
   const { isLoading, removeFromCart } = useCart()
 
   const { name, image, price } = product
@@ -25,6 +26,7 @@ const CartProduct: FC<CartProductProps> = ({ product }) => {
           <h1 className="text-2xl">{name}</h1>
           <p className="text-2xl">£{Number(price).toFixed(2)}</p>
         </span>
+          <span>x{quantity}</span>
       </div>
 
       <button

@@ -48,15 +48,15 @@ export default function Cart () {
                   </div>
                 )}
 
-                {!isLoading && (!cart?.products?.length) && (
+                {!isLoading && (!cart?.items?.length) && (
                   <p className="text-2xl text-center">Your cart is empty.</p>
                 )}
 
                 {!isLoading &&
                   cart &&
-                  cart.products?.length > 0 &&
-                  cart.products.map((product, index) => (
-                    <CartProduct product={product} key={index} />
+                  cart.items?.length > 0 &&
+                  cart.items.map((item, index) => (
+                    <CartProduct key={index} product={item.product} quantity={item.quantity} />
                   ))}
               </div>
 
@@ -65,13 +65,13 @@ export default function Cart () {
               <div className="flex justify-end">
                 <p className="text-2xl">
                   Total: £
-                  {cart?.products
+                  {cart?.items
                     ? Number(cart.total).toFixed(2)
                     : '0.00'}
                 </p>
               </div>
 
-              {cart?.products && cart?.products?.length > 0 &&
+              {cart?.items && cart?.items?.length > 0 &&
                   <button
                       className={cx('btn btn-primary btn-lg text-base-100 mt-5 w-full', { loading: isRedirecting })}
                   >

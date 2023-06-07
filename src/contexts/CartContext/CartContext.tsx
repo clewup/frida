@@ -1,7 +1,7 @@
 'use client'
 
 import useApi from '@/lib/common/hooks/useApi/useApi'
-import { type Cart, type Product } from '@prisma/client'
+import { type Cart, type Product, type CartItem } from '@prisma/client'
 import React, {
   createContext,
   type Dispatch,
@@ -13,8 +13,8 @@ import React, {
 } from 'react'
 
 interface CartContextValues {
-  cart: (Cart & { products: Product[] }) | null
-  setCart: Dispatch<SetStateAction<(Cart & { products: Product[] }) | null>>
+  cart: (Cart & { items: Array<CartItem & { product: Product }> }) | null
+  setCart: Dispatch<SetStateAction<(Cart & { items: Array<CartItem & { product: Product }> }) | null>>
 }
 
 const CartContext = createContext<CartContextValues>({
@@ -27,7 +27,7 @@ interface CartProviderProps {
 }
 
 const CartProvider: FC<CartProviderProps> = ({ children }) => {
-  const [cart, setCart] = useState<(Cart & { products: Product[] }) | null>(
+  const [cart, setCart] = useState<(Cart & { items: Array<CartItem & { product: Product }> }) | null>(
     null
   )
 
@@ -50,53 +50,37 @@ const useCart = () => {
 
   async function getCart () {
     setLoading(true)
-    const cart = await get<Cart & { products: Product[] }>('/api/cart')
+    const cart = await get<Cart & { items: Array<CartItem & { product: Product }> }>('/api/cart')
     setCart(cart)
     setLoading(false)
     return cart
   }
 
   async function addToCart (product: Product) {
-    if (cart?.products) {
-      setLoading(true)
-      const formattedCart = {
-        ...cart,
-        products: [...cart.products, product]
-      }
-      const updatedCart = await patch<Cart & { products: Product[] }>(
-        '/api/cart',
-        formattedCart
-      )
-
-      setCart(updatedCart)
-      setLoading(false)
-      return updatedCart
-    }
-
     setLoading(true)
-    const newCart: Partial<Cart & { products: Product[] }> = {
-      products: [product]
-    }
-    const createdCart = await patch<Cart & { products: Product[] }>(
+    const updatedCart = await patch<Cart & { items: Array<CartItem & { product: Product }> }>(
       '/api/cart',
-      newCart
+      {
+        action: 'add',
+        product
+      }
     )
 
-    setCart(createdCart)
+    setCart(updatedCart)
     setLoading(false)
-    return createdCart
+    return cart
   }
 
   async function removeFromCart (product: Product) {
     if (cart != null) {
       setLoading(true)
-      const formattedCart = {
-        ...cart,
-        products: cart.products.filter((prod) => prod.id !== product.id)
-      }
-      const updatedCart = await patch<Cart & { products: Product[] }>(
+
+      const updatedCart = await patch<Cart & { items: Array<CartItem & { product: Product }> }>(
         '/api/cart',
-        formattedCart
+        {
+          action: 'remove',
+          product
+        }
       )
 
       setCart(updatedCart)
@@ -108,13 +92,12 @@ const useCart = () => {
   async function clearCart () {
     if (cart != null) {
       setLoading(true)
-      const formattedCart = {
-        ...cart,
-        products: []
-      }
-      const updatedCart = await patch<Cart & { products: Product[] }>(
+
+      const updatedCart = await patch<Cart & { items: Array<CartItem & { product: Product }> }>(
         '/api/cart',
-        formattedCart
+        {
+          action: 'clear'
+        }
       )
 
       setCart(updatedCart)

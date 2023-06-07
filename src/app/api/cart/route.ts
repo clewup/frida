@@ -1,4 +1,3 @@
-import { type Cart, type Product } from '@prisma/client'
 import { type NextRequest, NextResponse as response } from 'next/server'
 import prisma from '@/lib/prisma'
 
@@ -7,7 +6,13 @@ export async function GET (request: NextRequest) {
   if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
 
   const cart = await prisma.cart.findFirst({
-    include: { products: true },
+    include: {
+      items: {
+        include: {
+          product: true
+        }
+      }
+    },
     where: { user }
   })
   if (cart == null) return response.json({}, { status: 404 })
@@ -29,71 +34,148 @@ export async function PATCH (request: NextRequest) {
   const user = request.headers.get('x-user')
   if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
 
-  // determine what products have been removed from the cart
+  const action = body.method
+  const product = body.product
+
+  const validProduct = await prisma.product.findUnique({ where: { id: product.id } })
+  if (!validProduct) return response.json({ error: 'Invalid product' }, { status: 400 })
+
   const cart = await prisma.cart.findUnique({
-    include: { products: true },
+    include: {
+      items: {
+        include: {
+          product: true
+        }
+      }
+    },
     where: { user }
   })
-  const removedProducts: Product[] = getRemovedProducts(cart, body)
 
-  // calculate the total using live product data
-  const products = await prisma.product.findMany({
-    where: { id: { in: body.products.map((product: Product) => product.id) } }
-  })
-  const total = calculateTotal(products)
-
-  const upsertedCart = await prisma.cart.upsert({
-    include: { products: true },
-    where: { user },
-    update: {
-      updatedBy: user,
-      products: {
-        connect:
-          body.products.map((product: Product) => ({ id: product.id })) || [],
-        disconnect:
-          removedProducts.map((product: Product) => ({ id: product.id })) || []
+  // create a new cart if one does not exist
+  if (!cart) {
+    const cart = await prisma.cart.create({
+      include: {
+        items: {
+          include: {
+            product: true
+          }
+        }
       },
-      total
-    },
-    create: {
-      createdBy: user,
-      updatedBy: user,
-      products: {
-        connect:
-          body.products.map((product: Product) => ({ id: product.id })) || []
-      },
-      total,
-      user
-    }
-  })
+      data: {
+        createdBy: user,
+        updatedBy: user,
+        user,
+        items: {
+          create: {
+            createdBy: user,
+            updatedBy: user,
+            product: {
+              connect: { id: product.id }
+            },
+            quantity: 1
+          }
+        },
+        total: validProduct.price
+      }
+    })
 
-  return response.json(upsertedCart)
-}
-
-function calculateTotal (products: Product[]) {
-  let total = 0
-
-  for (const product of products) {
-    total = total + Number(product.price)
+    return response.json(cart)
   }
 
-  return total
+  // check to see if the actioned product exists in the cart
+  const existingItem = cart.items.find((item) => item.product.id === product.id)
+
+  switch (action) {
+    case 'add': {
+      // add to the quantity if product already exists in the cart, otherwise create it
+      if (existingItem) {
+        await prisma.cart.update({
+          where: { id: cart.id },
+          data: {
+            items: {
+              update: {
+                where: {
+                  id: existingItem.id
+                },
+                data: {
+                  quantity: existingItem.quantity + 1
+                }
+              }
+            }
+          }
+        })
+      } else {
+        await prisma.cart.update({
+          where: { id: cart.id },
+          data: {
+            items: {
+              create: {
+                createdBy: user,
+                updatedBy: user,
+                product: {
+                  connect: { id: product.id }
+                },
+                quantity: 1
+              }
+            }
+          }
+        })
+      }
+      break
+    }
+    case 'remove': {
+      // deduct a quantity from the item if more than one, otherwise remove it
+      if (existingItem && existingItem.quantity > 1) {
+        await prisma.cart.update({
+          where: { id: cart.id },
+          data: {
+            items: {
+              update: {
+                where: {
+                  id: existingItem.id
+                },
+                data: {
+                  quantity: existingItem.quantity - 1
+                }
+              }
+            }
+          }
+        })
+      } else {
+        await prisma.cart.update({
+          where: { id: cart.id },
+          data: {
+            items: {
+              delete: {
+                id: existingItem?.id
+              }
+            }
+          }
+        })
+      }
+      break
+    }
+    case 'clear': {
+      await prisma.cart.update({
+        where: { id: cart.id },
+        data: {
+          items: {
+            deleteMany: {}
+          }
+        }
+      })
+    }
+  }
+
+  const actionedCart = await prisma.cart.findUnique({ where: { id: cart.id } })
+  return response.json(actionedCart)
 }
 
-function getRemovedProducts (
-  originalCart: (Cart & { products: Product[] }) | null,
-  newCart: Cart & { products: Product[] }
-) {
-  if (originalCart == null) return []
-
-  return originalCart.products.filter(
-    (origProd) =>
-      newCart.products.find((newProd) => newProd.id === origProd.id) == null
-  )
-}
-
-function validate (body: Partial<Cart & { products: Product[] }>) {
+function validate (body: any) {
   const errors: string[] = []
+
+  if (!body.action) errors.push('action')
+  if (!body.product && body.action !== 'clear') errors.push('product')
 
   return {
     isValid: errors.length === 0,

@@ -28,19 +28,32 @@ export async function POST (request: NextRequest) {
   if (existingOrder) return response.json(existingOrder)
 
   if (!session.metadata?.cart) return response.json({ error: 'Missing cart' }, { status: 400 })
-  const cart = await prisma.cart.findUnique({ include: { products: true }, where: { id: session.metadata.cart } })
+  const cart = await prisma.cart.findUnique({
+    include: {
+      items: {
+        include: {
+          product: true
+        }
+      }
+    },
+    where: { id: session.metadata.cart }
+  })
 
   const order = await prisma.order.create({
-    include: { products: true },
+    include: {
+      items: {
+        include: {
+          product: true
+        }
+      }
+    },
     data: {
       createdBy: cart?.user ?? '',
       updatedBy: cart?.user ?? '',
       email: session.customer_details?.email ?? '',
       name: session.customer_details?.name ?? '',
       status: sanitizeOrderStatus(session.status),
-      products: {
-        connect: session.metadata.products.split(',').map((id) => ({ id: Number(id) }))
-      },
+      // TODO: implement items
       total: Number(session.amount_total) / 100,
       transaction: session.id
     }
