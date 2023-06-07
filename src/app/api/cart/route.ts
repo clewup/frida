@@ -1,3 +1,4 @@
+import { type CartItem, type Product } from '@prisma/client'
 import { type NextRequest, NextResponse as response } from 'next/server'
 import prisma from '@/lib/prisma'
 
@@ -175,7 +176,30 @@ export async function PATCH (request: NextRequest) {
     },
     where: { id: cart.id }
   })
-  return response.json(actionedCart)
+
+  const totalledCart = await prisma.cart.update({
+    include: {
+      items: {
+        include: {
+          product: true
+        }
+      }
+    },
+    where: { id: cart.id },
+    data: {
+      total: calculateTotal(actionedCart?.items ?? [])
+    }
+  })
+
+  return response.json(totalledCart)
+}
+
+function calculateTotal (items: Array<CartItem & { product: Product }>) {
+  let sum = 0
+  for (let i = 0; i < items.length; i++) {
+    sum += (Number(items[i].product.price) * items[i].quantity)
+  }
+  return sum
 }
 
 function validate (body: any) {
