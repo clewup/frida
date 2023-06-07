@@ -11,7 +11,7 @@ const GenericError: FC<GenericErrorProps> = ({ error, reset }) => {
 
   return (
       <main>
-          <input type="checkbox" id="my-modal" className="modal-toggle" checked={true} />
+          <input type="checkbox" id="my-modal" className="modal-toggle" checked={true} onChange={() => null} />
           <div className="modal">
               <div className="modal-box">
                   <h3 className="font-bold text-lg text-center">Uh oh! Something went wrong!</h3>

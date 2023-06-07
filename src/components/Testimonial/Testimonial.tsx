@@ -1,3 +1,5 @@
+'use client'
+
 import { type TestimonialType } from '@/types/testimonialTypes'
 import React, { type FC } from 'react'
 
@@ -28,7 +30,7 @@ const Rating: FC<RatingProps> = ({ rating }) => {
   return (
       <div className="rating">
           {
-              Array.from({ length: rating }).map((rating, index) => (<input key={index} type="radio" name="rating-2" className="mask mask-star-2 bg-primary" checked/>))
+              Array.from({ length: rating }).map((rating, index) => (<input key={index} type="radio" name="rating-2" className="mask mask-star-2 bg-primary" checked onChange={() => null} />))
           }
       </div>
   )

@@ -34,7 +34,7 @@ export async function PATCH (request: NextRequest) {
   const user = request.headers.get('x-user')
   if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
 
-  const action = body.method
+  const action = body.action
   const product = body.product
 
   const validProduct = await prisma.product.findUnique({ where: { id: product.id } })
@@ -85,89 +85,96 @@ export async function PATCH (request: NextRequest) {
   // check to see if the actioned product exists in the cart
   const existingItem = cart.items.find((item) => item.product.id === product.id)
 
-  switch (action) {
-    case 'add': {
-      // add to the quantity if product already exists in the cart, otherwise create it
-      if (existingItem) {
-        await prisma.cart.update({
-          where: { id: cart.id },
-          data: {
-            items: {
-              update: {
-                where: {
-                  id: existingItem.id
-                },
-                data: {
-                  quantity: existingItem.quantity + 1
-                }
-              }
-            }
-          }
-        })
-      } else {
-        await prisma.cart.update({
-          where: { id: cart.id },
-          data: {
-            items: {
-              create: {
-                createdBy: user,
-                updatedBy: user,
-                product: {
-                  connect: { id: product.id }
-                },
-                quantity: 1
-              }
-            }
-          }
-        })
-      }
-      break
-    }
-    case 'remove': {
-      // deduct a quantity from the item if more than one, otherwise remove it
-      if (existingItem && existingItem.quantity > 1) {
-        await prisma.cart.update({
-          where: { id: cart.id },
-          data: {
-            items: {
-              update: {
-                where: {
-                  id: existingItem.id
-                },
-                data: {
-                  quantity: existingItem.quantity - 1
-                }
-              }
-            }
-          }
-        })
-      } else {
-        await prisma.cart.update({
-          where: { id: cart.id },
-          data: {
-            items: {
-              delete: {
-                id: existingItem?.id
-              }
-            }
-          }
-        })
-      }
-      break
-    }
-    case 'clear': {
+  if (action === 'add') {
+    // add to the quantity if product already exists in the cart, otherwise create it
+    if (existingItem) {
       await prisma.cart.update({
         where: { id: cart.id },
         data: {
           items: {
-            deleteMany: {}
+            update: {
+              where: {
+                id: existingItem.id
+              },
+              data: {
+                quantity: existingItem.quantity + 1
+              }
+            }
+          }
+        }
+      })
+    } else {
+      await prisma.cart.update({
+        where: { id: cart.id },
+        data: {
+          items: {
+            create: {
+              createdBy: user,
+              updatedBy: user,
+              product: {
+                connect: { id: product.id }
+              },
+              quantity: 1
+            }
           }
         }
       })
     }
   }
 
-  const actionedCart = await prisma.cart.findUnique({ where: { id: cart.id } })
+  if (action === 'remove') {
+    // deduct a quantity from the item if more than one, otherwise remove it
+    if (existingItem && existingItem.quantity > 1) {
+      await prisma.cart.update({
+        where: { id: cart.id },
+        data: {
+          items: {
+            update: {
+              where: {
+                id: existingItem.id
+              },
+              data: {
+                quantity: existingItem.quantity - 1
+              }
+            }
+          }
+        }
+      })
+    } else {
+      await prisma.cart.update({
+        where: { id: cart.id },
+        data: {
+          items: {
+            delete: {
+              id: existingItem?.id
+            }
+          }
+        }
+      })
+    }
+  }
+
+  if (action === 'clear') {
+    await prisma.cart.update({
+      where: { id: cart.id },
+      data: {
+        items: {
+          deleteMany: {}
+        }
+      }
+    })
+  }
+
+  const actionedCart = await prisma.cart.findUnique({
+    include: {
+      items: {
+        include: {
+          product: true
+        }
+      }
+    },
+    where: { id: cart.id }
+  })
   return response.json(actionedCart)
 }
 
