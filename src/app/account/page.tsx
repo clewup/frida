@@ -7,6 +7,7 @@ import useApi from '@/lib/common/hooks/useApi/useApi'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import { type Order } from '@prisma/client'
 import moment from 'moment'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 export default function Account () {
@@ -49,6 +50,7 @@ export default function Account () {
                             <th>DATE</th>
                             <th>STATUS</th>
                             <th>TOTAL</th>
+                            <th>DETAILS</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +60,7 @@ export default function Account () {
                             <td>{moment(order.createdAt).format('DD/MM/YYYY')}</td>
                             <td>{order.status}</td>
                             <td>£{Number(order.total)}</td>
+                            <td><Link href={`/success?session_id=${order.transaction}`} className="underline">Details</Link></td>
                         </tr>
                     ))}
                     </tbody>
