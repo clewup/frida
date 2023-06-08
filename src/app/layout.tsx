@@ -2,6 +2,7 @@ import './globals.css'
 import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
 import { CartProvider } from '@/contexts/CartContext/CartContext'
+import CookieBanner from '@/lib/common/components/CookieBanner/CookieBanner'
 import { LockrProvider } from '@/lib/common/contexts/LockrContext/LockrContext'
 import React from 'react'
 
@@ -17,13 +18,14 @@ export default function RootLayout ({
   return (
     <html lang="en" data-theme="store">
       <LockrProvider>
-        <CartProvider>
-          <body>
+          <CartProvider>
+            <body>
             <Header />
             {children}
+            <CookieBanner/>
             <Footer/>
-          </body>
-        </CartProvider>
+            </body>
+          </CartProvider>
       </LockrProvider>
     </html>
   )
