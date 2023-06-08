@@ -1,4 +1,5 @@
 import './globals.css'
+import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
 import { CartProvider } from '@/contexts/CartContext/CartContext'
 import { LockrProvider } from '@/lib/common/contexts/LockrContext/LockrContext'
@@ -20,6 +21,7 @@ export default function RootLayout ({
           <body>
             <Header />
             {children}
+            <Footer/>
           </body>
         </CartProvider>
       </LockrProvider>
