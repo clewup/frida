@@ -1,6 +1,5 @@
 'use client'
 
-import CartProduct from '@/components/CartProduct/CartProduct'
 import OrderProduct from '@/components/OrderProduct/OrderProduct'
 import metadata from '@/constants/metadata'
 import { useCart } from '@/contexts/CartContext/CartContext'

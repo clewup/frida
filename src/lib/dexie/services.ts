@@ -29,6 +29,6 @@ export default class DexieServices {
   }
 
   async delete (table: string, key: number) {
-    return this.db.table(table).delete(key)
+    await this.db.table(table).delete(key)
   }
 }

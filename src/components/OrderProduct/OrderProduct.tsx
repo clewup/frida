@@ -1,10 +1,7 @@
 'use client'
 
-import { useCart } from '@/contexts/CartContext/CartContext'
 import { type Product } from '@prisma/client'
-import cx from 'classnames'
 import React, { type FC } from 'react'
-import { Trash2 as RemoveIcon } from 'react-feather'
 
 interface OrderProductProps {
   product: Product
@@ -12,8 +9,6 @@ interface OrderProductProps {
 }
 
 const OrderProduct: FC<OrderProductProps> = ({ product, quantity }) => {
-  const { isLoading, removeFromCart } = useCart()
-
   const { name, image, price } = product
 
   return (
