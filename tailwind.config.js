@@ -31,7 +31,7 @@ module.exports = {
       {
         store: {
           primary: '#BFFF00',
-          secondary: '#04945f',
+          secondary: '#ff3478',
           accent: '#BFFF00',
           neutral: '#FFFFFF',
           'base-100': '#111111',
