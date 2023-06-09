@@ -8,12 +8,12 @@ import { type Category, type Product as PrismaProduct } from '@prisma/client'
 import Link from 'next/link'
 import React from 'react'
 
-async function getLatestProducts (): Promise<PrismaProduct[]> {
+async function getLatestProducts () {
   const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`)
   return await productsResponse.json()
 }
 
-async function getCategories (): Promise<Category[]> {
+async function getCategories () {
   const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
   return await productsResponse.json()
 }
@@ -40,8 +40,8 @@ const mockTestimonials: TestimonialType[] = [
 ]
 
 export default async function Home () {
-  const latestProducts = await getLatestProducts()
-  const categories = await getCategories()
+  const latestProducts = await getLatestProducts() as PrismaProduct[]
+  const categories = await getCategories() as Category[]
 
   return (
     <PageWrapper>
