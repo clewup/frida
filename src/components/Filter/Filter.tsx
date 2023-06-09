@@ -3,11 +3,11 @@
 import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
+import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import { type SearchResponseType } from '@/types/searchTypes'
 import { Field, Form, Formik, type FormikValues } from 'formik'
 import { useSearchParams } from 'next/navigation'
 import React, { type FC, useEffect, useState } from 'react'
-import { type Category } from '@prisma/client'
 
 interface FilterProps {
   searchResults: SearchResponseType
@@ -17,15 +17,15 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
   const searchParams = useSearchParams()
   const { queryParams, setQueryParams } = useQueryParams()
   const { get } = useApi()
-  const [categories, setCategories] = useState<Category[]>([])
+  const [categoriesWithSubcategories, setCategoriesWithSubcategories] = useState<CategoryWithSubcategoriesType[]>([])
 
-  async function getCategories () {
-    const categoriesData = await get<Category[]>('/api/category')
-    setCategories(categoriesData)
+  async function getCategoriesWithSubcategories () {
+    const categoriesData = await get<CategoryWithSubcategoriesType[]>('/api/category')
+    setCategoriesWithSubcategories(categoriesData)
   }
 
   useEffect(() => {
-    getCategories()
+    getCategoriesWithSubcategories()
   }, [])
 
   interface FilterFormValues {
@@ -76,9 +76,9 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                       onChange={handleChange}
                     >
                       <option value="default">Select...</option>
-                      {categories.map((category, index) => (
-                        <option key={index} value={category.name}>
-                          {category.name}
+                      {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
+                        <option key={index} value={categoryWithSubcategories.category}>
+                          {categoryWithSubcategories.category}
                         </option>
                       ))}
                     </select>

@@ -3,24 +3,27 @@ import Product from '@/components/Product/Product'
 import Promotion from '@/components/Promotion/Promotion'
 import Testimonial from '@/components/Testimonial/Testimonial'
 import constants from '@/constants/constants'
+import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import { type TestimonialType } from '@/types/testimonialTypes'
-import { type Category, type Product as PrismaProduct } from '@prisma/client'
+import { type Product as PrismaProduct } from '@prisma/client'
 import Link from 'next/link'
 import React from 'react'
 
 async function getLatestProducts () {
   try {
-    const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`)
+    const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`, {
+      cache: 'no-store'
+    })
     return await productsResponse.json() as PrismaProduct[]
   } catch (error) {
     return []
   }
 }
 
-async function getCategories () {
+async function getCategoriesWithSubcategories () {
   try {
     const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
-    return await productsResponse.json() as Category[]
+    return await productsResponse.json() as CategoryWithSubcategoriesType[]
   } catch (error) {
     return []
   }
@@ -28,7 +31,7 @@ async function getCategories () {
 
 export default async function Home () {
   const latestProducts = await getLatestProducts()
-  const categories = await getCategories()
+  const categoriesWithSubcategories = await getCategoriesWithSubcategories()
 
   const mockTestimonials: TestimonialType[] = [
     {
@@ -68,10 +71,10 @@ export default async function Home () {
         <div className="flex flex-col gap-5">
           <h1 className="text-9xl font-bold">BROWSE BY CATEGORY</h1>
 
-          <div className={`grid grid-cols-${categories.length} gap-5 h-60`}>
-            {categories.map((category, index) => (
-                <Link href={`/search?category=${category.name}`} key={index} className="border-[1px] border-primary rounded-md p-10 flex flex-col items-center justify-center">
-                  <h1 className="uppercase text-4xl">{category.name}</h1>
+          <div className={`grid grid-cols-${categoriesWithSubcategories.length} gap-5 h-60`}>
+            {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
+                <Link href={`/search?category=${categoryWithSubcategories.category}`} key={index} className="border-[1px] border-primary rounded-md p-10 flex flex-col items-center justify-center">
+                  <h1 className="uppercase text-4xl">{categoryWithSubcategories.category}</h1>
                 </Link>
             ))}
           </div>

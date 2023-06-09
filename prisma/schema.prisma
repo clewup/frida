@@ -17,20 +17,29 @@ model Product {
   updatedAt DateTime @updatedAt
   updatedBy String
 
-  name        String
-  description String
-  image       String
-  price       Decimal
-  stock       Int
-  categories  Category[]
-  cartItems   CartItem[]
-  orderItems  OrderItem[]
+  name          String
+  description   String
+  image         String
+  price         Decimal
+  stock         Int
+  category      Category    @relation(fields: [categoryId], references: [id])
+  categoryId    Int
+  subcategory   Subcategory @relation(fields: [subcategoryId], references: [id])
+  subcategoryId Int
+  cartItems     CartItem[]
+  orderItems    OrderItem[]
 }
 
 model Category {
   id       Int       @id @default(autoincrement())
   name     String
   products Product[]
+}
+
+model Subcategory {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Product Product[]
 }
 
 model Cart {

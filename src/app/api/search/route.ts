@@ -12,7 +12,7 @@ export async function GET (request: NextRequest) {
   const sort = searchParams.get('sort')
 
   const products = await prisma.product.findMany({
-    include: { categories: true },
+    include: { category: true, subcategory: true },
     orderBy: { createdAt: 'desc' }
   })
 
@@ -24,9 +24,7 @@ export async function GET (request: NextRequest) {
   }
   if (category) {
     filteredProducts = filteredProducts.filter((product) =>
-      product.categories.some(
-        (cat) => cat.name.toLowerCase() === category.toLowerCase()
-      )
+      product.category.name.toLowerCase() === category.toLowerCase()
     )
   }
   if (sort) {
