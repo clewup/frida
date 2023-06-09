@@ -13,7 +13,7 @@ async function getLatestProducts () {
     const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`)
     return await productsResponse.json() as PrismaProduct[]
   } catch (error) {
-    throw new Error()
+    return []
   }
 }
 
@@ -22,7 +22,7 @@ async function getCategories () {
     const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
     return await productsResponse.json() as Category[]
   } catch (error) {
-    throw new Error()
+    return []
   }
 }
 
