@@ -10,38 +10,38 @@ import React from 'react'
 
 async function getLatestProducts () {
   const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`)
-  return await productsResponse.json()
+  return await productsResponse.json() as PrismaProduct[]
 }
 
 async function getCategories () {
   const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
-  return await productsResponse.json()
+  return await productsResponse.json() as Category[]
 }
 
-const mockTestimonials: TestimonialType[] = [
-  {
-    name: 'User 1',
-    image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1684696514/xqlrb2zgkwc77a53zbyr.png',
-    review: 'Super cool',
-    rating: 4
-  },
-  {
-    name: 'User 1',
-    image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1684696514/xqlrb2zgkwc77a53zbyr.png',
-    review: 'Super cool',
-    rating: 5
-  },
-  {
-    name: 'User 1',
-    image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1684696514/xqlrb2zgkwc77a53zbyr.png',
-    review: 'Super cool',
-    rating: 4
-  }
-]
-
 export default async function Home () {
-  const latestProducts = await getLatestProducts() as PrismaProduct[]
-  const categories = await getCategories() as Category[]
+  const latestProducts = await getLatestProducts()
+  const categories = await getCategories()
+
+  const mockTestimonials: TestimonialType[] = [
+    {
+      name: 'User 1',
+      image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1684696514/xqlrb2zgkwc77a53zbyr.png',
+      review: 'Super cool',
+      rating: 4
+    },
+    {
+      name: 'User 1',
+      image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1684696514/xqlrb2zgkwc77a53zbyr.png',
+      review: 'Super cool',
+      rating: 5
+    },
+    {
+      name: 'User 1',
+      image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1684696514/xqlrb2zgkwc77a53zbyr.png',
+      review: 'Super cool',
+      rating: 4
+    }
+  ]
 
   return (
     <PageWrapper>
