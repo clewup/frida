@@ -9,13 +9,21 @@ import Link from 'next/link'
 import React from 'react'
 
 async function getLatestProducts () {
-  const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`)
-  return await productsResponse.json() as PrismaProduct[]
+  try {
+    const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`)
+    return await productsResponse.json() as PrismaProduct[]
+  } catch (error) {
+    throw new Error()
+  }
 }
 
 async function getCategories () {
-  const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
-  return await productsResponse.json() as Category[]
+  try {
+    const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
+    return await productsResponse.json() as Category[]
+  } catch (error) {
+    throw new Error()
+  }
 }
 
 export default async function Home () {
