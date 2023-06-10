@@ -9,7 +9,7 @@ interface TestimonialProps {
 
 const Testimonial: FC<TestimonialProps> = ({ testimonial: { name, image, review, rating } }) => {
   return (
-        <div className="bg-base-100 rounded-md p-10 flex gap-5 items-center">
+        <div className="p-10 flex gap-5 items-center">
             <span className="w-1/3">
                 <img src={image} alt={name} className="mask mask-squircle"/>
             </span>
@@ -30,7 +30,7 @@ const Rating: FC<RatingProps> = ({ rating }) => {
   return (
       <div className="rating">
           {
-              Array.from({ length: rating }).map((rating, index) => (<input key={index} type="radio" name="rating-2" className="mask mask-star-2 bg-secondary" checked onChange={() => null} />))
+              Array.from({ length: rating }).map((rating, index) => (<input key={index} type="radio" name="rating-2" className="mask mask-star-2" checked onChange={() => null} />))
           }
       </div>
   )

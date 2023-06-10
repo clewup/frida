@@ -1,12 +1,13 @@
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Product from '@/components/Product/Product'
+import RelatedProducts from '@/components/RelatedProducts/RelatedProducts'
 import constants from '@/constants/constants'
 import { type PageContext } from '@/lib/common/types/nextTypes'
-import { type Product as PrismaProduct } from '@prisma/client'
+import { type Category, type Product as PrismaProduct } from '@prisma/client'
 import { type Metadata, type ResolvingMetadata } from 'next'
-import React from 'react'
+import React, { Suspense } from 'react'
 
-async function getProductById (id: number): Promise<PrismaProduct> {
+async function getProductById (id: number): Promise< PrismaProduct & { category: Category }> {
   const productResponse = await fetch(`${constants.APP_URL}/api/product?id=${id}`, {
     method: 'GET'
   })
@@ -29,8 +30,9 @@ export default async function ProductSlug ({ params }: PageContext) {
   }
 
   return (
-      <PageWrapper>
+      <PageWrapper className="flex flex-col gap-5">
           <Product product={product} isFullProduct={true}/>
+          <RelatedProducts product={product}/>
       </PageWrapper>
   )
 }
