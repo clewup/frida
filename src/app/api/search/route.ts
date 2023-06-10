@@ -2,7 +2,7 @@ import prisma from '@/lib/prisma'
 import { type NextRequest, NextResponse as response } from 'next/server'
 
 export async function GET (request: NextRequest) {
-  const PAGE_SIZE = 6
+  const PAGE_SIZE = 8
 
   const { searchParams } = new URL(request.url)
 
