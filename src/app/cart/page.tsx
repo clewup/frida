@@ -77,7 +77,7 @@ export default function Cart () {
 
               {cart?.items && cart?.items?.length > 0 &&
                   <button
-                      className={cx('btn btn-primary btn-lg text-base-100 mt-5 w-full', { loading: isRedirecting })}
+                      className={cx('btn btn-primary btn-lg mt-5 w-full', { loading: isRedirecting })}
                   >
                     Checkout
                   </button>
