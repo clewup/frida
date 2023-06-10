@@ -3,7 +3,7 @@ import { Package } from 'react-feather'
 
 const Promotion = () => {
   return (
-        <div>
+        <div className="bg-base-200 rounded-md">
             <div className="flex items-center gap-5">
                 <span className="w-1/2 text-center bg-primary text-xl rounded-tl-md py-2">
                     <p>New here? Get 10% off everything</p>
