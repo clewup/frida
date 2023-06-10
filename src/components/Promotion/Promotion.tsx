@@ -5,7 +5,7 @@ const Promotion = () => {
   return (
         <div>
             <div className="flex items-center gap-5">
-                <span className="w-1/2 text-center bg-primary text-base-100 text-xl rounded-tl-md py-2">
+                <span className="w-1/2 text-center bg-primary text-xl rounded-tl-md py-2">
                     <p>New here? Get 10% off everything</p>
                     <p>with code: NEWHERE</p>
                 </span>

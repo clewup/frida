@@ -63,7 +63,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
     >
       {({ values, handleChange }) => {
         return (
-          <Form className="flex flex-col items-center justify-between bg-primary rounded-md text-base-100 p-2 px-5 gap-5 md:flex-row md:gap-20">
+          <Form className="flex flex-col items-center justify-between bg-base-300 rounded-md p-2 px-5 gap-5 md:flex-row md:gap-20">
             <div className="flex gap-5">
               <span className="form-control flex-row gap-2">
                 <label className="label">Category</label>
@@ -71,7 +71,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   {() => (
                     <select
                       name="category"
-                      className="select w-60 text-primary"
+                      className="select w-60"
                       value={values.category}
                       onChange={handleChange}
                     >
@@ -94,7 +94,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   {() => (
                     <select
                       name="sort"
-                      className="select select-bordered w-44 text-primary"
+                      className="select select-bordered w-44"
                       value={values.sort}
                       onChange={handleChange}
                     >
@@ -105,7 +105,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   )}
                 </Field>
               </span>
-              <p className="text-lg text-base-100">
+              <p className="text-lg">
                 {searchResults.pagination.pageResults +
                   searchResults.pagination.resultsPerPage *
                     (searchResults.pagination.page - 1)}

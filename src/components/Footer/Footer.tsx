@@ -44,7 +44,7 @@ const Footer = () => {
                 </span>
             </div>
             <div className="flex justify-between px-40 py-5 bg-base-300">
-                <p className="text-primary">© 2023 CLEWUP</p>
+                <p>© 2023 CLEWUP</p>
                 <span className="flex gap-10">
                     <p>Privacy Policy</p>
                     <p>Terms</p>

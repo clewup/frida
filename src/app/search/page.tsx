@@ -86,7 +86,7 @@ export default function Search () {
                   'btn-ghost': pageNumber !== searchResults.pagination.page
                 },
                 {
-                  'btn-primary text-base-100':
+                  'btn-secondary':
                     pageNumber === searchResults.pagination.page
                 },
                 {

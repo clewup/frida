@@ -41,7 +41,7 @@ export default function Cart () {
       >
         {() => {
           return (
-            <Form className="w-1/3 flex flex-col border-[1px] border-primary rounded-md p-5">
+            <Form className="w-1/3 flex flex-col border-[1px] rounded-md p-5">
               <div className="flex flex-col gap-5">
                 {isLoading && (
                   <div className="w-full h-60 flex justify-center items-center">
@@ -51,7 +51,7 @@ export default function Cart () {
 
                 {!isLoading && (!cart?.items?.length) && (
                     <div className="flex flex-col gap-5 p-10 items-center">
-                      <CartIcon className="my-5 text-primary"/>
+                      <CartIcon className="my-5 text-secondary"/>
                       <p className="text-2xl text-center">Your cart is empty.</p>
                     </div>
                 )}

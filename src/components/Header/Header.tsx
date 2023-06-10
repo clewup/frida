@@ -22,7 +22,7 @@ const Header = () => {
   const { signIn } = useAuth({ redirectUri: constants.APP_URL })
 
   return (
-    <div className="h-[10vh] flex items-center justify-between px-10">
+    <div className="h-[10vh] flex items-center justify-between px-10 bg-black">
       <div className="flex gap-10 items-center">
         <Link href="/" className="flex flex-col items-center">
           <BagIcon size={30} className="text-primary" />
@@ -30,7 +30,7 @@ const Header = () => {
             STORE
           </p>
         </Link>
-        <Link href="/search" className="text-2xl">
+        <Link href="/search" className="text-2xl text-white">
           <p>
             SHOP ALL
           </p>
@@ -55,9 +55,9 @@ const Header = () => {
                 name="search"
                 type="text"
                 placeholder="Search"
-                className="input input-primary text-white placeholder-white"
+                className="input input-primary"
               />
-              <button className="btn btn-square  btn-primary text-base-100">
+              <button className="btn btn-square btn-primary">
                 <SearchIcon />
               </button>
             </div>

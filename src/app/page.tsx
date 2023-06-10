@@ -73,7 +73,7 @@ export default async function Home () {
 
           <div className={`grid grid-cols-${categoriesWithSubcategories.length} gap-5 h-60`}>
             {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
-                <Link href={`/search?category=${categoryWithSubcategories.category}`} key={index} className="border-[1px] border-primary rounded-md p-10 flex flex-col items-center justify-center">
+                <Link href={`/search?category=${categoryWithSubcategories.category}`} key={index} className="border-[1px] rounded-md p-10 flex flex-col items-center justify-center">
                   <h1 className="uppercase text-4xl">{categoryWithSubcategories.category}</h1>
                 </Link>
             ))}
