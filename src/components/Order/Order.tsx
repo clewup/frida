@@ -40,7 +40,7 @@ const Order: FC<OrderProps> = ({ order }) => {
             </span>
               <span>
                 <Link href="/">
-                    <button className="btn btn-primary text-base-100">Continue Shopping</button>
+                    <button className="btn btn-primary btn-lg">Continue Shopping</button>
                 </Link>
             </span>
           </div>
