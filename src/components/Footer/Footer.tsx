@@ -10,7 +10,7 @@ const Footer = () => {
   return (
         <div>
             <span className="divider px-64 text-base-300">All major payment methods accepted!</span>
-            <div className="flex justify-center pb-5">
+            <div className="flex justify-center pb-5 items-center">
                 <PaymentIcon id="visa"
                              style={{ margin: 10, width: 50 }}
                              className="payment-icon" />
@@ -20,6 +20,7 @@ const Footer = () => {
                 <PaymentIcon id="paypal"
                              style={{ margin: 10, width: 50 }}
                              className="payment-icon" />
+                <img src="https://res.cloudinary.com/dliog6kq6/image/upload/v1686519110/klarna_eznp8a.png" width={50} className="h-[32px] w-[50px] m-[10px] rounded-[2px]"/>
             </div>
             <div className="px-40 py-5 bg-base-200 flex justify-between">
                 <span className="flex flex-col gap-2">

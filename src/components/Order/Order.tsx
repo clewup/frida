@@ -15,7 +15,6 @@ interface OrderProps {
 
 const Order: FC<OrderProps> = ({ order }) => {
   const { clearCart } = useCart()
-  console.log(order)
 
   useEffect(() => {
     clearCart()

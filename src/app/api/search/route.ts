@@ -12,8 +12,6 @@ export async function GET (request: NextRequest) {
   const sort = searchParams.get('sort')
   const subcategory = searchParams.get('subcategory')
 
-  console.log(subcategory)
-
   const products = await prisma.product.findMany({
     include: { category: true, subcategory: true },
     orderBy: { createdAt: 'desc' }
