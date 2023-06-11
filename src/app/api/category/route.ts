@@ -12,7 +12,7 @@ export async function GET (request: NextRequest) {
 
     const subcategories = products.map((product) => product.subcategory.name)
 
-    categoriesWithSubcategories.push({ category: category.name, subcategories: subcategories.filter((value, index) => subcategories.indexOf(value) === index) })
+    categoriesWithSubcategories.push({ category: category.name, image: category.image, subcategories: subcategories.filter((value, index) => subcategories.indexOf(value) === index) })
   }
 
   return response.json(categoriesWithSubcategories)

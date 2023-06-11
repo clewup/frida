@@ -6,6 +6,7 @@ import constants from '@/constants/constants'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import { type TestimonialType } from '@/types/testimonialTypes'
 import { type Product as PrismaProduct } from '@prisma/client'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -73,8 +74,10 @@ export default async function Home () {
 
           <div className={`grid grid-cols-${categoriesWithSubcategories.length} gap-5 h-60`}>
             {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
-                <Link href={`/search?category=${categoryWithSubcategories.category}`} key={index} className="border-[1px] rounded-md p-10 flex flex-col items-center justify-center">
-                  <h1 className="uppercase text-4xl">{categoryWithSubcategories.category}</h1>
+                <Link href={`/search?category=${categoryWithSubcategories.category}`} key={index} className="relative border-[1px] rounded-md p-10 flex flex-col items-center justify-center">
+                  <h1 className="uppercase text-5xl text-white font-bold z-10">{categoryWithSubcategories.category}</h1>
+                  <Image src={categoryWithSubcategories.image} alt={categoryWithSubcategories.category} fill={true} className="absolute object-cover z-0 rounded-md"/>
+                  <div className="absolute inset-0 bg-secondary opacity-80"></div>
                 </Link>
             ))}
           </div>

@@ -3,11 +3,11 @@ import Product from '@/components/Product/Product'
 import RelatedProducts from '@/components/RelatedProducts/RelatedProducts'
 import constants from '@/constants/constants'
 import { type PageContext } from '@/lib/common/types/nextTypes'
-import { type Category, type Product as PrismaProduct } from '@prisma/client'
+import { type Category, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
 import { type Metadata, type ResolvingMetadata } from 'next'
-import React, { Suspense } from 'react'
+import React from 'react'
 
-async function getProductById (id: number): Promise< PrismaProduct & { category: Category }> {
+async function getProductById (id: number): Promise< PrismaProduct & { category: Category, subcategory: Subcategory }> {
   const productResponse = await fetch(`${constants.APP_URL}/api/product?id=${id}`, {
     method: 'GET'
   })
