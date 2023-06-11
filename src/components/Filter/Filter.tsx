@@ -35,8 +35,9 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
   }
 
   const initialValues: FilterFormValues = {
-    category: searchParams.get('category') ?? 'default',
+    // order is specific so that reset can occur
     subcategory: searchParams.get('subcategory') ?? 'default',
+    category: searchParams.get('category') ?? 'default',
     sort: searchParams.get('sort') ?? 'default'
   }
 
@@ -49,6 +50,11 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
 
       // reset the subcategory search if the category is not queried
       if (!updatedQuery.category) { updatedQuery.subcategory = null }
+
+      // reset the subcategory search if the category is changed
+      if (key === 'category' && value !== queryParams.category) {
+        updatedQuery.subcategory = null
+      }
 
       updatedQuery = {
         ...updatedQuery,
