@@ -75,13 +75,12 @@ export default function Cart () {
                 </p>
               </div>
 
-              {cart?.items && cart?.items?.length > 0 &&
                   <button
                       className={cx('btn btn-primary btn-lg mt-5 w-full', { loading: isRedirecting })}
+                      disabled={!cart?.items || cart?.items?.length === 0}
                   >
                     Checkout
                   </button>
-              }
             </Form>
           )
         }}
