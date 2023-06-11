@@ -2,11 +2,11 @@
 
 import Product from '@/components/Product/Product'
 import useApi from '@/lib/common/hooks/useApi/useApi'
-import { type Category, type Product as PrismaProduct } from '@prisma/client'
+import { type Category, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
 import React, { type FC, useEffect, useState } from 'react'
 
 interface RelatedProductsProps {
-  product: PrismaProduct & { category: Category }
+  product: PrismaProduct & { category: Category, subcategory: Subcategory }
 }
 
 const RelatedProducts: FC<RelatedProductsProps> = ({ product }) => {
@@ -15,8 +15,8 @@ const RelatedProducts: FC<RelatedProductsProps> = ({ product }) => {
   const [products, setProducts] = useState<PrismaProduct[]>([])
 
   async function getRelatedProducts () {
-    const products = await get<PrismaProduct[]>(`/api/product?category=${product.category.name}`)
-    setProducts(products.filter((prod) => prod.id !== product.id))
+    const products = await get<PrismaProduct[]>(`/api/product?subcategory=${product.subcategory.name}`)
+    setProducts(products.filter((prod) => prod.id !== product.id).slice(0, 5))
   }
 
   useEffect(() => {
