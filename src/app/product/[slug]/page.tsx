@@ -1,5 +1,6 @@
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Product from '@/components/Product/Product'
+import DetailedProduct from '@/components/DetailedProduct/DetailedProduct'
 import RelatedProducts from '@/components/RelatedProducts/RelatedProducts'
 import constants from '@/constants/constants'
 import { type PageContext } from '@/lib/common/types/nextTypes'
@@ -46,8 +47,8 @@ export default async function ProductSlug ({ params }: PageContext) {
           </ul>
         </div>
 
-          <Product product={product} isFullProduct={true}/>
-          <RelatedProducts product={product}/>
+          <DetailedProduct product={product} />
+          <RelatedProducts product={product} />
       </PageWrapper>
   )
 }
