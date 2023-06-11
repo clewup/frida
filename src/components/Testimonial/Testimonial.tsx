@@ -9,15 +9,13 @@ interface TestimonialProps {
 
 const Testimonial: FC<TestimonialProps> = ({ testimonial: { name, image, review, rating } }) => {
   return (
-        <div className="p-10 flex gap-5 items-center">
-            <span className="w-1/3">
-                <img src={image} alt={name} className="mask mask-squircle"/>
-            </span>
-            <div className="flex flex-col gap-2">
-                <h1 className="text-3xl">{name}</h1>
-                <p>{review}</p>
+        <div className="p-10 flex flex-col gap-5">
+                <h1 className="text-xl">{review}</h1>
                 <Rating rating={rating}/>
-            </div>
+                <span className="flex gap-5 items-center">
+                    <img src={image} alt={name} className="mask mask-squircle w-20"/>
+                    <p>- {name}</p>
+                </span>
         </div>
   )
 }
