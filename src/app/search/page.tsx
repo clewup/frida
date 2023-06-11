@@ -41,12 +41,14 @@ export default function Search () {
     setLoading(true)
     const search = searchParams.get('search')
     const category = searchParams.get('category')
+    const subcategory = searchParams.get('subcategory')
     const page = searchParams.get('page')
     const sort = searchParams.get('sort')
 
     const queryObject: SearchRequestType = {}
     if (search) queryObject.search = search
     if (category) queryObject.category = category
+    if (subcategory) queryObject.subcategory = subcategory
     if (page) queryObject.page = page
     if (sort) queryObject.sort = sort
 
