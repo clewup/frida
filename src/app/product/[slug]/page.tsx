@@ -5,6 +5,7 @@ import constants from '@/constants/constants'
 import { type PageContext } from '@/lib/common/types/nextTypes'
 import { type Category, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
 import { type Metadata, type ResolvingMetadata } from 'next'
+import Link from 'next/link'
 import React from 'react'
 
 async function getProductById (id: number): Promise< PrismaProduct & { category: Category, subcategory: Subcategory }> {
@@ -31,6 +32,20 @@ export default async function ProductSlug ({ params }: PageContext) {
 
   return (
       <PageWrapper className="flex flex-col gap-5">
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <Link href="/search">Products</Link>
+            </li>
+            <li>
+              <Link href={`/search?category=${product.category.name}`}>{product.category.name}</Link>
+            </li>
+            <li>
+              <Link href={`/search?category=${product.category.name}&subcategory=${product.subcategory.name}`}>{product.subcategory.name}</Link>
+            </li>
+          </ul>
+        </div>
+
           <Product product={product} isFullProduct={true}/>
           <RelatedProducts product={product}/>
       </PageWrapper>
