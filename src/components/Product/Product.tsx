@@ -15,7 +15,7 @@ interface ProductProps {
 const Product: FC<ProductProps> = ({ product, isFullProduct = false }) => {
   const { isLoading, addToCart } = useCart()
 
-  const { id, name, description, image, price } = product
+  const { id, name, description, image, price, stock } = product
 
   if (isFullProduct) {
     return (
@@ -32,12 +32,18 @@ const Product: FC<ProductProps> = ({ product, isFullProduct = false }) => {
                     </div>
                     <div className="p-10 flex justify-between items-center">
                         <p className="text-3xl">£{Number(price).toFixed(2)}</p>
-                        <button
-                            className={cx('btn btn-lg btn-primary', { loading: isLoading })}
-                            onClick={async () => await addToCart(product)}
-                        >
-                            <CartIcon />
-                        </button>
+                        {stock > 0
+                          ? (
+                                <button
+                                    className={cx('btn btn-lg btn-primary', { loading: isLoading })}
+                                    onClick={async () => await addToCart(product)}
+                                >
+                                    <CartIcon />
+                                </button>
+                            )
+                          : (
+                                <p>Out of Stock</p>
+                            )}
                     </div>
                 </div>
             </div>
@@ -54,12 +60,19 @@ const Product: FC<ProductProps> = ({ product, isFullProduct = false }) => {
       </div>
       <div className="p-10 flex justify-between items-center">
         <p className="text-3xl">£{Number(price).toFixed(2)}</p>
-        <button
-          className={cx('btn btn-lg btn-primary', { loading: isLoading })}
-          onClick={async () => await addToCart(product)}
-        >
-          <CartIcon />
-        </button>
+
+          {stock > 0
+            ? (
+              <button
+                  className={cx('btn btn-lg btn-primary', { loading: isLoading })}
+                  onClick={async () => await addToCart(product)}
+              >
+                  <CartIcon />
+              </button>
+              )
+            : (
+              <p>Out of Stock</p>
+              )}
       </div>
     </div>
   )
