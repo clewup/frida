@@ -5,7 +5,7 @@ import { type Product as PrismaProduct } from '@prisma/client'
 import cx from 'classnames'
 import Link from 'next/link'
 import React, { type FC } from 'react'
-import { ShoppingCart as CartIcon } from 'react-feather'
+import { ShoppingCart as CartIcon, Package as PackageIcon } from 'react-feather'
 
 interface ProductProps {
   product: PrismaProduct
@@ -30,6 +30,14 @@ const Product: FC<ProductProps> = ({ product, isFullProduct = false }) => {
                             <p>{description}</p>
                         </div>
                     </div>
+
+                    <div className="border-y-2 p-4">
+                        <span className="flex gap-5 justify-center">
+                            <PackageIcon/>
+                            <p>Free shipping over £30!</p>
+                        </span>
+                    </div>
+
                     <div className="p-10 flex justify-between items-center">
                         <p className="text-3xl">£{Number(price).toFixed(2)}</p>
                         {stock > 0
