@@ -16,20 +16,20 @@ export async function GET (request: NextRequest) {
   }
 
   if (latest) {
-    const products = await prisma.product.findMany({ orderBy: { createdAt: 'desc' } })
+    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' } })
     return response.json(products)
   }
 
   if (category) {
-    const products = await prisma.product.findMany({ include: { category: true }, where: { category: { name: category } }, orderBy: { createdAt: 'desc' } })
+    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, where: { category: { name: category } }, orderBy: { createdAt: 'desc' } })
     return response.json(products)
   }
 
   if (subcategory) {
-    const products = await prisma.product.findMany({ include: { subcategory: true }, where: { subcategory: { name: subcategory } }, orderBy: { createdAt: 'desc' } })
+    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, where: { subcategory: { name: subcategory } }, orderBy: { createdAt: 'desc' } })
     return response.json(products)
   }
 
-  const products = await prisma.product.findMany()
+  const products = await prisma.product.findMany({ include: { category: true, subcategory: true } })
   return response.json(products)
 }

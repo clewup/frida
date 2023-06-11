@@ -5,29 +5,21 @@ import Testimonial from '@/components/Testimonial/Testimonial'
 import constants from '@/constants/constants'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import { type TestimonialType } from '@/types/testimonialTypes'
-import { type Product as PrismaProduct } from '@prisma/client'
+import { type Category, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-async function getLatestProducts () {
-  try {
-    const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`, {
-      cache: 'no-store'
-    })
-    return await productsResponse.json() as PrismaProduct[]
-  } catch (error) {
-    return []
-  }
+async function getLatestProducts (): Promise<Array<PrismaProduct & { category: Category, subcategory: Subcategory }>> {
+  const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`, {
+    cache: 'no-store'
+  })
+  return await productsResponse.json()
 }
 
-async function getCategoriesWithSubcategories () {
-  try {
-    const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
-    return await productsResponse.json() as CategoryWithSubcategoriesType[]
-  } catch (error) {
-    return []
-  }
+async function getCategoriesWithSubcategories (): Promise<CategoryWithSubcategoriesType[]> {
+  const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
+  return await productsResponse.json()
 }
 
 export default async function Home () {
