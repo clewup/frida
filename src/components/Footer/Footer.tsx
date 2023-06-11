@@ -9,7 +9,8 @@ import PaymentIcon from 'react-payment-icons'
 const Footer = () => {
   return (
         <div>
-            <div className="flex justify-center py-2">
+            <span className="divider px-64 text-base-300">All major payment methods accepted!</span>
+            <div className="flex justify-center pb-5">
                 <PaymentIcon id="visa"
                              style={{ margin: 10, width: 50 }}
                              className="payment-icon" />
