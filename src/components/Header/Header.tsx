@@ -49,7 +49,7 @@ const Header = () => {
             <label tabIndex={0} className="btn btn-ghost text-white btn-lg m-1"><Link href={`/search?category=${categoryWithSubcategories.category}`}>{categoryWithSubcategories.category}</Link></label>
             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
               {categoryWithSubcategories.subcategories.map((subcategory, index) => (
-                  <li key={index}><Link href={`/search?subcategory=${subcategory}`}>{subcategory}</Link></li>
+                  <li key={index}><Link href={`/search?category=${categoryWithSubcategories.category}&subcategory=${subcategory}`}>{subcategory}</Link></li>
               ))}
             </ul>
           </div>
