@@ -2,7 +2,7 @@ import './globals.css'
 import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
 import { CartProvider } from '@/contexts/CartContext/CartContext'
-import CookieBanner from '@/lib/common/components/CookieBanner/CookieBanner'
+import CookiePopup from '@/lib/common/components/CookiePopup/CookiePopup'
 import { LockrProvider } from '@/lib/common/contexts/LockrContext/LockrContext'
 import React from 'react'
 
@@ -22,7 +22,7 @@ export default function RootLayout ({
             <body>
             <Header />
             {children}
-            <CookieBanner/>
+            <CookiePopup/>
             <Footer/>
             </body>
           </CartProvider>
