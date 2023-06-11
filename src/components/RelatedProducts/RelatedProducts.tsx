@@ -12,10 +12,10 @@ interface RelatedProductsProps {
 const RelatedProducts: FC<RelatedProductsProps> = ({ product }) => {
   const { get } = useApi()
 
-  const [products, setProducts] = useState<PrismaProduct[]>([])
+  const [products, setProducts] = useState<Array<PrismaProduct & { category: Category, subcategory: Subcategory }>>([])
 
   async function getRelatedProducts () {
-    const products = await get<PrismaProduct[]>(`/api/product?subcategory=${product.subcategory.name}`)
+    const products = await get<Array<PrismaProduct & { category: Category, subcategory: Subcategory }>>(`/api/product?subcategory=${product.subcategory.name}`)
     setProducts(products.filter((prod) => prod.id !== product.id).slice(0, 5))
   }
 

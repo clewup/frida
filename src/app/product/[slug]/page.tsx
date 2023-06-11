@@ -1,5 +1,4 @@
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
-import Product from '@/components/Product/Product'
 import DetailedProduct from '@/components/DetailedProduct/DetailedProduct'
 import RelatedProducts from '@/components/RelatedProducts/RelatedProducts'
 import constants from '@/constants/constants'

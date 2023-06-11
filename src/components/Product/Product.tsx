@@ -14,7 +14,7 @@ interface ProductProps {
 const Product: FC<ProductProps> = ({ product }) => {
   const { isLoading, addToCart } = useCart()
 
-  const { id, name, image, price, stock, category: { name: category }, subcategory: { name: subcategory } } = product
+  const { id, name, image, price, stock, subcategory: { name: subcategory } } = product
 
   return (
     <div className="border-[1px] rounded-md flex flex-col justify-between">
