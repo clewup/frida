@@ -4,7 +4,7 @@ import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
-import { type SearchResponseType } from '@/types/searchTypes'
+import { type SearchRequestType, type SearchResponseType } from '@/types/searchTypes'
 import { Field, Form, Formik, type FormikValues } from 'formik'
 import { useSearchParams } from 'next/navigation'
 import React, { type FC, useEffect, useState } from 'react'
@@ -15,7 +15,7 @@ interface FilterProps {
 
 const Filter: FC<FilterProps> = ({ searchResults }) => {
   const searchParams = useSearchParams()
-  const { queryParams, setQueryParams } = useQueryParams()
+  const { queryParams, setQueryParams } = useQueryParams<SearchRequestType>()
   const { get } = useApi()
   const [categoriesWithSubcategories, setCategoriesWithSubcategories] = useState<CategoryWithSubcategoriesType[]>([])
 
@@ -46,6 +46,9 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
 
     Object.entries(formValues).forEach(([key, value]) => {
       const isNotFiltered = reservedValues.includes(value)
+
+      // reset the subcategory search if the category is not queried
+      if (!updatedQuery.category) { updatedQuery.subcategory = null }
 
       updatedQuery = {
         ...updatedQuery,

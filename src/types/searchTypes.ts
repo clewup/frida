@@ -2,11 +2,11 @@ import { type Product } from '@prisma/client'
 import Dict = NodeJS.Dict
 
 export interface SearchRequestType extends Dict<string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null> {
-  search?: string
-  category?: string
-  subcategory?: string
-  page?: string
-  sort?: string
+  search?: string | null
+  category?: string | null
+  subcategory?: string | null
+  page?: string | null
+  sort?: string | null
 }
 
 export interface SearchResponseType {
