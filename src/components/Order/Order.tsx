@@ -27,7 +27,7 @@ const Order: FC<OrderProps> = ({ order }) => {
                 <h1 className="font-bold">Thank you for your order, {order.name}!</h1>
                 <CheckIcon className="text-secondary"/>
             </span>
-              <span className="flex flex-col gap-5 w-1/3 text-left">
+              <span className="flex flex-col gap-5 w-1/2 text-left">
                   {order.items.map((item, index) => (<OrderProduct key={index} product={item.product} quantity={item.quantity}/>))}
               </span>
               <span>

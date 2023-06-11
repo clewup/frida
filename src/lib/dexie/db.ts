@@ -2,24 +2,30 @@ import DexieServices from '@/lib/dexie/services'
 import DexieBase, { type Table } from 'dexie'
 
 export interface CookieConsent {
-  id?: number
-  isConsenting: boolean
+  id?: string
+}
+
+export interface Disclaimer {
+  id?: string
 }
 
 export enum DexieTables {
   COOKIE_CONSENT = 'cookieConsent',
+  DISCLAIMER = 'disclaimer'
 }
 
 export class Dexie extends DexieBase {
   services: DexieServices
 
-  cookieConsent!: Table<CookieConsent>
+  cookieConsent!: Table<CookieConsent, number>
+  disclaimer!: Table<Disclaimer, number>
 
   constructor () {
     super('store')
 
     this.version(1).stores({
-      cookieConsent: '++id, isConsenting'
+      cookieConsent: '++id',
+      disclaimer: '++id'
     })
 
     this.services = new DexieServices(this)
