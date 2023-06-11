@@ -1,12 +1,14 @@
 'use client'
 
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
+import useApi from '@/lib/common/hooks/useApi/useApi'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
+import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import { Field, Form, Formik } from 'formik'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ShoppingCart as CartIcon,
   ShoppingBag as BagIcon,
@@ -20,6 +22,18 @@ const Header = () => {
   const searchParams = useSearchParams()
   const { user } = useLockr()
   const { signIn } = useAuth({ redirectUri: constants.APP_URL })
+  const { get } = useApi()
+
+  const [categoriesWithSubcategories, setCategoriesWithSubcategories] = useState<CategoryWithSubcategoriesType[]>([])
+
+  async function getCategoriesWithSubcategories () {
+    const categoriesWithSubcategories = await get<CategoryWithSubcategoriesType[]>('/api/category')
+    setCategoriesWithSubcategories(categoriesWithSubcategories)
+  }
+
+  useEffect(() => {
+    getCategoriesWithSubcategories()
+  }, [])
 
   return (
     <div className="h-[10vh] flex items-center justify-between px-10 bg-black">
@@ -30,11 +44,16 @@ const Header = () => {
             STORE
           </p>
         </Link>
-        <Link href="/search" className="text-2xl text-white">
-          <p>
-            SHOP ALL
-          </p>
-        </Link>
+        {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
+          <div key={index} className="dropdown dropdown-hover">
+            <label tabIndex={0} className="btn btn-ghost text-white btn-lg m-1"><Link href={`/search?category=${categoryWithSubcategories.category}`}>{categoryWithSubcategories.category}</Link></label>
+            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+              {categoryWithSubcategories.subcategories.map((subcategory, index) => (
+                  <li key={index}><Link href={`/search?subcategory=${subcategory}`}>{subcategory}</Link></li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
       <div className="flex gap-10 items-center">
