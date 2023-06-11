@@ -30,11 +30,13 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
 
   interface FilterFormValues {
     category: string
+    subcategory: string
     sort: string
   }
 
   const initialValues: FilterFormValues = {
     category: searchParams.get('category') ?? 'default',
+    subcategory: searchParams.get('subcategory') ?? 'default',
     sort: searchParams.get('sort') ?? 'default'
   }
 
@@ -82,6 +84,27 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                         </option>
                       ))}
                     </select>
+                  )}
+                </Field>
+              </span>
+              <span className="form-control flex-row gap-2">
+                <label className="label">Subcategory</label>
+                <Field name="subcategory">
+                  {() => (
+                      <select
+                          name="subcategory"
+                          className="select w-60"
+                          value={values.subcategory}
+                          onChange={handleChange}
+                          disabled={!values.category || values.category === 'default'}
+                      >
+                        <option value="default">Select...</option>
+                        {categoriesWithSubcategories.find((categoryWithSubcategories) => categoryWithSubcategories.category === values.category)?.subcategories.map((subcategory, index) => (
+                            <option key={index} value={subcategory}>
+                              {subcategory}
+                            </option>
+                        ))}
+                      </select>
                   )}
                 </Field>
               </span>
