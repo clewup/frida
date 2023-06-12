@@ -17,11 +17,11 @@ const DetailedProduct: FC<DetailedProductProps> = ({ product }) => {
   const { name, description, image, price, stock } = product
 
   return (
-        <div className="border-[1px] rounded-md flex w-full">
-            <div className="p-10 w-1/2">
+        <div className="border-[1px] rounded-md flex flex-col w-full md:flex-row">
+            <div className="p-10 md:w-1/2">
                 <img src={image} alt={name} className="rounded-md" />
             </div>
-            <div className="flex flex-col justify-between w-1/2 p-10">
+            <div className="flex flex-col justify-between p-10 md:w-1/2">
                 <div className="text-center">
                     <h1 className="text-3xl h-20">{name}</h1>
                     <div className="p-2">
