@@ -9,7 +9,7 @@ import PaymentIcon from 'react-payment-icons'
 const Footer = () => {
   return (
         <div>
-            <span className="divider px-64 text-base-300">All major payment methods accepted!</span>
+            <span className="px-5 divider text-base-300 md:px-64">All major payment methods accepted!</span>
             <div className="flex justify-center pb-5 items-center">
                 <PaymentIcon id="visa"
                              style={{ margin: 10, width: 50 }}
@@ -22,7 +22,7 @@ const Footer = () => {
                              className="payment-icon" />
                 <img src="https://res.cloudinary.com/dliog6kq6/image/upload/v1686519110/klarna_eznp8a.png" width={50} className="h-[32px] w-[50px] m-[10px] rounded-[2px]"/>
             </div>
-            <div className="px-40 py-5 bg-base-200 flex justify-between">
+            <div className="py-5 px-10 bg-base-200 flex flex-col justify-between gap-5 md:gap-0 md:flex-row md:px-40">
                 <span className="flex flex-col gap-2">
                     <h1 className="text-xl font-bold">Help and Information</h1>
                     <Link href="/" >Support</Link>
@@ -45,7 +45,7 @@ const Footer = () => {
                     <Link href="/" >Instagram</Link>
                 </span>
             </div>
-            <div className="flex justify-between px-40 py-5 bg-base-300">
+            <div className="flex justify-between py-5 bg-base-300 px-5 md:px-40">
                 <p>© 2023 CLEWUP</p>
                 <span className="flex gap-10">
                     <p>Privacy Policy</p>

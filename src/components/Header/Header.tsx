@@ -37,7 +37,7 @@ const Header = () => {
   }, [])
 
   return (
-    <div className="h-[10vh] flex items-center justify-between px-10 bg-black">
+    <div className="py-5 w-screen flex flex-col items-center justify-between px-10 bg-black md:flex-row md:h-[10vh]">
       <div className="flex gap-10 items-center">
         <m.div variants={{
           hidden: { y: -75, opacity: 0 },

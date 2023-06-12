@@ -53,9 +53,9 @@ export default async function Home () {
 
       <div className="flex flex-col gap-20 mt-10">
         <div className="flex flex-col gap-5">
-          <FallingText className="text-9xl font-bold">JUST DROPPED</FallingText>
+          <FallingText className="text-4xl font-bold md:text-9xl">JUST DROPPED</FallingText>
 
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
             {latestProducts.splice(0, 4).map((product, index) => (
                 <Product product={product} key={index} />
             ))}
@@ -63,9 +63,9 @@ export default async function Home () {
         </div>
 
         <div className="flex flex-col gap-5">
-          <h1 className="text-9xl font-bold">BROWSE BY CATEGORY</h1>
+          <h1 className="text-4xl font-bold md:text-9xl">BROWSE BY CATEGORY</h1>
 
-          <div className={`grid grid-cols-${categoriesWithSubcategories.length} gap-5`}>
+          <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categoriesWithSubcategories.length}`}>
             {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
                 <Category key={index} categoryWithSubcategories={categoryWithSubcategories}/>
             ))}
@@ -73,7 +73,7 @@ export default async function Home () {
         </div>
 
         <div className="bg-primary rounded-md p-5">
-          <div className="grid grid-cols-3 gap-20">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-20">
             {mockTestimonials.map((testimonial, index) => (<Testimonial key={index} testimonial={testimonial}/>))}
           </div>
           <p className="text-sm">* Fictional testimonials</p>
