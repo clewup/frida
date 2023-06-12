@@ -41,7 +41,7 @@ export default function Cart () {
       >
         {() => {
           return (
-            <Form className="w-1/3 flex flex-col border-[1px] rounded-md p-5">
+            <Form className="flex flex-col border-[1px] rounded-md p-5 md:w-1/3">
               <div className="flex flex-col gap-5">
                 {isLoading && (
                   <div className="w-full h-60 flex justify-center items-center">
