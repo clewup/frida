@@ -75,14 +75,14 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
       {({ values, handleChange }) => {
         return (
           <Form className="flex flex-col items-center justify-between bg-base-300 rounded-md p-2 px-5 gap-5 md:flex-row md:gap-20">
-            <div className="flex gap-5">
+            <div className="flex flex-col gap-5 md:flex-row">
               <span className="form-control flex-row gap-2">
                 <label className="label">Category</label>
                 <Field name="category">
                   {() => (
                     <select
                       name="category"
-                      className="select w-60"
+                      className="select w-52 md:w-60"
                       value={values.category}
                       onChange={handleChange}
                     >
@@ -102,7 +102,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   {() => (
                       <select
                           name="subcategory"
-                          className="select w-60"
+                          className="select w-52 md:w-60"
                           value={values.subcategory}
                           onChange={handleChange}
                           disabled={!values.category || values.category === 'default'}
