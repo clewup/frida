@@ -2,6 +2,7 @@
 
 import { type TestimonialType } from '@/types/testimonialTypes'
 import React, { type FC } from 'react'
+import { motion as m } from 'framer-motion'
 
 interface TestimonialProps {
   testimonial: TestimonialType
@@ -9,14 +10,14 @@ interface TestimonialProps {
 
 const Testimonial: FC<TestimonialProps> = ({ testimonial: { name, image, review, rating } }) => {
   return (
-        <div className="p-10 flex flex-col gap-5">
+        <m.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 1 } } }} initial="hidden" whileInView="visible" className="p-10 flex flex-col gap-5">
                 <h1 className="text-xl">{review}</h1>
                 <Rating rating={rating}/>
                 <span className="flex gap-5 items-center">
                     <img src={image} alt={name} className="mask mask-squircle w-20"/>
                     <p>- {name}</p>
                 </span>
-        </div>
+        </m.div>
   )
 }
 

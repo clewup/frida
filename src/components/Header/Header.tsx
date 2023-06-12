@@ -16,6 +16,7 @@ import {
   User as UserIcon
 } from 'react-feather'
 import constants from '@/constants/constants'
+import { motion as m } from 'framer-motion'
 
 const Header = () => {
   const { queryParams, setQueryParams } = useQueryParams()
@@ -38,22 +39,36 @@ const Header = () => {
   return (
     <div className="h-[10vh] flex items-center justify-between px-10 bg-black">
       <div className="flex gap-10 items-center">
-        <Link href="/" className="flex flex-col items-center">
-          <BagIcon size={30} className="text-primary" />
-          <p className="text-white text-[8px]">
-            STORE
-          </p>
-        </Link>
-        {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
-          <div key={index} className="dropdown dropdown-hover">
-            <label tabIndex={0} className="btn btn-ghost text-white btn-lg m-1"><Link href={`/search?category=${categoryWithSubcategories.category}`}>{categoryWithSubcategories.category}</Link></label>
-            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-              {categoryWithSubcategories.subcategories.map((subcategory, index) => (
-                  <li key={index}><Link href={`/search?category=${categoryWithSubcategories.category}&subcategory=${subcategory}`}>{subcategory}</Link></li>
+        <m.div variants={{
+          hidden: { y: -75, opacity: 0 },
+          visible: { y: 0, opacity: 1 }
+        }} initial="hidden" animate="visible">
+          <Link href="/" className="flex flex-col items-center">
+            <BagIcon size={30} className="text-primary" />
+            <p className="text-white text-[8px]">
+              STORE
+            </p>
+          </Link>
+        </m.div>
+
+        {categoriesWithSubcategories.length > 0 &&
+            <m.div variants={{
+              hidden: { x: -75, opacity: 0 },
+              visible: { x: 0, opacity: 1, transition: { delay: 0.5 } }
+            }} initial="hidden" animate="visible">
+              {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
+                  <div key={index} className="dropdown dropdown-hover">
+                    <label tabIndex={0} className="btn btn-ghost text-white btn-lg m-1"><Link href={`/search?category=${categoryWithSubcategories.category}`}>{categoryWithSubcategories.category}</Link></label>
+                    <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                      {categoryWithSubcategories.subcategories.map((subcategory, index) => (
+                          <li key={index}><Link href={`/search?category=${categoryWithSubcategories.category}&subcategory=${subcategory}`}>{subcategory}</Link></li>
+                      ))}
+                    </ul>
+                  </div>
               ))}
-            </ul>
-          </div>
-        ))}
+            </m.div>
+        }
+
       </div>
 
       <div className="flex gap-10 items-center">

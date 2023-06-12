@@ -3,14 +3,14 @@ import Product from '@/components/Product/Product'
 import Promotion from '@/components/Promotion/Promotion'
 import Testimonial from '@/components/Testimonial/Testimonial'
 import constants from '@/constants/constants'
+import FallingText from '@/lib/framer-motion/components/FallingText'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import { type TestimonialType } from '@/types/testimonialTypes'
-import { type Category, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
-import Image from 'next/image'
-import Link from 'next/link'
+import { type Category as PrismaCategory, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
 import React from 'react'
+import Category from '@/components/Category/Category'
 
-async function getLatestProducts (): Promise<Array<PrismaProduct & { category: Category, subcategory: Subcategory }>> {
+async function getLatestProducts (): Promise<Array<PrismaProduct & { category: PrismaCategory, subcategory: Subcategory }>> {
   const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`, {
     cache: 'no-store'
   })
@@ -53,7 +53,8 @@ export default async function Home () {
 
       <div className="flex flex-col gap-20 mt-10">
         <div className="flex flex-col gap-5">
-          <h1 className="text-9xl font-bold">JUST DROPPED</h1>
+          <FallingText className="text-9xl font-bold">JUST DROPPED</FallingText>
+
           <div className="grid grid-cols-4 gap-5">
             {latestProducts.splice(0, 4).map((product, index) => (
                 <Product product={product} key={index} />
@@ -64,13 +65,9 @@ export default async function Home () {
         <div className="flex flex-col gap-5">
           <h1 className="text-9xl font-bold">BROWSE BY CATEGORY</h1>
 
-          <div className={`grid grid-cols-${categoriesWithSubcategories.length} gap-5 h-60`}>
+          <div className={`grid grid-cols-${categoriesWithSubcategories.length} gap-5`}>
             {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
-                <Link href={`/search?category=${categoryWithSubcategories.category}`} key={index} className="relative border-[1px] rounded-md p-10 flex flex-col items-center justify-center">
-                  <h1 className="uppercase text-5xl text-white font-bold z-10">{categoryWithSubcategories.category}</h1>
-                  <Image src={categoryWithSubcategories.image} alt={categoryWithSubcategories.category} fill={true} className="absolute object-cover z-0 rounded-md"/>
-                  <div className="absolute inset-0 bg-secondary opacity-80"></div>
-                </Link>
+                <Category key={index} categoryWithSubcategories={categoryWithSubcategories}/>
             ))}
           </div>
         </div>
