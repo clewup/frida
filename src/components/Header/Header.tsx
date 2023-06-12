@@ -37,8 +37,8 @@ const Header = () => {
   }, [])
 
   return (
-    <div className="py-5 w-screen flex flex-col items-center justify-between px-10 bg-black md:flex-row md:h-[10vh]">
-      <div className="flex gap-10 items-center">
+    <div className="py-5 w-screen flex items-center justify-between px-5 bg-black h-[10vh] md:px-10">
+      <div className="flex gap-10 items-center pr-5 md:pr-0">
         <m.div variants={{
           hidden: { y: -75, opacity: 0 },
           visible: { y: 0, opacity: 1 }
@@ -55,7 +55,7 @@ const Header = () => {
             <m.div variants={{
               hidden: { x: -75, opacity: 0 },
               visible: { x: 0, opacity: 1, transition: { delay: 0.5 } }
-            }} initial="hidden" animate="visible">
+            }} initial="hidden" animate="visible" className="hidden md:block">
               {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
                   <div key={index} className="dropdown dropdown-hover">
                     <label tabIndex={0} className="btn btn-ghost text-white btn-lg m-1"><Link href={`/search?category=${categoryWithSubcategories.category}`}>{categoryWithSubcategories.category}</Link></label>
@@ -71,7 +71,7 @@ const Header = () => {
 
       </div>
 
-      <div className="flex gap-10 items-center">
+      <div className="flex gap-5 items-center md:gap-10">
         <Formik
           initialValues={{ search: searchParams.get('search') ?? '' }}
           onSubmit={(formValues) => {
@@ -89,7 +89,7 @@ const Header = () => {
                 name="search"
                 type="text"
                 placeholder="Search"
-                className="input input-primary"
+                className="input input-primary w-40 md:w-60"
               />
               <button className="btn btn-square btn-primary">
                 <SearchIcon />
