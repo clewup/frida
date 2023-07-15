@@ -23,14 +23,14 @@ const FallingText: FC<FallingTextProps> = ({ children, className }) => {
 
   const wordVariants = {
     hidden: {
-      y: -75,
       opacity: 0,
-      rotate: 3
+      rotate: 3,
+      y: -75
     },
     visible: {
-      y: [-300, 0, -30, -30, 0],
+      opacity: 1,
       rotate: [0, -5, 5, 0],
-      opacity: 1
+      y: [-300, 0, -30, -30, 0]
     }
   }
 

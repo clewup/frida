@@ -108,11 +108,11 @@ const useCart = () => {
 
   return {
     ...context,
-    isLoading,
-    getCart,
     addToCart,
-    removeFromCart,
-    clearCart
+    clearCart,
+    getCart,
+    isLoading,
+    removeFromCart
   }
 }
 

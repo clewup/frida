@@ -21,12 +21,12 @@ export async function GET (request: NextRequest) {
   }
 
   if (category) {
-    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, where: { category: { name: category } }, orderBy: { createdAt: 'desc' } })
+    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' }, where: { category: { name: category } } })
     return response.json(products)
   }
 
   if (subcategory) {
-    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, where: { subcategory: { name: subcategory } }, orderBy: { createdAt: 'desc' } })
+    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' }, where: { subcategory: { name: subcategory } } })
     return response.json(products)
   }
 

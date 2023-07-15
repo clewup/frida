@@ -40,8 +40,8 @@ const Header = () => {
     <div className="py-5 w-screen flex items-center justify-between px-5 bg-black h-[10vh] md:px-10">
       <div className="flex gap-10 items-center pr-5 md:pr-0">
         <m.div variants={{
-          hidden: { y: -75, opacity: 0 },
-          visible: { y: 0, opacity: 1 }
+          hidden: { opacity: 0, y: -75 },
+          visible: { opacity: 1, y: 0 }
         }} initial="hidden" animate="visible">
           <Link href="/" className="flex flex-col items-center">
             <BagIcon size={30} className="text-primary" />
@@ -53,8 +53,8 @@ const Header = () => {
 
         {categoriesWithSubcategories.length > 0 &&
             <m.div variants={{
-              hidden: { x: -75, opacity: 0 },
-              visible: { x: 0, opacity: 1, transition: { delay: 0.5 } }
+              hidden: { opacity: 0, x: -75 },
+              visible: { opacity: 1, transition: { delay: 0.5 }, x: 0 }
             }} initial="hidden" animate="visible" className="hidden md:block">
               {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
                   <div key={index} className="dropdown dropdown-hover">
@@ -77,8 +77,8 @@ const Header = () => {
           onSubmit={(formValues) => {
             const updatedQuery = {
               ...queryParams,
-              search: formValues.search,
-              page: null
+              page: null,
+              search: formValues.search
             }
             setQueryParams(updatedQuery, '/search')
           }}

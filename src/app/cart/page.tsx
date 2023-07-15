@@ -13,7 +13,7 @@ import { TailSpin } from 'react-loader-spinner'
 import { ShoppingCart as CartIcon } from 'react-feather'
 
 export default function Cart () {
-  const { cart, isLoading, getCart } = useCart()
+  const { cart, getCart, isLoading } = useCart()
   const { user } = useLockr()
   const { post } = useApi()
 

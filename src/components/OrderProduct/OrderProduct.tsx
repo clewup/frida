@@ -9,7 +9,7 @@ interface OrderProductProps {
 }
 
 const OrderProduct: FC<OrderProductProps> = ({ product, quantity }) => {
-  const { name, image, price } = product
+  const { image, name, price } = product
 
   return (
     <div className="flex justify-between">

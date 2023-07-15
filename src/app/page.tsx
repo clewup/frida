@@ -28,22 +28,22 @@ export default async function Home () {
 
   const mockTestimonials: TestimonialType[] = [
     {
-      name: 'Olivia Bennett',
       image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1686525461/olivia_ycexg8.avif',
-      review: 'This luxury bath/skincare brand is an absolute game-changer, leaving my skin nourished, hydrated, and glowing like never before!',
-      rating: 4
+      name: 'Olivia Bennett',
+      rating: 4,
+      review: 'This luxury bath/skincare brand is an absolute game-changer, leaving my skin nourished, hydrated, and glowing like never before!'
     },
     {
-      name: 'Marcus Sullivan',
       image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1686525675/marcus_afoq3x.avif',
-      review: 'I\'ve tried countless skincare brands, but this luxury bath/skincare brand exceeded all expectations, giving my skin a renewed vitality and a silky-smooth texture.',
-      rating: 5
+      name: 'Marcus Sullivan',
+      rating: 5,
+      review: 'I\'ve tried countless skincare brands, but this luxury bath/skincare brand exceeded all expectations, giving my skin a renewed vitality and a silky-smooth texture.'
     },
     {
-      name: 'Emily Anderson',
       image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1686525778/emily_rr3whw.avif',
-      review: 'I\'m a skincare enthusiast, and let me tell you, this luxury bath/skincare brand is a true gem. Its innovative formulas have transformed my skincare routine, leaving my complexion radiant and youthful.',
-      rating: 4
+      name: 'Emily Anderson',
+      rating: 4,
+      review: 'I\'m a skincare enthusiast, and let me tell you, this luxury bath/skincare brand is a true gem. Its innovative formulas have transformed my skincare routine, leaving my complexion radiant and youthful.'
     }
   ]
 

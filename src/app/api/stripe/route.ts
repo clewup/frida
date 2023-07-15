@@ -21,39 +21,39 @@ export async function POST (request: NextRequest) {
   const shippingRate = cartTotal >= 30 ? constants.STRIPE_FREE_SHIPPING_RATE : constants.STRIPE_SHIPPING_RATE
 
   const session = await stripe.checkout.sessions.create({
-    customer_email: user,
     allow_promotion_codes: true,
-    submit_type: 'pay',
-    mode: 'payment',
-    payment_method_types: ['card', 'paypal', 'klarna'],
-    shipping_options: [
-      {
-        shipping_rate: shippingRate
-      }
-    ],
-    shipping_address_collection: {
-      allowed_countries: ['GB']
-    },
+    automatic_tax: { enabled: true },
+    cancel_url: `${constants.APP_URL}`,
+    customer_email: user,
     line_items: body.items.map((item: (CartItem & { product: Product })) => ({
+      adjustable_quantity: {
+        enabled: false
+      },
       price_data: {
         currency: 'gbp',
         product_data: {
-          name: item.product.name,
-          images: [item.product.image]
+          images: [item.product.image],
+          name: item.product.name
         },
         unit_amount: Number((Number(item.product.price) * 100).toFixed(2))
-      },
-      adjustable_quantity: {
-        enabled: false
       },
       quantity: item.quantity
     })),
     metadata: {
       cart: body.id
     },
-    success_url: `${constants.APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${constants.APP_URL}`,
-    automatic_tax: { enabled: true }
+    mode: 'payment',
+    payment_method_types: ['card', 'paypal', 'klarna'],
+    shipping_address_collection: {
+      allowed_countries: ['GB']
+    },
+    shipping_options: [
+      {
+        shipping_rate: shippingRate
+      }
+    ],
+    submit_type: 'pay',
+    success_url: `${constants.APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`
   })
 
   if (!session.url) { return response.json({ error: 'Missing session URL' }, { status: 500 }) }

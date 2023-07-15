@@ -8,7 +8,7 @@ interface TestimonialProps {
   testimonial: TestimonialType
 }
 
-const Testimonial: FC<TestimonialProps> = ({ testimonial: { name, image, review, rating } }) => {
+const Testimonial: FC<TestimonialProps> = ({ testimonial: { image, name, rating, review } }) => {
   return (
         <m.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 1 } } }} initial="hidden" whileInView="visible" className="p-10 flex flex-col gap-5">
                 <h1 className="text-xl">{review}</h1>

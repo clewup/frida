@@ -12,9 +12,9 @@ interface DetailedProductProps {
 }
 
 const DetailedProduct: FC<DetailedProductProps> = ({ product }) => {
-  const { isLoading, addToCart } = useCart()
+  const { addToCart, isLoading } = useCart()
 
-  const { name, description, image, price, stock } = product
+  const { description, image, name, price, stock } = product
 
   return (
         <div className="border-[1px] rounded-md flex flex-col w-full md:flex-row">

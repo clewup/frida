@@ -14,7 +14,7 @@ interface CartProductProps {
 const CartProduct: FC<CartProductProps> = ({ product, quantity }) => {
   const { isLoading, removeFromCart } = useCart()
 
-  const { name, image, price } = product
+  const { image, name, price } = product
 
   return (
     <div className="flex justify-between">

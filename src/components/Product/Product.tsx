@@ -13,17 +13,17 @@ interface ProductProps {
 }
 
 const Product: FC<ProductProps> = ({ product }) => {
-  const { isLoading, addToCart } = useCart()
+  const { addToCart, isLoading } = useCart()
 
-  const { id, name, image, price, stock, subcategory: { name: subcategory } } = product
+  const { id, image, name, price, stock, subcategory: { name: subcategory } } = product
 
   return (
     <m.div variants={{
-      hidden: { y: 75, opacity: 0 },
-      visible: { y: 0, opacity: 1 }
+      hidden: { opacity: 0, y: 75 },
+      visible: { opacity: 1, y: 0 }
     }} initial="hidden" animate="visible" className="border-[1px] rounded-md flex flex-col justify-between overflow-hidden">
       <Link href={`/product/${id}`} className="p-10 z-0">
-        <m.img src={image} alt={name} className="rounded-md" variants={{ initial: { scale: 1 }, hover: { scale: 1.2, transition: { duration: 1.5 } } }} initial="initial" whileHover="hover"/>
+        <m.img src={image} alt={name} className="rounded-md" variants={{ hover: { scale: 1.2, transition: { duration: 1.5 } }, initial: { scale: 1 } }} initial="initial" whileHover="hover"/>
       </Link>
       <div className="flex flex-col gap-3 text-center h-20 z-20">
           <h1 className="text-3xl ">{name}</h1>

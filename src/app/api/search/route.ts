@@ -53,13 +53,13 @@ export async function GET (request: NextRequest) {
   const totalPages = Math.ceil(filteredProducts.length / PAGE_SIZE)
 
   return response.json({
-    results: paginatedProducts,
     pagination: {
-      totalResults: filteredProducts.length,
-      pageResults: paginatedProducts.length,
       page: Number(page),
+      pageResults: paginatedProducts.length,
+      resultsPerPage: PAGE_SIZE,
       totalPages,
-      resultsPerPage: PAGE_SIZE
-    }
+      totalResults: filteredProducts.length
+    },
+    results: paginatedProducts
   })
 }

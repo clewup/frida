@@ -24,7 +24,7 @@ export async function GET (request: NextRequest) {
 export async function PATCH (request: NextRequest) {
   const body = await request.json()
 
-  const { isValid, errors } = validate(body)
+  const { errors, isValid } = validate(body)
   if (!isValid) {
     return response.json(
       { error: `Invalid ${errors.join(', ')}` },
@@ -55,28 +55,28 @@ export async function PATCH (request: NextRequest) {
   // create a new cart if one does not exist
   if (!cart) {
     const cart = await prisma.cart.create({
+      data: {
+        createdBy: user,
+        items: {
+          create: {
+            createdBy: user,
+            product: {
+              connect: { id: product.id }
+            },
+            quantity: 1,
+            updatedBy: user
+          }
+        },
+        total: validProduct.price,
+        updatedBy: user,
+        user
+      },
       include: {
         items: {
           include: {
             product: true
           }
         }
-      },
-      data: {
-        createdBy: user,
-        updatedBy: user,
-        user,
-        items: {
-          create: {
-            createdBy: user,
-            updatedBy: user,
-            product: {
-              connect: { id: product.id }
-            },
-            quantity: 1
-          }
-        },
-        total: validProduct.price
       }
     })
 
@@ -90,35 +90,35 @@ export async function PATCH (request: NextRequest) {
     // add to the quantity if product already exists in the cart, otherwise create it
     if (existingItem) {
       await prisma.cart.update({
-        where: { id: cart?.id },
         data: {
           items: {
             update: {
-              where: {
-                id: existingItem.id
-              },
               data: {
                 quantity: existingItem.quantity + 1
+              },
+              where: {
+                id: existingItem.id
               }
             }
           }
-        }
+        },
+        where: { id: cart?.id }
       })
     } else {
       await prisma.cart.update({
-        where: { id: cart?.id },
         data: {
           items: {
             create: {
               createdBy: user as string,
-              updatedBy: user as string,
               product: {
                 connect: { id: product.id }
               },
-              quantity: 1
+              quantity: 1,
+              updatedBy: user as string
             }
           }
-        }
+        },
+        where: { id: cart?.id }
       })
     }
   }
@@ -127,42 +127,42 @@ export async function PATCH (request: NextRequest) {
     // deduct a quantity from the item if more than one, otherwise remove it
     if (existingItem && existingItem.quantity > 1) {
       await prisma.cart.update({
-        where: { id: cart?.id },
         data: {
           items: {
             update: {
-              where: {
-                id: existingItem.id
-              },
               data: {
                 quantity: existingItem.quantity - 1
+              },
+              where: {
+                id: existingItem.id
               }
             }
           }
-        }
+        },
+        where: { id: cart?.id }
       })
     } else {
       await prisma.cart.update({
-        where: { id: cart?.id },
         data: {
           items: {
             delete: {
               id: existingItem?.id
             }
           }
-        }
+        },
+        where: { id: cart?.id }
       })
     }
   }
 
   async function clearCart () {
     await prisma.cart.update({
-      where: { id: cart?.id },
       data: {
         items: {
           deleteMany: {}
         }
-      }
+      },
+      where: { id: cart?.id }
     })
   }
 
@@ -182,6 +182,9 @@ export async function PATCH (request: NextRequest) {
   })
 
   const totalledCart = await prisma.cart.update({
+    data: {
+      total: calculateTotal(actionedCart?.items ?? [])
+    },
     include: {
       items: {
         include: {
@@ -189,10 +192,7 @@ export async function PATCH (request: NextRequest) {
         }
       }
     },
-    where: { id: cart.id },
-    data: {
-      total: calculateTotal(actionedCart?.items ?? [])
-    }
+    where: { id: cart.id }
   })
 
   return response.json(totalledCart)
@@ -213,7 +213,7 @@ function validate (body: any) {
   if (!body.product && body.action !== 'clear') errors.push('product')
 
   return {
-    isValid: errors.length === 0,
-    errors
+    errors,
+    isValid: errors.length === 0
   }
 }

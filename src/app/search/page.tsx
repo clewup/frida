@@ -18,14 +18,14 @@ export default function Search () {
   const { get } = useApi()
 
   const [searchResults, setSearchResults] = useState<SearchResponseType>({
-    results: [],
     pagination: {
-      totalResults: 0,
-      pageResults: 0,
       page: 1,
+      pageResults: 0,
+      resultsPerPage: 0,
       totalPages: 1,
-      resultsPerPage: 0
-    }
+      totalResults: 0
+    },
+    results: []
   })
   const [isLoading, setLoading] = useState(true)
 

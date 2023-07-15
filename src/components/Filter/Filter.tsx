@@ -35,10 +35,10 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
   }
 
   const initialValues: FilterFormValues = {
-    // order is specific so that reset can occur
-    subcategory: searchParams.get('subcategory') ?? 'default',
     category: searchParams.get('category') ?? 'default',
-    sort: searchParams.get('sort') ?? 'default'
+    sort: searchParams.get('sort') ?? 'default',
+    // order is specific so that reset can occur
+    subcategory: searchParams.get('subcategory') ?? 'default'
   }
 
   function onSubmit (formValues: FormikValues) {
@@ -58,8 +58,8 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
 
       updatedQuery = {
         ...updatedQuery,
-        page: null,
-        [key]: isNotFiltered ? null : value
+        [key]: isNotFiltered ? null : value,
+        page: null
       }
     })
 
@@ -72,7 +72,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
       enableReinitialize={true}
       onSubmit={onSubmit}
     >
-      {({ values, handleChange }) => {
+      {({ handleChange, values }) => {
         return (
           <Form className="flex flex-col items-center justify-between bg-base-300 rounded-md p-2 px-5 gap-5 md:flex-row md:gap-20">
             <div className="flex flex-col gap-5 md:flex-row">
