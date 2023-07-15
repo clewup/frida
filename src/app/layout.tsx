@@ -7,7 +7,7 @@ import { LockrProvider } from '@/lib/common/contexts/LockrContext/LockrContext'
 import React from 'react'
 
 export const metadata = {
-  title: 'Store'
+  title: 'Squeaky Clean | Bath and Body Shop '
 }
 
 export default function RootLayout ({

@@ -13,7 +13,7 @@ async function getOrder (session: string) {
 }
 
 export const metadata = {
-  title: 'Store - Order Success!'
+  title: 'Squeaky Clean - Order Successful'
 }
 
 export default async function Success ({ searchParams }: PageContext) {
