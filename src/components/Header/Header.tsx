@@ -6,6 +6,7 @@ import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import { Field, Form, Formik } from 'formik'
+import Image from "next/image";
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -44,10 +45,7 @@ const Header = () => {
           visible: { opacity: 1, y: 0 }
         }} initial="hidden" animate="visible">
           <Link href="/" className="flex flex-col items-center">
-            <BagIcon size={30} className="text-primary" />
-            <p className="text-white text-[8px]">
-              STORE
-            </p>
+            <Image src="https://res.cloudinary.com/dliog6kq6/image/upload/v1689457765/Logo_kn5qbu.png" alt="logo" width={200} height={100}/>
           </Link>
         </m.div>
 

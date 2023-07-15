@@ -31,19 +31,19 @@ export default async function Home () {
       image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1686525461/olivia_ycexg8.avif',
       name: 'Olivia Bennett',
       rating: 4,
-      review: 'This luxury bath/skincare brand is an absolute game-changer, leaving my skin nourished, hydrated, and glowing like never before!'
+      review: 'Squeaky Clean is an absolute game-changer, leaving my skin nourished, hydrated, and glowing like never before!'
     },
     {
       image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1686525675/marcus_afoq3x.avif',
       name: 'Marcus Sullivan',
       rating: 5,
-      review: 'I\'ve tried countless skincare brands, but this luxury bath/skincare brand exceeded all expectations, giving my skin a renewed vitality and a silky-smooth texture.'
+      review: 'I\'ve tried countless skincare brands, but Squeaky Clean exceeded all expectations, giving my skin a renewed vitality and a silky-smooth texture.'
     },
     {
       image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1686525778/emily_rr3whw.avif',
       name: 'Emily Anderson',
       rating: 4,
-      review: 'I\'m a skincare enthusiast, and let me tell you, this luxury bath/skincare brand is a true gem. Its innovative formulas have transformed my skincare routine, leaving my complexion radiant and youthful.'
+      review: 'I\'m a skincare enthusiast, and let me tell you, Squeaky Clean is a true gem. Its innovative formulas have transformed my skincare routine, leaving my complexion radiant and youthful.'
     }
   ]
 
