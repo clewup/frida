@@ -1,5 +1,6 @@
 'use client'
 
+import Button from "@/components/Button/Button";
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type Category, type Subcategory } from '@prisma/client'
 import cx from 'classnames'
@@ -40,12 +41,13 @@ const DetailedProduct: FC<DetailedProductProps> = ({ product }) => {
                     <p className="text-3xl">£{Number(price).toFixed(2)}</p>
                     {stock > 0
                       ? (
-                            <button
-                                className={cx('btn btn-lg btn-primary', { loading: isLoading })}
+                            <Button
+                                isLoading={isLoading}
                                 onClick={async () => await addToCart(product)}
                             >
                                 <CartIcon />
-                            </button>
+                                Add to cart
+                            </Button>
                         )
                       : (
                             <p>Out of Stock</p>

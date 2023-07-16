@@ -1,5 +1,6 @@
 'use client'
 
+import Button from "@/components/Button/Button";
 import Filter from '@/components/Filter/Filter'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Product from '@/components/Product/Product'
@@ -57,7 +58,7 @@ export default function Search () {
   }, [searchParams])
 
   return (
-    <PageWrapper className="relative flex flex-col gap-5 pb-20 min-h-screen-header">
+    <PageWrapper className="relative flex flex-col gap-5 pb-24 min-h-screen-header">
       <Filter searchResults={searchResults} />
 
       {isLoading
@@ -74,34 +75,25 @@ export default function Search () {
         </div>
           )}
 
-      <div className="btn-group absolute bottom-0 mb-5">
+      <div className="flex my-5 absolute bottom-0 left-[50%] -translate-x-[50%]">
         {Array.from(
           { length: searchResults.pagination.totalPages },
           (_, index) => index + 1
         ).map((pageNumber, index) => {
           return (
-            <button
+            <Button
               key={index}
-              className={cx(
-                'btn',
-                {
-                  'btn-ghost': pageNumber !== searchResults.pagination.page
-                },
-                {
-                  'btn-secondary':
-                    pageNumber === searchResults.pagination.page
-                },
-                {
-                  loading: searchResults.pagination.page > 1 && isLoading
-                }
+              className={cx('aspect-square rounded-none',
+                  pageNumber === searchResults.pagination.page ? 'bg-neutral-black' : 'bg-white',
               )}
+              isLoading={searchResults.pagination.page > 1 && isLoading}
               onClick={() => {
                 const updatedQuery = { ...queryParams, page: pageNumber }
                 setQueryParams(updatedQuery)
               }}
             >
               {pageNumber}
-            </button>
+            </Button>
           )
         })}
       </div>

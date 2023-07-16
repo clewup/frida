@@ -1,5 +1,6 @@
 'use client'
 
+import Button from "@/components/Button/Button";
 import OrderProduct from '@/components/OrderProduct/OrderProduct'
 import metadata from '@/constants/metadata'
 import { useCart } from '@/contexts/CartContext/CartContext'
@@ -39,7 +40,7 @@ const Order: FC<OrderProps> = ({ order }) => {
             </span>
               <span>
                 <Link href="/">
-                    <button className="btn btn-primary btn-lg">Continue Shopping</button>
+                    <Button>Continue Shopping</Button>
                 </Link>
             </span>
           </div>

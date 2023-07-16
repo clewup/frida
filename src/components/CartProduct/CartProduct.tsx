@@ -1,5 +1,6 @@
 'use client'
 
+import Button from "@/components/Button/Button";
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type Product } from '@prisma/client'
 import cx from 'classnames'
@@ -29,13 +30,12 @@ const CartProduct: FC<CartProductProps> = ({ product, quantity }) => {
         </span>
       </div>
 
-        <button
-            type="button"
-            className={cx('btn btn-ghost btn-sm', { loading: isLoading })}
+        <Button
+            className="h-fit bg-transparent text-black hover:border-transparent"
             onClick={async () => await removeFromCart(product)}
         >
             <RemoveIcon size={20} />
-        </button>
+        </Button>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import Hero from "@/components/Hero/Hero";
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Product from '@/components/Product/Product'
 import Promotion from '@/components/Promotion/Promotion'
@@ -49,11 +50,16 @@ export default async function Home () {
 
   return (
     <PageWrapper>
-      <Promotion/>
+      <Hero/>
 
       <div className="flex flex-col gap-20 mt-10">
-        <div className="flex flex-col gap-5">
-          <FallingText className="text-4xl font-bold md:text-9xl">JUST DROPPED</FallingText>
+        <div className="flex flex-col gap-10">
+
+          <div className="flex flex-col items-center gap-5">
+            <p className="text-xl underline">JUST DROPPED</p>
+            <p className="text-5xl">Our new arrivals</p>
+          </div>
+
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
             {latestProducts.splice(0, 4).map((product, index) => (
@@ -62,21 +68,26 @@ export default async function Home () {
           </div>
         </div>
 
-        <div className="flex flex-col gap-5">
-          <h1 className="text-4xl font-bold md:text-9xl">BROWSE BY CATEGORY</h1>
+        <div className="flex flex-col gap-10">
+          <div className="flex flex-col items-center">
+            <p className="text-xl underline">SHOP BY CATEGORY</p>
+          </div>
 
-          <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categoriesWithSubcategories.length}`}>
+          <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categoriesWithSubcategories.length} min-h-[50vh] items-center`}>
             {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
-                <Category key={index} categoryWithSubcategories={categoryWithSubcategories}/>
+                <Category key={index} categoryWithSubcategories={categoryWithSubcategories} className="odd:h-full even:h-[80%]"/>
             ))}
           </div>
         </div>
 
-        <div className="bg-primary rounded-md p-5">
+        <div className="bg-base-200 rounded-md py-20 px-5 flex flex-col gap-10 relative overflow-hidden">
+          <h1 className="text-5xl pl-40 font-semibold">Happy customers</h1>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-20">
             {mockTestimonials.map((testimonial, index) => (<Testimonial key={index} testimonial={testimonial}/>))}
           </div>
           <p className="text-sm">* Fictional testimonials</p>
+
+          <h1 className="absolute -bottom-9 left-[50%] -translate-x-[50%] text-9xl font-bold whitespace-nowrap text-base-300">customer reviews</h1>
         </div>
       </div>
     </PageWrapper>

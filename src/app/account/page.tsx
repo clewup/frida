@@ -1,5 +1,6 @@
 'use client'
 
+import Button from "@/components/Button/Button";
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import constants from '@/constants/constants'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
@@ -29,20 +30,20 @@ export default function Account () {
   return (
         <PageWrapper className="gap-20">
             <div className="flex flex-col gap-5">
-                <h1 className="text-5xl">ACCOUNT INFORMATION</h1>
+                <h1 className="text-5xl">Account information</h1>
                 <span>
                     <h1 className="text-2xl font-bold">{user?.name}</h1>
                     <p className="text-xl">{user?.email}</p>
                 </span>
                 <span>
-                    <button className="btn btn-primary" onClick={signOut}>
-                        Log Out
-                    </button>
+                    <Button onClick={signOut}>
+                        Log out
+                    </Button>
                 </span>
             </div>
 
             <div className="flex flex-col gap-5">
-                <h1 className="text-5xl">ORDER HISTORY</h1>
+                <h1 className="text-5xl">Your orders</h1>
                 <table className="table table-zebra">
                     <thead>
                         <tr>

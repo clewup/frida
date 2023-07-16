@@ -1,5 +1,6 @@
 'use client'
 
+import Button from "@/components/Button/Button";
 import CartProduct from '@/components/CartProduct/CartProduct'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import { useCart } from '@/contexts/CartContext/CartContext'
@@ -75,12 +76,13 @@ export default function Cart () {
                 </p>
               </div>
 
-                  <button
-                      className={cx('btn btn-primary btn-lg mt-5 w-full', { loading: isRedirecting })}
+                  <Button
+                      className="text-2xl mt-5"
+                      isLoading={isRedirecting}
                       disabled={!cart?.items || cart?.items?.length === 0}
                   >
                     Checkout
-                  </button>
+                  </Button>
             </Form>
           )
         }}

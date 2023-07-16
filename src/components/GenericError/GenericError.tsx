@@ -1,3 +1,4 @@
+import Button from "@/components/Button/Button";
 import { useRouter } from 'next/navigation'
 import React, { type FC } from 'react'
 
@@ -17,13 +18,13 @@ const GenericError: FC<GenericErrorProps> = ({ error, reset }) => {
                   <h3 className="font-bold text-2xl text-center">Uh oh! Something went wrong!</h3>
                   {error && <p className="pt-4 text-center">Error: {error.message}</p>}
                   <div className="modal-action justify-center gap-10">
-                      <button className="btn btn-primary" onClick={() => { router.push('/') }}>
+                      <Button onClick={() => { router.push('/') }}>
                           Home
-                      </button>
+                      </Button>
                       {reset && (
-                          <button className="btn btn-primary" onClick={reset}>
+                          <Button onClick={reset}>
                               Try Again
-                          </button>
+                          </Button>
                       )}
                   </div>
               </div>

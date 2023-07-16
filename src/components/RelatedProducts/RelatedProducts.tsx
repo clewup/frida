@@ -25,7 +25,7 @@ const RelatedProducts: FC<RelatedProductsProps> = ({ product }) => {
 
   return (
       <div className="flex flex-col gap-5">
-          <h1 className="text-4xl font-bold md:text-5xl">RELATED PRODUCTS</h1>
+          <h1 className="text-xl underline py-5 text-center">RELATED PRODUCTS</h1>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-5">
               {products.map((product, index) => (<Product key={index} product={product}/>))}
           </div>
