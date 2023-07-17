@@ -5,7 +5,7 @@ import useApi from '@/lib/common/hooks/useApi/useApi'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
-import { Field, Form, Formik } from 'formik'
+import cx from "classnames";
 import Image from "next/image";
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -20,17 +20,16 @@ import constants from '@/constants/constants'
 import { motion as m } from 'framer-motion'
 
 const Header = () => {
-  const { queryParams, setQueryParams } = useQueryParams()
-  const searchParams = useSearchParams()
   const { user } = useLockr()
   const { signIn } = useAuth({ redirectUri: constants.APP_URL })
   const { get } = useApi()
 
-  const [categoriesWithSubcategories, setCategoriesWithSubcategories] = useState<CategoryWithSubcategoriesType[]>([])
+  const [categories, setCategories] = useState<CategoryWithSubcategoriesType[]>([])
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   async function getCategoriesWithSubcategories () {
-    const categoriesWithSubcategories = await get<CategoryWithSubcategoriesType[]>('/api/category')
-    setCategoriesWithSubcategories(categoriesWithSubcategories)
+    const categories = await get<CategoryWithSubcategoriesType[]>('/api/category')
+    setCategories(categories)
   }
 
   useEffect(() => {
@@ -60,22 +59,35 @@ const Header = () => {
               </Link>
             </m.div>
 
-            {categoriesWithSubcategories.length > 0 &&
-                <m.div variants={{
+            {categories.length > 0 &&
+                <m.ul variants={{
                   hidden: { opacity: 0, x: -75 },
                   visible: { opacity: 1, transition: { delay: 0.5 }, x: 0 }
-                }} initial="hidden" animate="visible" className="hidden md:block">
-                  {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
-                      <div key={index} className="dropdown dropdown-hover">
-                        <label tabIndex={0} className="mr-10 text-white text-lg m-1 capitalize"><Link href={`/search?category=${categoryWithSubcategories.category}`}>{categoryWithSubcategories.category}</Link></label>
-                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                          {categoryWithSubcategories.subcategories.map((subcategory, index) => (
-                              <li key={index}><Link href={`/search?category=${categoryWithSubcategories.category}&subcategory=${subcategory}`}>{subcategory}</Link></li>
-                          ))}
-                        </ul>
-                      </div>
-                  ))}
-                </m.div>
+                }} initial="hidden" animate="visible" className="flex gap-10 text-white">
+                  {categories.map(({category, subcategories}, index) => {
+                    return (
+                        <li key={index} className="cursor-pointer">
+                          <Link href={`/search?category=${category}`}
+                                onMouseEnter={() => setHoveredCategory(category)}
+                          >
+                            <button type="button" aria-haspopup="menu" className="text-lg">{category}</button>
+                          </Link>
+
+                          <div className={cx("absolute bg-white text-black px-5 py-3 text-lg rounded-md z-50 mt-2", hoveredCategory === category ? "block" : "hidden")} onMouseLeave={() => setHoveredCategory(null)}>
+                            <ul className="flex flex-col gap-3 w-40">
+                              {subcategories.map((subcategory, index) =>
+                                      (<li key={index}>
+                                        <Link href={`/search?category=${category}&subcategory=${subcategory}`}>
+                                          <button type="button" className="text-lg">{subcategory}</button>
+                                        </Link>
+                                      </li>)
+                              )}
+                            </ul>
+                          </div>
+                        </li>
+                    )
+                  })}
+                </m.ul>
             }
 
           </div>
