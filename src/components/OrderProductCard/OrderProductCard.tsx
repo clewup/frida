@@ -3,12 +3,12 @@
 import { type Product } from '@prisma/client'
 import React, { type FC } from 'react'
 
-interface OrderProductProps {
+interface OrderProductCardProps {
   product: Product
   quantity: number
 }
 
-const OrderProduct: FC<OrderProductProps> = ({ product, quantity }) => {
+const OrderProductCard: FC<OrderProductCardProps> = ({ product, quantity }) => {
   const { image, name, price } = product
 
   return (
@@ -27,4 +27,4 @@ const OrderProduct: FC<OrderProductProps> = ({ product, quantity }) => {
   )
 }
 
-export default OrderProduct
+export default OrderProductCard

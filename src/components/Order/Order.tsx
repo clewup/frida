@@ -1,7 +1,7 @@
 'use client'
 
 import Button from "@/components/Button/Button";
-import OrderProduct from '@/components/OrderProduct/OrderProduct'
+import OrderProductCard from '@/components/OrderProductCard/OrderProductCard'
 import metadata from '@/constants/metadata'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { runFireworks } from '@/lib/confetti'
@@ -29,7 +29,7 @@ const Order: FC<OrderProps> = ({ order }) => {
                 <CheckIcon className="text-secondary"/>
             </span>
               <span className="flex flex-col gap-5 text-left md:w-1/2">
-                  {order.items.map((item, index) => (<OrderProduct key={index} product={item.product} quantity={item.quantity}/>))}
+                  {order.items.map((item, index) => (<OrderProductCard key={index} product={item.product} quantity={item.quantity}/>))}
               </span>
               <span>
                 <p className="text-2xl">Total: £{Number(order.total)}</p>

@@ -2,12 +2,10 @@
 
 import Button from "@/components/Button/Button";
 import { useCart } from '@/contexts/CartContext/CartContext'
-import { type Category, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
-import cx from 'classnames'
-import Link from 'next/link'
+import { type Category, type Subcategory } from '@prisma/client'
 import React, { type FC } from 'react'
-import { ShoppingCart as CartIcon } from 'react-feather'
-import { motion as m } from 'framer-motion'
+import { Package as PackageIcon, ShoppingCart as CartIcon } from 'react-feather'
+import { type Product as PrismaProduct } from '.prisma/client'
 
 interface ProductProps {
   product: PrismaProduct & { category: Category, subcategory: Subcategory }
@@ -16,40 +14,47 @@ interface ProductProps {
 const Product: FC<ProductProps> = ({ product }) => {
   const { addToCart, isLoading } = useCart()
 
-  const { id, image, name, price, stock, subcategory: { name: subcategory } } = product
+  const { description, image, name, price, stock } = product
 
   return (
-    <m.div variants={{
-      hidden: { opacity: 0, y: 75 },
-      visible: { opacity: 1, y: 0 }
-    }} initial="hidden" animate="visible" className="border-[1px] rounded-md flex flex-col justify-between overflow-hidden items-center">
-          <Link href={`/product/${id}`} className="p-10 z-0">
-            <m.img src={image} alt={name} className="rounded-md" variants={{ hover: { scale: 1.2, transition: { duration: 1.5 } }, initial: { scale: 1 } }} initial="initial" whileHover="hover"/>
-          </Link>
-          <div className="flex flex-col gap-3 text-center z-20 px-5">
-              <h2 className="text-base-300">{subcategory}</h2>
-              <h1 className="text-3xl ">{name}</h1>
+        <div className="border-[1px] rounded-md flex flex-col w-full md:flex-row">
+            <div className="p-10 md:w-1/2">
+                <img src={image} alt={name} className="rounded-md" />
+            </div>
+            <div className="flex flex-col justify-between p-10 md:w-1/2">
+                <div className="text-center">
+                    <h1 className="text-3xl h-20">{name}</h1>
+                    <div className="p-2">
+                        <p>{description}</p>
+                    </div>
+                </div>
 
-              <p className="text-3xl">£{Number(price).toFixed(2)}</p>
-          </div>
+                <div className="border-y-2 p-4">
+                        <span className="flex gap-5 justify-center">
+                            <PackageIcon/>
+                            <p>Free shipping over £30!</p>
+                        </span>
+                </div>
 
-
-      <div className="p-10 flex justify-between items-center">
-          {stock > 0
-            ? (
-                <Button
-                    onClick={async () => await addToCart(product)}
-                    isLoading={isLoading}
-                >
-                    <CartIcon />
-                    Add to cart
-                </Button>
-              )
-            : (
-              <p>Out of Stock</p>
-              )}
-      </div>
-    </m.div>
+                <div className="p-10 flex justify-between items-center">
+                    <p className="text-3xl">£{Number(price).toFixed(2)}</p>
+                    {stock > 0
+                      ? (
+                            <Button
+                                isLoading={isLoading}
+                                onClick={async () => await addToCart(product)}
+                            >
+                                <CartIcon />
+                                Add to cart
+                            </Button>
+                        )
+                      : (
+                            <p>Out of Stock</p>
+                        )}
+                </div>
+            </div>
+        </div>
   )
 }
+
 export default Product

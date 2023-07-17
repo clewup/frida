@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero/Hero";
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
-import Product from '@/components/Product/Product'
+import ProductCard from '@/components/ProductCard/ProductCard'
 import Testimonial from '@/components/Testimonial/Testimonial'
 import constants from '@/constants/constants'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
@@ -61,7 +61,7 @@ export default async function Home () {
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
             {latestProducts.splice(0, 4).map((product, index) => (
-                <Product product={product} key={index} />
+                <ProductCard product={product} key={index} />
             ))}
           </div>
         </div>

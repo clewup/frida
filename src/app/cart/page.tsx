@@ -1,7 +1,7 @@
 'use client'
 
 import Button from "@/components/Button/Button";
-import CartProduct from '@/components/CartProduct/CartProduct'
+import CartProductCard from '@/components/CartProductCard/CartProductCard'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
@@ -61,7 +61,7 @@ export default function Cart () {
                   cart &&
                   cart.items?.length > 0 &&
                   cart.items.map((item, index) => (
-                    <CartProduct key={index} product={item.product} quantity={item.quantity} />
+                    <CartProductCard key={index} product={item.product} quantity={item.quantity} />
                   ))}
               </div>
 

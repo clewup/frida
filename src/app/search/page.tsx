@@ -3,7 +3,7 @@
 import Button from "@/components/Button/Button";
 import Filter from '@/components/Filter/Filter'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
-import Product from '@/components/Product/Product'
+import ProductCard from '@/components/ProductCard/ProductCard'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type SearchRequestType, type SearchResponseType } from '@/types/searchTypes'
@@ -70,7 +70,7 @@ export default function Search () {
         : (
         <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
           {searchResults.results.map((product, index) => (
-            <Product product={product} key={index} />
+            <ProductCard product={product} key={index} />
           ))}
         </div>
           )}

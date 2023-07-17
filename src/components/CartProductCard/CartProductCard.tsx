@@ -3,16 +3,15 @@
 import Button from "@/components/Button/Button";
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type Product } from '@prisma/client'
-import cx from 'classnames'
 import React, { type FC } from 'react'
 import { Trash2 as RemoveIcon } from 'react-feather'
 
-interface CartProductProps {
+interface CartProductCardProps {
   product: Product
   quantity: number
 }
 
-const CartProduct: FC<CartProductProps> = ({ product, quantity }) => {
+const CartProductCard: FC<CartProductCardProps> = ({ product, quantity }) => {
   const { isLoading, removeFromCart } = useCart()
 
   const { image, name, price } = product
@@ -40,4 +39,4 @@ const CartProduct: FC<CartProductProps> = ({ product, quantity }) => {
   )
 }
 
-export default CartProduct
+export default CartProductCard
