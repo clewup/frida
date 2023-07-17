@@ -1,10 +1,8 @@
 import Hero from "@/components/Hero/Hero";
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Product from '@/components/Product/Product'
-import Promotion from '@/components/Promotion/Promotion'
 import Testimonial from '@/components/Testimonial/Testimonial'
 import constants from '@/constants/constants'
-import FallingText from '@/lib/framer-motion/components/FallingText'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import { type TestimonialType } from '@/types/testimonialTypes'
 import { type Category as PrismaCategory, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
@@ -25,7 +23,7 @@ async function getCategoriesWithSubcategories (): Promise<CategoryWithSubcategor
 
 export default async function Home () {
   const latestProducts = await getLatestProducts()
-  const categoriesWithSubcategories = await getCategoriesWithSubcategories()
+  const categories = await getCategoriesWithSubcategories()
 
   const mockTestimonials: TestimonialType[] = [
     {
@@ -73,9 +71,9 @@ export default async function Home () {
             <p className="text-xl underline">SHOP BY CATEGORY</p>
           </div>
 
-          <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categoriesWithSubcategories.length} min-h-[50vh] items-center`}>
-            {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
-                <Category key={index} categoryWithSubcategories={categoryWithSubcategories} className="odd:h-full even:h-[80%]"/>
+          <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categories.length} min-h-[50vh] items-center`}>
+            {categories.map((category, index) => (
+                <Category key={index} category={category} className="odd:h-full even:h-[80%]"/>
             ))}
           </div>
         </div>
