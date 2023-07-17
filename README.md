@@ -23,6 +23,8 @@ Squeaky Clean aims to provide users with a seamless online shopping experience. 
 - Next.js
 - TypeScript
 - Stripe (Payment Gateway)
+- Prisma
+- Postgres
 - Framer Motion
 - Dexie
 
