@@ -1,34 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Squeaky Clean
+Squeaky Clean is an eCommerce platform that allows users to browse, search and order self-care products online.
 
-## Getting Started
+## Table of Contents
 
-First, run the development server:
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Screenshots](#screenshots)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Project Overview
+Squeaky Clean aims to provide users with a seamless online shopping experience. The platform offers a variety of products across different categories, allowing customers to find and purchase their desired items easily. With secure payment options and efficient order processing, Squeaky Clean ensures a convenient and reliable shopping experience for users.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
+- User authentication using my authentication service, [Lockr](https://github.com/clewup/lockr).
+- Product catalogue with detailed information including images, descriptions and pricing.
+- Cart functionality to add, update and remove items.
+- Seamless Stripe checkout integration with support for various payment options.
+- Order management for users to track their purchases.
+- Responsive design for optimal user experience across various devices.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies
+- Next.js
+- TypeScript
+- Stripe (Payment Gateway)
+- Framer Motion
+- Dexie
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Screenshots
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Screenshot](https://res.cloudinary.com/dliog6kq6/image/upload/v1689628898/SqueakyClean_Condensed_zgrv4e.jpg)
