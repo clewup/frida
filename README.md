@@ -27,6 +27,9 @@ Squeaky Clean aims to provide users with a seamless online shopping experience. 
 - Postgres
 - Framer Motion
 - Dexie
+- Tailwind
+- Formik
+- Yup
 
 ## Screenshots
 
