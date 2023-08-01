@@ -32,8 +32,8 @@ export default async function ProductSlug ({ params }: PageContext) {
 
   return (
       <PageWrapper className="flex flex-col gap-5">
-        <div className="text-sm breadcrumbs">
-          <ul>
+        <div className="text-sm">
+          <ul className="flex gap-2">
             <li>
               <Link href="/search">Products</Link>
             </li>
