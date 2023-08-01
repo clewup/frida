@@ -74,19 +74,19 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
     >
       {({ handleChange, values }) => {
         return (
-          <Form className="flex flex-col items-center justify-between bg-base-300 rounded-md p-2 px-5 gap-5 md:flex-row md:gap-20">
+          <Form className="flex flex-col items-center justify-between bg-theme-gray rounded-md p-2 px-5 gap-5 md:flex-row md:gap-20">
             <div className="flex flex-col gap-5 md:flex-row">
-              <span className="form-control flex-row gap-2">
-                <label className="label">Category</label>
+              <span className="flex gap-2 items-center">
+                <label>Category</label>
                 <Field name="category">
                   {() => (
                     <select
                       name="category"
-                      className="select w-52 md:w-60"
+                      className="border-b-[2px] border-gray-400 py-2 w-52 md:w-60 focus:outline-0"
                       value={values.category}
                       onChange={handleChange}
                     >
-                      <option value="default">Select...</option>
+                      <option value="default">All</option>
                       {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
                         <option key={index} value={categoryWithSubcategories.category}>
                           {categoryWithSubcategories.category}
@@ -96,18 +96,18 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   )}
                 </Field>
               </span>
-              <span className="form-control flex-row gap-2">
-                <label className="label">Subcategory</label>
+              <span className="flex gap-2 items-center">
+                <label >Subcategory</label>
                 <Field name="subcategory">
                   {() => (
                       <select
                           name="subcategory"
-                          className="select w-52 md:w-60"
+                          className="border-b-[2px] border-gray-400 py-2 w-52 md:w-60 focus:outline-0"
                           value={values.subcategory}
                           onChange={handleChange}
                           disabled={!values.category || values.category === 'default'}
                       >
-                        <option value="default">Select...</option>
+                        <option value="default">All</option>
                         {categoriesWithSubcategories.find((categoryWithSubcategories) => categoryWithSubcategories.category === values.category)?.subcategories.map((subcategory, index) => (
                             <option key={index} value={subcategory}>
                               {subcategory}
@@ -120,17 +120,17 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
             </div>
 
             <div className="flex gap-5 items-center">
-              <span className="form-control flex-row gap-2">
+              <span className="flex gap-2 items-center">
                 <label className="label">Sort</label>
                 <Field name="sort">
                   {() => (
                     <select
                       name="sort"
-                      className="select select-bordered w-44"
+                      className="border-b-[2px] border-gray-400 py-2 md:w-40 focus:outline-0"
                       value={values.sort}
                       onChange={handleChange}
                     >
-                      <option value="default">Select...</option>
+                      <option value="default">Any</option>
                       <option value="price-asc">Price Low-High</option>
                       <option value="price-desc">Price High-Low</option>
                     </select>

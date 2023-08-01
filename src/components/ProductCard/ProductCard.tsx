@@ -27,7 +27,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             <m.img src={image} alt={name} className="rounded-md" variants={{ hover: { scale: 1.2, transition: { duration: 1.5 } }, initial: { scale: 1 } }} initial="initial" whileHover="hover"/>
           </Link>
           <div className="flex flex-col gap-3 text-center z-20 px-5">
-              <h2 className="text-base-300">{subcategory}</h2>
+              <h2 className="text-theme-gray">{subcategory}</h2>
               <h1 className="text-3xl ">{name}</h1>
 
               <p className="text-3xl">£{Number(price).toFixed(2)}</p>

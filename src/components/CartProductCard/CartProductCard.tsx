@@ -30,6 +30,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ product, quantity }) => {
       </div>
 
         <Button
+            type="button"
             className="h-fit bg-transparent text-black hover:border-transparent"
             onClick={async () => await removeFromCart(product)}
         >

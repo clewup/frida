@@ -83,8 +83,8 @@ export default function Search () {
           return (
             <Button
               key={index}
-              className={cx('aspect-square rounded-none',
-                  pageNumber === searchResults.pagination.page ? 'bg-neutral-black' : 'bg-white',
+              className={cx('aspect-square rounded-none text-black',
+                  pageNumber === searchResults.pagination.page ? 'bg-theme-black' : 'bg-gray-400',
               )}
               isLoading={searchResults.pagination.page > 1 && isLoading}
               onClick={() => {

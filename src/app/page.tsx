@@ -30,19 +30,19 @@ export default async function Home () {
       image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1686525461/olivia_ycexg8.avif',
       name: 'Olivia Bennett',
       rating: 4,
-      review: 'Squeaky Clean is an absolute game-changer, leaving my skin nourished, hydrated, and glowing like never before!'
+      review: 'Wow! The furniture store of dreams! Stylish selection, fantastic prices, and top-notch service. My living room is now magazine-worthy! A must-visit for every home decorator. 5 stars!"'
     },
     {
       image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1686525675/marcus_afoq3x.avif',
       name: 'Marcus Sullivan',
       rating: 5,
-      review: 'I\'ve tried countless skincare brands, but Squeaky Clean exceeded all expectations, giving my skin a renewed vitality and a silky-smooth texture.'
+      review: 'Best furniture shopping experience ever! I found my perfect dining set in no time. The staff was incredibly helpful, and the quality is unmatched. This store nailed it! Highly recommended!'
     },
     {
       image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1686525778/emily_rr3whw.avif',
       name: 'Emily Anderson',
       rating: 4,
-      review: 'I\'m a skincare enthusiast, and let me tell you, Squeaky Clean is a true gem. Its innovative formulas have transformed my skincare routine, leaving my complexion radiant and youthful.'
+      review: '5/5 for this gem of a furniture store! From cozy couches to elegant bedroom sets, they\'ve got it all. Plus, the delivery was a breeze. Say goodbye to bland decor – this place transforms your space into pure bliss!'
     }
   ]
 
@@ -78,14 +78,14 @@ export default async function Home () {
           </div>
         </div>
 
-        <div className="bg-base-200 rounded-md py-20 px-5 flex flex-col gap-10 relative overflow-hidden">
+        <div className="bg-theme-gray rounded-md py-20 px-5 flex flex-col gap-10 relative overflow-hidden">
           <h1 className="text-5xl pl-40 font-semibold">Happy customers</h1>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-20">
             {mockTestimonials.map((testimonial, index) => (<Testimonial key={index} testimonial={testimonial}/>))}
           </div>
           <p className="text-sm">* Fictional testimonials</p>
 
-          <h1 className="absolute -bottom-9 left-[50%] -translate-x-[50%] text-9xl font-bold whitespace-nowrap text-base-300">customer reviews</h1>
+          <h1 className="absolute -bottom-9 left-[50%] -translate-x-[50%] text-9xl font-bold whitespace-nowrap opacity-10">customer reviews</h1>
         </div>
       </div>
     </PageWrapper>

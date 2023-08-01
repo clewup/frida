@@ -9,42 +9,20 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
-  daisyui: {
-    themes: [
-      {
-        store: {
-          accent: '#BFFF00',
-          'base-100': '#FFFFFF',
-          error: '#d9534f',
-          info: '#3ABFF8',
-          neutral: '#FFFFFF',
-          primary: '#BFFF00',
-          secondary: '#ff3478',
-          success: '#198754',
-          warning: '#FBBD23'
-        }
-      }
-    ]
-  },
-  // eslint-disable-next-line no-undef
-  plugins: [require('daisyui')],
+  plugins: [],
   theme: {
     extend: {
       colors: {
-        accent: '#BFFF00',
-        'base-100': '#FFFFFF',
-        error: '#d9534f',
-        info: '#3ABFF8',
-        neutral: '#FFFFFF',
-        'neutral-black': '#1c211f',
-        'neutral-mint': '#ddece0',
-        primary: '#BFFF00',
-        secondary: '#ff3478',
-        success: '#198754',
-        warning: '#FBBD23'
+        theme: {
+          white: '#FFFFFF',
+          gray: '#efefef',
+          black: '#1c211f',
+          mint: '#ddece0',
+        },
       },
       fontFamily: {
-        sans: ['Mabry', ...defaultTheme.fontFamily.sans]
+        sans: ['Mabry', ...defaultTheme.fontFamily.sans],
+        druk: ['Druk']
       },
       height: {
         'screen-header': '90vh'

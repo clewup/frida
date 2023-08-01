@@ -9,7 +9,7 @@ import PaymentIcon from 'react-payment-icons'
 const Footer = () => {
   return (
         <div>
-            <span className="px-5 divider text-base-300 md:px-64">All major payment methods accepted!</span>
+            <div className="mt-5 px-5 text-center w-full md:px-64">All major payment methods accepted!</div>
             <div className="flex justify-center pb-5 items-center">
                 <PaymentIcon id="visa"
                              style={{ margin: 10, width: 50 }}
@@ -22,7 +22,7 @@ const Footer = () => {
                              className="payment-icon" />
                 <img src="https://res.cloudinary.com/dliog6kq6/image/upload/v1686519110/klarna_eznp8a.png" width={50} className="h-[32px] w-[50px] m-[10px] rounded-[2px]"/>
             </div>
-            <div className="bg-neutral-black flex flex-col gap-20 text-white m-5 rounded-md px-40 pt-20 pb-5">
+            <div className="bg-theme-black flex flex-col gap-20 text-white m-5 rounded-md px-40 py-10">
                 <div className="flex flex-row justify-between">
                     <span className="flex flex-col gap-2">
                     <h1 className="text-xl font-bold">Help and Information</h1>
@@ -48,7 +48,7 @@ const Footer = () => {
                 </div>
 
                 <div className="flex justify-between">
-                    <p>© 2023 Squeaky Clean</p>
+                    <p>© 2023 FRIDA</p>
                     <span className="flex gap-10">
                     <p>Privacy Policy</p>
                     <p>Terms</p>

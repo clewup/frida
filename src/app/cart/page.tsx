@@ -52,7 +52,7 @@ export default function Cart () {
 
                 {!isLoading && (!cart?.items?.length) && (
                     <div className="flex flex-col gap-5 p-10 items-center">
-                      <CartIcon className="my-5 text-secondary"/>
+                      <CartIcon className="my-5 text-theme-black"/>
                       <p className="text-2xl text-center">Your cart is empty.</p>
                     </div>
                 )}
@@ -65,7 +65,7 @@ export default function Cart () {
                   ))}
               </div>
 
-              <span className="border-b-[1px] my-5 border-neutral" />
+              <span className="border-b-[1px] my-5 border-white" />
 
               <div className="flex justify-end">
                 <p className="text-2xl">

@@ -37,7 +37,7 @@ const Header = () => {
   }, [])
 
   return (
-      <div className="w-full bg-neutral-black pb-5">
+      <div className="w-full bg-theme-black pb-5">
         <Marquee>
           <div className="py-5 flex gap-20 items-center">
             <p className="text-white">FREE SHIPPING ON ORDERS OVER £30</p>
@@ -55,7 +55,7 @@ const Header = () => {
               visible: { opacity: 1, y: 0 }
             }} initial="hidden" animate="visible">
               <Link href="/" className="flex flex-col items-center">
-                <Image src="https://res.cloudinary.com/dliog6kq6/image/upload/v1689457765/Logo_kn5qbu.png" alt="logo" width={160} height={100}/>
+                <h1 className="font-druk text-white text-4xl">FRIDA</h1>
               </Link>
             </m.div>
 
