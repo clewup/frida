@@ -25,7 +25,7 @@ const Header = () => {
   const { get } = useApi()
 
   const [categories, setCategories] = useState<CategoryWithSubcategoriesType[]>([])
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
 
   async function getCategoriesWithSubcategories () {
     const categories = await get<CategoryWithSubcategoriesType[]>('/api/category')
@@ -37,7 +37,7 @@ const Header = () => {
   }, [])
 
   return (
-      <div className="w-full bg-theme-black pb-5">
+      <div className="w-full bg-theme-black">
         <Marquee>
           <div className="py-5 flex gap-20 items-center">
             <p className="text-white">FREE SHIPPING ON ORDERS OVER £30</p>
@@ -48,7 +48,7 @@ const Header = () => {
           </div>
         </Marquee>
 
-        <div className="flex items-center justify-between px-5 md:px-10">
+        <div className="flex items-center justify-between pb-5 md:px-40">
           <div className="flex gap-20 items-center pr-5 md:pr-0">
             <m.div variants={{
               hidden: { opacity: 0, y: -75 },
@@ -68,28 +68,16 @@ const Header = () => {
                     return (
                         <li key={index} className="cursor-pointer">
                           <Link href={`/search?category=${category}`}
-                                onMouseEnter={() => setHoveredCategory(category)}
+                                onMouseEnter={() => setHoveredCategory(index)}
+                                onClick={() => setHoveredCategory(null)}
                           >
                             <button type="button" aria-haspopup="menu" className="text-lg">{category}</button>
                           </Link>
-
-                          <div className={cx("absolute bg-white text-black px-5 py-3 text-lg rounded-md z-50 mt-2", hoveredCategory === category ? "block" : "hidden")} onMouseLeave={() => setHoveredCategory(null)}>
-                            <ul className="flex flex-col gap-3 w-40">
-                              {subcategories.map((subcategory, index) =>
-                                      (<li key={index}>
-                                        <Link href={`/search?category=${category}&subcategory=${subcategory}`}>
-                                          <button type="button" className="text-lg">{subcategory}</button>
-                                        </Link>
-                                      </li>)
-                              )}
-                            </ul>
-                          </div>
                         </li>
                     )
                   })}
                 </m.ul>
             }
-
           </div>
 
           <div className="flex justify-end items-center gap-2 h-full">
@@ -118,6 +106,31 @@ const Header = () => {
                 )}
           </div>
         </div>
+
+        {hoveredCategory != null &&
+            <div className="absolute bg-white text-black w-[100vw] min-h-[40vh] py-10 text-lg z-50 px-40" onMouseLeave={() => setHoveredCategory(null)}>
+              <ul className="flex flex-col gap-3">
+                <div className="grid grid-cols-5">
+                  {categories[hoveredCategory].subcategories.map((subcategory, index) =>
+                      (<li key={index}>
+                        <div className="flex gap-5 items-center w-full justify-between border-b-[2px] border-theme-gray pb-2">
+                          <div className="flex gap-5 items-center">
+                            <div className="w-6 h-6 relative">
+                              <Image src={categories[hoveredCategory].image} alt={categories[hoveredCategory].category} fill={true} className="rounded-[50%]"/>
+                            </div>
+                            <h3>{subcategory}</h3>
+                          </div>
+                          <Link href={`/search?category=${categories[hoveredCategory].category}&subcategory=${subcategory}`} onClick={() => setHoveredCategory(null)}>
+                            <button type="button" className="text-sm">View all</button>
+                          </Link>
+                        </div>
+
+                      </li>)
+                  )}
+                </div>
+              </ul>
+            </div>
+        }
       </div>
 
   )
