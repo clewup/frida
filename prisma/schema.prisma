@@ -40,7 +40,7 @@ model Category {
 model Subcategory {
   id      Int       @id @default(autoincrement())
   name    String
-  Product Product[]
+  product Product[]
 }
 
 model Cart {

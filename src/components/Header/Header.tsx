@@ -85,7 +85,7 @@ const Header = () => {
                 ? (
                     <span>
               <button className="text-white" onClick={signIn}>
-                  <UserIcon size={15}/>
+                  <UserIcon size={20}/>
               </button>
             </span>
                 )
