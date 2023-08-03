@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma'
 export async function GET (request: NextRequest) {
   const categoriesWithSubcategories: CategoryWithSubcategoriesType[] = []
 
-  const categories = await prisma.category.findMany({})
+  const categories = await prisma.category.findMany({ orderBy: { id: 'asc' } })
   for (const category of categories) {
     const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, where: { category } })
 
