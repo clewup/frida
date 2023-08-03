@@ -80,11 +80,9 @@ const Header = () => {
           <div className="flex justify-end items-center gap-2 h-full">
             {(user == null)
               ? (
-                    <span>
               <button className="text-white" onClick={signIn}>
                   <UserIcon size={20}/>
               </button>
-            </span>
                 )
               : (
                     <>
