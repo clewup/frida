@@ -17,12 +17,8 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
 
   const { id, image, name, price, stock, subcategory: { name: subcategory } } = product
 
-  /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
   return (
-    <m.div variants={{
-      hidden: { opacity: 0, y: 75 },
-      visible: { opacity: 1, y: 0 }
-    }} initial="hidden" animate="visible" className="border-[1px] rounded-md flex flex-col justify-between overflow-hidden items-center">
+    <div className="border-[1px] rounded-md flex flex-col justify-between overflow-hidden items-center">
           <Link href={`/product/${id}`} className="p-10 z-0">
             <m.img src={image} alt={name} className="rounded-md" variants={{ hover: { scale: 1.2, transition: { duration: 1.5 } }, initial: { scale: 1 } }} initial="initial" whileHover="hover"/>
           </Link>
@@ -50,7 +46,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
               <p>Out of Stock</p>
               )}
       </div>
-    </m.div>
+    </div>
   )
 }
 export default ProductCard
