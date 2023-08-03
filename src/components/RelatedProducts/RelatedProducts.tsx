@@ -20,7 +20,7 @@ const RelatedProducts: FC<RelatedProductsProps> = ({ product }) => {
   }
 
   useEffect(() => {
-    getRelatedProducts()
+    void getRelatedProducts()
   }, [product])
 
   return (

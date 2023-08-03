@@ -1,7 +1,7 @@
 'use client'
 
 import { type TestimonialType } from '@/types/testimonialTypes'
-import Image from "next/image";
+import Image from 'next/image'
 import React, { type FC } from 'react'
 import { motion as m } from 'framer-motion'
 

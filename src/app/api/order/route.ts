@@ -10,7 +10,7 @@ const stripe = new Stripe(constants.STRIPE_SECRET_KEY, {
 
 export async function GET (request: NextRequest) {
   const user = request.headers.get('x-user')
-  if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
+  if (user === null) return response.json({ error: 'Missing user' }, { status: 400 })
 
   const orders = await prisma.order.findMany({ orderBy: { createdAt: 'desc' }, where: { createdBy: user } })
 
@@ -20,7 +20,7 @@ export async function GET (request: NextRequest) {
 export async function POST (request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const sessionId = searchParams.get('session_id')
-  if (!sessionId) return response.json({ error: 'Missing session' }, { status: 400 })
+  if (sessionId === null) return response.json({ error: 'Missing session' }, { status: 400 })
 
   const session = await stripe.checkout.sessions.retrieve(sessionId)
 
@@ -34,9 +34,9 @@ export async function POST (request: NextRequest) {
     },
     where: { transaction: sessionId }
   })
-  if (existingOrder) return response.json(existingOrder)
+  if (existingOrder != null) return response.json(existingOrder)
 
-  if (!session.metadata?.cart) return response.json({ error: 'Missing cart' }, { status: 400 })
+  if ((session.metadata?.cart) == null) return response.json({ error: 'Missing cart' }, { status: 400 })
   const cart = await prisma.cart.findUnique({
     include: {
       items: {
@@ -47,7 +47,7 @@ export async function POST (request: NextRequest) {
     },
     where: { id: session.metadata.cart }
   })
-  if (!cart) return response.json({ error: 'Cart not found' }, { status: 400 })
+  if (cart == null) return response.json({ error: 'Cart not found' }, { status: 400 })
 
   const order = await prisma.order.create({
     data: {
@@ -81,7 +81,7 @@ export async function POST (request: NextRequest) {
   // reduce product stock
   for (const item of cart.items) {
     const product = await prisma.product.findUnique({ where: { id: item.product.id } })
-    if (!product) return
+    if (product == null) return
 
     await prisma.product.update({
       data: {

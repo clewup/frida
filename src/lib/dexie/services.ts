@@ -17,8 +17,8 @@ export default class DexieServices {
   }
 
   async check (table: string, key?: number) {
-    if (key) {
-      return !!this.db.table(table).get(key)
+    if (key !== null && key !== undefined) {
+      return await this.db.table(table).get(key) !== null
     } else {
       return (await this.db.table(table).count()) > 0
     }

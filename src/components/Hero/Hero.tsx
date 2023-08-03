@@ -1,10 +1,10 @@
-import Button from "@/components/Button/Button";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import Button from '@/components/Button/Button'
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
 
 const Hero = () => {
-    return (
+  return (
             <div className="h-screen-header bg-theme-mint flex overflow-hidden rounded-md relative">
                 <div className="w-[100vw] h-full absolute">
                     <div className="w-3/5 h-full relative">
@@ -34,7 +34,7 @@ const Hero = () => {
 
                 <h1 className="absolute -bottom-9 left-[50%] -translate-x-[50%] text-9xl font-bold whitespace-nowrap opacity-10">summer sale</h1>
             </div>
-    )
+  )
 }
 
-export default Hero;
+export default Hero

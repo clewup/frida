@@ -3,14 +3,11 @@
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
-import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
-import cx from "classnames";
-import Image from "next/image";
+import Image from 'next/image'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import Marquee from "react-fast-marquee";
+import Marquee from 'react-fast-marquee'
 import {
   ShoppingCart as CartIcon,
   Search as SearchIcon,
@@ -25,7 +22,7 @@ const Header = () => {
   const { get } = useApi()
 
   const [categories, setCategories] = useState<CategoryWithSubcategoriesType[]>([])
-  const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<number | null>(null)
 
   async function getCategoriesWithSubcategories () {
     const categories = await get<CategoryWithSubcategoriesType[]>('/api/category')
@@ -33,7 +30,7 @@ const Header = () => {
   }
 
   useEffect(() => {
-    getCategoriesWithSubcategories()
+    void getCategoriesWithSubcategories()
   }, [])
 
   return (
@@ -64,12 +61,12 @@ const Header = () => {
                   hidden: { opacity: 0, x: -75 },
                   visible: { opacity: 1, transition: { delay: 0.5 }, x: 0 }
                 }} initial="hidden" animate="visible" className="flex gap-10 text-white">
-                  {categories.map(({category, subcategories}, index) => {
+                  {categories.map(({ category, subcategories }, index) => {
                     return (
                         <li key={index} className="cursor-pointer">
                           <Link href={`/search?category=${category}`}
-                                onMouseEnter={() => setHoveredCategory(index)}
-                                onClick={() => setHoveredCategory(null)}
+                                onMouseEnter={() => { setHoveredCategory(index) }}
+                                onClick={() => { setHoveredCategory(null) }}
                           >
                             <button type="button" aria-haspopup="menu" className="text-lg">{category}</button>
                           </Link>
@@ -82,14 +79,14 @@ const Header = () => {
 
           <div className="flex justify-end items-center gap-2 h-full">
             {(user == null)
-                ? (
+              ? (
                     <span>
               <button className="text-white" onClick={signIn}>
                   <UserIcon size={20}/>
               </button>
             </span>
                 )
-                : (
+              : (
                     <>
                       <Link href="/search" className="text-white">
                         <SearchIcon size={20}/>
@@ -108,11 +105,11 @@ const Header = () => {
         </div>
 
         {hoveredCategory != null &&
-            <div className="absolute bg-white text-black w-[100vw] min-h-[40vh] py-10 text-lg z-50 px-40" onMouseLeave={() => setHoveredCategory(null)}>
+            <div className="absolute bg-white text-black w-[100vw] min-h-[40vh] py-10 text-lg z-50 px-40" onMouseLeave={() => { setHoveredCategory(null) }}>
               <ul className="flex flex-col gap-3">
                 <div className="grid grid-cols-5">
                   {categories[hoveredCategory].subcategories.map((subcategory, index) =>
-                      (<li key={index}>
+                    (<li key={index}>
                         <div className="flex gap-5 items-center w-full justify-between border-b-[2px] border-theme-gray pb-2">
                           <div className="flex gap-5 items-center">
                             <div className="w-6 h-6 relative">
@@ -120,7 +117,7 @@ const Header = () => {
                             </div>
                             <h3>{subcategory}</h3>
                           </div>
-                          <Link href={`/search?category=${categories[hoveredCategory].category}&subcategory=${subcategory}`} onClick={() => setHoveredCategory(null)}>
+                          <Link href={`/search?category=${categories[hoveredCategory].category}&subcategory=${subcategory}`} onClick={() => { setHoveredCategory(null) }}>
                             <button type="button" className="text-sm">View all</button>
                           </Link>
                         </div>

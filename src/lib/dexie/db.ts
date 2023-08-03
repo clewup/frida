@@ -22,7 +22,7 @@ export class Dexie extends DexieBase {
     super('frida')
 
     this.version(1).stores({
-      cookieConsent: '++id',
+      cookieConsent: '++id'
     })
 
     this.services = new DexieServices(this)

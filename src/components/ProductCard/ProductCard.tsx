@@ -1,9 +1,8 @@
 'use client'
 
-import Button from "@/components/Button/Button";
+import Button from '@/components/Button/Button'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type Category, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
-import cx from 'classnames'
 import Link from 'next/link'
 import React, { type FC } from 'react'
 import { ShoppingCart as CartIcon } from 'react-feather'
@@ -18,6 +17,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
 
   const { id, image, name, price, stock, subcategory: { name: subcategory } } = product
 
+  /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
   return (
     <m.div variants={{
       hidden: { opacity: 0, y: 75 },
@@ -33,12 +33,13 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
               <p className="text-3xl">£{Number(price).toFixed(2)}</p>
           </div>
 
-
       <div className="p-10 flex justify-between items-center">
           {stock > 0
             ? (
                 <Button
-                    onClick={async () => await addToCart(product)}
+                    onClick={() => {
+                      void addToCart(product)
+                    }}
                     isLoading={isLoading}
                 >
                     <CartIcon />

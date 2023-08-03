@@ -1,4 +1,4 @@
-import Button from "@/components/Button/Button";
+import Button from '@/components/Button/Button'
 import { useRouter } from 'next/navigation'
 import React, { type FC } from 'react'
 
@@ -16,12 +16,12 @@ const GenericError: FC<GenericErrorProps> = ({ error, reset }) => {
           <div className="modal">
               <div className="modal-box">
                   <h3 className="font-bold text-2xl text-center">Uh oh! Something went wrong!</h3>
-                  {error && <p className="pt-4 text-center">Error: {error.message}</p>}
+                  {error !== null && <p className="pt-4 text-center">Error: {error.message}</p>}
                   <div className="modal-action justify-center gap-10">
                       <Button onClick={() => { router.push('/') }}>
                           Home
                       </Button>
-                      {reset && (
+                      {(reset != null) && (
                           <Button onClick={reset}>
                               Try Again
                           </Button>

@@ -1,6 +1,6 @@
 'use client'
 
-import Button from "@/components/Button/Button";
+import Button from '@/components/Button/Button'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type Category, type Subcategory } from '@prisma/client'
 import React, { type FC } from 'react'
@@ -42,7 +42,9 @@ const Product: FC<ProductProps> = ({ product }) => {
                       ? (
                             <Button
                                 isLoading={isLoading}
-                                onClick={async () => await addToCart(product)}
+                                onClick={() => {
+                                  void addToCart(product)
+                                }}
                             >
                                 <CartIcon />
                                 Add to cart

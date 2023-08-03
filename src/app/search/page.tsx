@@ -1,6 +1,6 @@
 'use client'
 
-import Button from "@/components/Button/Button";
+import Button from '@/components/Button/Button'
 import Filter from '@/components/Filter/Filter'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'
@@ -47,14 +47,14 @@ export default function Search () {
     const sort = searchParams.get('sort')
 
     const queryObject: SearchRequestType = {}
-    if (search) queryObject.search = search
-    if (category) queryObject.category = category
-    if (subcategory) queryObject.subcategory = subcategory
-    if (page) queryObject.page = page
-    if (sort) queryObject.sort = sort
+    if (search != null) queryObject.search = search
+    if (category != null) queryObject.category = category
+    if (subcategory != null) queryObject.subcategory = subcategory
+    if (page != null) queryObject.page = page
+    if (sort != null) queryObject.sort = sort
 
     const formattedQuery = stringify(queryObject)
-    getFilteredProducts(formattedQuery)
+    void getFilteredProducts(formattedQuery)
   }, [searchParams])
 
   return (
@@ -84,7 +84,7 @@ export default function Search () {
             <Button
               key={index}
               className={cx('aspect-square rounded-none text-black',
-                  pageNumber === searchResults.pagination.page ? 'bg-theme-black' : 'bg-gray-400',
+                pageNumber === searchResults.pagination.page ? 'bg-theme-black' : 'bg-gray-400'
               )}
               isLoading={searchResults.pagination.page > 1 && isLoading}
               onClick={() => {

@@ -25,7 +25,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
   }
 
   useEffect(() => {
-    getCategoriesWithSubcategories()
+    void getCategoriesWithSubcategories()
   }, [])
 
   interface FilterFormValues {
@@ -49,7 +49,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
       const isNotFiltered = reservedValues.includes(value)
 
       // reset the subcategory search if the category is not queried
-      if (!updatedQuery.category) { updatedQuery.subcategory = null }
+      if (updatedQuery.category == null) { updatedQuery.subcategory = null }
 
       // reset the subcategory search if the category is changed
       if (key === 'category' && value !== queryParams.category) {
@@ -105,7 +105,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                           className="border-b-[2px] border-gray-400 py-2 w-52 md:w-60 focus:outline-0"
                           value={values.subcategory}
                           onChange={handleChange}
-                          disabled={!values.category || values.category === 'default'}
+                          disabled={(values.category === '') || values.category === 'default'}
                       >
                         <option value="default">All</option>
                         {categoriesWithSubcategories.find((categoryWithSubcategories) => categoryWithSubcategories.category === values.category)?.subcategories.map((subcategory, index) => (

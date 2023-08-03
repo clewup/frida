@@ -18,22 +18,22 @@ export async function GET (request: NextRequest) {
   })
 
   let filteredProducts = products
-  if (search) {
+  if (search != null) {
     filteredProducts = filteredProducts.filter((product) =>
       product.name.toLowerCase().includes(search.toLowerCase())
     )
   }
-  if (category) {
+  if (category != null) {
     filteredProducts = filteredProducts.filter((product) =>
       product.category.name.toLowerCase() === category.toLowerCase()
     )
   }
-  if (subcategory) {
+  if (subcategory != null) {
     filteredProducts = filteredProducts.filter((product) =>
       product.subcategory.name.toLowerCase() === subcategory.toLowerCase()
     )
   }
-  if (sort) {
+  if (sort != null) {
     if (sort === 'price-asc') {
       filteredProducts = filteredProducts.sort(
         (a, b) => Number(a.price) - Number(b.price)

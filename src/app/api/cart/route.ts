@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma'
 
 export async function GET (request: NextRequest) {
   const user = request.headers.get('x-user')
-  if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
+  if (user === null) return response.json({ error: 'Missing user' }, { status: 400 })
 
   const cart = await prisma.cart.findFirst({
     include: {
@@ -33,13 +33,13 @@ export async function PATCH (request: NextRequest) {
   }
 
   const user = request.headers.get('x-user')
-  if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
+  if (user === null) return response.json({ error: 'Missing user' }, { status: 400 })
 
   const action = body.action
   const product = body.product
 
   const validProduct = await prisma.product.findUnique({ where: { id: product.id } })
-  if (!validProduct) return response.json({ error: 'Invalid product' }, { status: 400 })
+  if (validProduct == null) return response.json({ error: 'Invalid product' }, { status: 400 })
 
   const cart = await prisma.cart.findUnique({
     include: {
@@ -53,7 +53,7 @@ export async function PATCH (request: NextRequest) {
   })
 
   // create a new cart if one does not exist
-  if (!cart) {
+  if (cart == null) {
     const cart = await prisma.cart.create({
       data: {
         createdBy: user,
@@ -88,7 +88,7 @@ export async function PATCH (request: NextRequest) {
 
   async function addToCart () {
     // add to the quantity if product already exists in the cart, otherwise create it
-    if (existingItem) {
+    if (existingItem != null) {
       await prisma.cart.update({
         data: {
           items: {
@@ -125,7 +125,7 @@ export async function PATCH (request: NextRequest) {
 
   async function removeFromCart () {
     // deduct a quantity from the item if more than one, otherwise remove it
-    if (existingItem && existingItem.quantity > 1) {
+    if ((existingItem != null) && existingItem.quantity > 1) {
       await prisma.cart.update({
         data: {
           items: {
@@ -209,8 +209,8 @@ function calculateTotal (items: Array<CartItem & { product: Product }>) {
 function validate (body: any) {
   const errors: string[] = []
 
-  if (!body.action) errors.push('action')
-  if (!body.product && body.action !== 'clear') errors.push('product')
+  if (body.action === null || body.action === undefined) errors.push('action')
+  if ((body.product === null || body.action === undefined) && body.action !== 'clear') errors.push('product')
 
   return {
     errors,

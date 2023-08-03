@@ -1,6 +1,6 @@
 'use client'
 
-import Button from "@/components/Button/Button";
+import Button from '@/components/Button/Button'
 import OrderProductCard from '@/components/OrderProductCard/OrderProductCard'
 import metadata from '@/constants/metadata'
 import { useCart } from '@/contexts/CartContext/CartContext'
@@ -18,7 +18,7 @@ const Order: FC<OrderProps> = ({ order }) => {
   const { clearCart } = useCart()
 
   useEffect(() => {
-    clearCart()
+    void clearCart()
     runFireworks()
   }, [])
 

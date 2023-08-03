@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero/Hero";
+import Hero from '@/components/Hero/Hero'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import Testimonial from '@/components/Testimonial/Testimonial'
@@ -57,7 +57,6 @@ export default async function Home () {
             <p className="text-xl underline">JUST DROPPED</p>
             <p className="text-5xl">Our new arrivals</p>
           </div>
-
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
             {latestProducts.splice(0, 4).map((product, index) => (

@@ -41,7 +41,7 @@ const CartProvider: FC<CartProviderProps> = ({ children }) => {
 const useCart = () => {
   const context = useContext(CartContext)
 
-  if (!context) { throw new Error('useCart may only be used within the CartContext') }
+  if (context === null) { throw new Error('useCart may only be used within the CartContext') }
 
   const { cart, setCart } = context
   const { get, patch } = useApi()

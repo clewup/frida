@@ -1,6 +1,6 @@
 'use client'
 
-import Button from "@/components/Button/Button";
+import Button from '@/components/Button/Button'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type Product } from '@prisma/client'
 import React, { type FC } from 'react'
@@ -12,7 +12,7 @@ interface CartProductCardProps {
 }
 
 const CartProductCard: FC<CartProductCardProps> = ({ product, quantity }) => {
-  const { isLoading, removeFromCart } = useCart()
+  const { removeFromCart } = useCart()
 
   const { image, name, price } = product
 
@@ -32,7 +32,9 @@ const CartProductCard: FC<CartProductCardProps> = ({ product, quantity }) => {
         <Button
             type="button"
             className="h-fit bg-transparent text-black hover:border-transparent"
-            onClick={async () => await removeFromCart(product)}
+            onClick={() => {
+              void removeFromCart(product)
+            }}
         >
             <RemoveIcon size={20} />
         </Button>

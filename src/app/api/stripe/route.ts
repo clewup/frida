@@ -11,7 +11,7 @@ export async function POST (request: NextRequest) {
   const body = await request.json() as Cart & { items: Array<CartItem & { product: Product }> }
 
   const user = request.headers.get('x-user')
-  if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
+  if (user === null) return response.json({ error: 'Missing user' }, { status: 400 })
 
   // if cart total is £30 or more, apply free shipping rate
   let cartTotal = 0
@@ -56,7 +56,7 @@ export async function POST (request: NextRequest) {
     success_url: `${constants.APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`
   })
 
-  if (!session.url) { return response.json({ error: 'Missing session URL' }, { status: 500 }) }
+  if (session.url == null) { return response.json({ error: 'Missing session URL' }, { status: 500 }) }
 
   return response.json(session)
 }

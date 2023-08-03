@@ -19,7 +19,7 @@ export function runFireworks () {
 
     const particleCount = 50 * (timeLeft / duration)
     // since particles fall down, start a bit higher than random
-    confetti(Object.assign({}, defaults, { origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, particleCount }))
-    confetti(Object.assign({}, defaults, { origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, particleCount }))
+    void confetti(Object.assign({}, defaults, { origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, particleCount }))
+    void confetti(Object.assign({}, defaults, { origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, particleCount }))
   }, 250)
 }

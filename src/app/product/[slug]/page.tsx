@@ -26,7 +26,7 @@ export async function generateMetadata ({ params }: PageContext, parent: Resolvi
 export default async function ProductSlug ({ params }: PageContext) {
   const product = await getProductById(Number(params.slug))
 
-  if (!product) {
+  if (product === null) {
     return <p>Not found.</p>
   }
 

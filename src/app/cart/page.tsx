@@ -1,13 +1,12 @@
 'use client'
 
-import Button from "@/components/Button/Button";
+import Button from '@/components/Button/Button'
 import CartProductCard from '@/components/CartProductCard/CartProductCard'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import getStripe from '@/lib/stripe'
-import cx from 'classnames'
 import { Form, Formik, type FormikValues } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
@@ -22,14 +21,14 @@ export default function Cart () {
 
   useEffect(() => {
     if ((user == null) || (cart != null)) return
-    getCart()
+    void getCart()
   }, [user, cart])
 
   async function onSubmit (formValues: FormikValues) {
     setRedirecting(true)
     const stripe = await getStripe()
     const stripeData = await post<{ id: string }>('/api/stripe', formValues)
-    stripe.redirectToCheckout({ sessionId: stripeData.id })
+    void stripe.redirectToCheckout({ sessionId: stripeData.id })
     setRedirecting(false)
   }
 
@@ -50,7 +49,7 @@ export default function Cart () {
                   </div>
                 )}
 
-                {!isLoading && (!cart?.items?.length) && (
+                {!isLoading && ((cart?.items?.length) == null) && (
                     <div className="flex flex-col gap-5 p-10 items-center">
                       <CartIcon className="my-5 text-theme-black"/>
                       <p className="text-2xl text-center">Your cart is empty.</p>
@@ -58,7 +57,7 @@ export default function Cart () {
                 )}
 
                 {!isLoading &&
-                  cart &&
+                  (cart != null) &&
                   cart.items?.length > 0 &&
                   cart.items.map((item, index) => (
                     <CartProductCard key={index} product={item.product} quantity={item.quantity} />
@@ -70,7 +69,7 @@ export default function Cart () {
               <div className="flex justify-end">
                 <p className="text-2xl">
                   Total: £
-                  {cart?.items
+                  {((cart?.items) != null)
                     ? Number(cart.total).toFixed(2)
                     : '0.00'}
                 </p>
@@ -79,7 +78,7 @@ export default function Cart () {
                   <Button
                       className="text-2xl mt-5"
                       isLoading={isRedirecting}
-                      disabled={!cart?.items || cart?.items?.length === 0}
+                      disabled={((cart?.items) == null) || cart?.items?.length === 0}
                   >
                     Checkout
                   </Button>
