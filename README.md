@@ -1,5 +1,5 @@
 # Frida Furniture
-Frida is an eCommerce platform that allows users to browse, search and order self-care products online.
+Frida is an eCommerce platform that allows users to browse, search and order furniture online.
 
 ## Table of Contents
 
