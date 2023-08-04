@@ -1,12 +1,11 @@
 'use client'
 
 import ShopSection from '@/components/Header/components/ShopView/ShopView'
+import useCategories from '@/hooks/useCategories/useCategories'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
-import useApi from '@/lib/common/hooks/useApi/useApi'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
-import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Marquee from 'react-fast-marquee'
 import {
   ShoppingCart as CartIcon,
@@ -23,23 +22,13 @@ enum MenuItems {
 const Header = () => {
   const { user } = useLockr()
   const { signIn } = useAuth({ redirectUri: constants.APP_URL })
-  const { get } = useApi()
+  const { categories } = useCategories()
 
-  const [categories, setCategories] = useState<CategoryWithSubcategoriesType[]>([])
   const [activeView, setActiveView] = useState<MenuItems | null>(null)
 
   function closeView () {
     setActiveView(null)
   }
-
-  async function getCategoriesWithSubcategories () {
-    const categories = await get<CategoryWithSubcategoriesType[]>('/api/category')
-    setCategories(categories)
-  }
-
-  useEffect(() => {
-    void getCategoriesWithSubcategories()
-  }, [])
 
   return (
       <div className="w-full bg-theme-black">
