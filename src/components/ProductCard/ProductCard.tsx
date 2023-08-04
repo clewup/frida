@@ -6,7 +6,6 @@ import { type Category, type Product as PrismaProduct, type Subcategory } from '
 import Link from 'next/link'
 import React, { type FC } from 'react'
 import { ShoppingCart as CartIcon } from 'react-feather'
-import { motion as m } from 'framer-motion'
 
 interface ProductCardProps {
   product: PrismaProduct & { category: Category, subcategory: Subcategory }
