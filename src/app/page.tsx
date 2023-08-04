@@ -3,7 +3,7 @@ import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import Testimonial from '@/components/Testimonial/Testimonial'
 import constants from '@/constants/constants'
-import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
+import { type Category } from '@/types/categoryTypes'
 import { type TestimonialType } from '@/types/testimonialTypes'
 import { type Category as PrismaCategory, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
 import React from 'react'
@@ -16,7 +16,7 @@ async function getLatestProducts (): Promise<Array<PrismaProduct & { category: P
   return await productsResponse.json()
 }
 
-async function getCategoriesWithSubcategories (): Promise<CategoryWithSubcategoriesType[]> {
+async function getCategoriesWithSubcategories (): Promise<Category[]> {
   const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
   return await productsResponse.json()
 }
@@ -45,8 +45,6 @@ export default async function Home () {
       review: '5/5 for this gem of a furniture store! From cozy couches to elegant bedroom sets, they\'ve got it all. Plus, the delivery was a breeze. Say goodbye to bland decor – this place transforms your space into pure bliss!'
     }
   ]
-
-  console.log(categories)
 
   return (
     <PageWrapper>

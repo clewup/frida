@@ -1,5 +1,3 @@
-export interface CategoryWithSubcategoriesType {
-  category: string
-  image: string
-  subcategories: string[]
-}
+import { type Category as PrismaCategory, type Subcategory } from '@prisma/client'
+
+export type Category = PrismaCategory & { subcategories: Subcategory[] }

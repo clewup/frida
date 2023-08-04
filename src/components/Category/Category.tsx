@@ -1,13 +1,13 @@
 'use client'
 
-import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
+import { type Category } from '@/types/categoryTypes'
 import cx from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { type FC } from 'react'
 
 interface CategoryProps {
-  category: CategoryWithSubcategoriesType
+  category: Category
   className?: string
 }
 

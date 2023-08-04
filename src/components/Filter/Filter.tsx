@@ -76,7 +76,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                       onChange={handleChange}
                     >
                       <option value="default">All</option>
-                      {categories.map(({ category, subcategories }, index) => (
+                      {categories.map(({ name: category, subcategories }, index) => (
                         <option key={index} value={category}>
                           {category}
                         </option>
@@ -97,7 +97,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                           disabled={(values.category === '') || values.category === 'default'}
                       >
                         <option value="default">All</option>
-                        {categories.find(({ category }) => category === values.category)?.subcategories.map((subcategory, index) => (
+                        {categories.find(({ name: category }) => category === values.category)?.subcategories.map(({ name: subcategory }, index) => (
                             <option key={index} value={subcategory}>
                               {subcategory}
                             </option>

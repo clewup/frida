@@ -31,16 +31,19 @@ model Product {
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  name     String
-  image    String
-  products Product[]
+  id            Int           @id @default(autoincrement())
+  name          String
+  image         String
+  products      Product[]
+  subcategories Subcategory[]
 }
 
 model Subcategory {
-  id      Int       @id @default(autoincrement())
-  name    String
-  product Product[]
+  id         Int       @id @default(autoincrement())
+  name       String
+  product    Product[]
+  category   Category  @relation(fields: [categoryId], references: [id])
+  categoryId Int
 }
 
 model Cart {
