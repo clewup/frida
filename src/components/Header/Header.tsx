@@ -1,6 +1,6 @@
 'use client'
 
-import ShopSection from '@/components/Header/components/ShopSection/ShopSection'
+import ShopSection from '@/components/Header/components/ShopView/ShopView'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
@@ -16,18 +16,21 @@ import {
 import constants from '@/constants/constants'
 import { motion as m } from 'framer-motion'
 
+enum MenuItems {
+  SHOP = 'Shop',
+}
+
 const Header = () => {
   const { user } = useLockr()
   const { signIn } = useAuth({ redirectUri: constants.APP_URL })
+  const { get } = useApi()
 
   const [categories, setCategories] = useState<CategoryWithSubcategoriesType[]>([])
-  const [activeMenuItem, setActiveMenuItem] = useState<MenuItems | null>(null)
+  const [activeView, setActiveView] = useState<MenuItems | null>(null)
 
-  function closeSection () {
-    setActiveMenuItem(null)
+  function closeView () {
+    setActiveView(null)
   }
-
-  const { get } = useApi()
 
   async function getCategoriesWithSubcategories () {
     const categories = await get<CategoryWithSubcategoriesType[]>('/api/category')
@@ -37,14 +40,6 @@ const Header = () => {
   useEffect(() => {
     void getCategoriesWithSubcategories()
   }, [])
-
-  enum MenuItems {
-    SHOP = 'Shop',
-  }
-
-  const menuItems = [
-    MenuItems.SHOP
-  ]
 
   return (
       <div className="w-full bg-theme-black">
@@ -69,14 +64,14 @@ const Header = () => {
               </Link>
             </m.div>
 
-            <div className="absolute left-[50%] -translate-x-[50%]">
-                  <ul className="flex gap-10 text-white">
-                    {menuItems.map((menuItem, index) => {
+            <div className="absolute left-[50%] -translate-x-[50%] h-full">
+                  <ul className="flex gap-10 text-white items-center h-full">
+                    {Object.values(MenuItems).map((menuItem, index) => {
                       return (
                           <li key={index} className="cursor-pointer">
                             <div
-                                  onMouseEnter={() => { setActiveMenuItem(menuItem) }}
-                                  onClick={() => { setActiveMenuItem(null) }}
+                                  onMouseEnter={() => { setActiveView(menuItem) }}
+                                  onClick={() => { setActiveView(null) }}
                             >
                               <button type="button" aria-haspopup="menu">{menuItem}</button>
                             </div>
@@ -113,12 +108,12 @@ const Header = () => {
           </div>
         </div>
 
-        {activeMenuItem &&
+        {activeView &&
             <div className="absolute bg-white text-black w-[100vw] py-10 z-50 px-40">
               {
                 {
-                  [MenuItems.SHOP]: <ShopSection closeSection={closeSection} categories={categories}/>
-                }[activeMenuItem]
+                  [MenuItems.SHOP]: <ShopSection closeView={closeView} categories={categories}/>
+                }[activeView]
               }
             </div>
         }

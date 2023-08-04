@@ -3,14 +3,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { type FC } from 'react'
 
-interface ShopSectionProps {
-  closeSection: () => void
+interface ShopViewProps {
+  closeView: () => void
   categories: CategoryWithSubcategoriesType[]
 }
 
-const ShopSection: FC<ShopSectionProps> = ({ closeSection, categories }) => {
+const ShopSection: FC<ShopViewProps> = ({ closeView, categories }) => {
   return (
-            <ul className="flex flex-col gap-3" onMouseLeave={closeSection}>
+            <ul className="flex flex-col gap-3" onMouseLeave={closeView}>
                 <div className="grid grid-cols-5 gap-10">
                     {categories.map(({ category, subcategories, image }, index) =>
                       (<li key={index}>
@@ -22,13 +22,13 @@ const ShopSection: FC<ShopSectionProps> = ({ closeSection, categories }) => {
                                 <div className="flex flex-col justify-between w-full">
                                     <div className="flex w-full justify-between">
                                         <h3>{category}</h3>
-                                        <Link href={`/search?category=${category}`}>
+                                        <Link href={`/search?category=${category}`} onClick={closeView}>
                                             <p className="text-gray-400">View all</p>
                                         </Link>
                                     </div>
 
                                     {subcategories.map((subcategory, index) => (
-                                        <Link key={index} href={`/search?category=${category}&subcategory=${subcategory}`}>
+                                        <Link key={index} href={`/search?category=${category}&subcategory=${subcategory}`} onClick={closeView}>
                                             <h2 className="text-gray-400">{subcategory}</h2>
                                         </Link>
                                     ))}
