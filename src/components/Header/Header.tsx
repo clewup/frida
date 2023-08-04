@@ -1,6 +1,6 @@
 'use client'
 
-import ShopSection from '@/components/Header/components/Shop/ShopSection'
+import ShopSection from '@/components/Header/components/ShopSection/ShopSection'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
