@@ -1,11 +1,11 @@
-import { type Category } from '@/types/categoryTypes'
+import { type CategoryType } from '@/types/categoryTypes'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { type FC } from 'react'
 
 interface ShopViewProps {
   closeView: () => void
-  categories: Category[]
+  categories: CategoryType[]
 }
 
 const ShopSection: FC<ShopViewProps> = ({ closeView, categories }) => {

@@ -3,7 +3,7 @@ import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import Testimonial from '@/components/Testimonial/Testimonial'
 import constants from '@/constants/constants'
-import { type Category } from '@/types/categoryTypes'
+import { type CategoryType } from '@/types/categoryTypes'
 import { type TestimonialType } from '@/types/testimonialTypes'
 import { type Category as PrismaCategory, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
 import React from 'react'
@@ -16,7 +16,7 @@ async function getLatestProducts (): Promise<Array<PrismaProduct & { category: P
   return await productsResponse.json()
 }
 
-async function getCategoriesWithSubcategories (): Promise<Category[]> {
+async function getCategoriesWithSubcategories (): Promise<CategoryType[]> {
   const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
   return await productsResponse.json()
 }

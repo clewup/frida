@@ -30,7 +30,7 @@ model Product {
   orderItems    OrderItem[]
 }
 
-model Category {
+model CategoryType {
   id            Int           @id @default(autoincrement())
   name          String
   image         String
