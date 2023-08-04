@@ -1,13 +1,12 @@
 'use client'
 
+import useCategories from '@/hooks/useCategories/useCategories'
 import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
-import useApi from '@/lib/common/hooks/useApi/useApi'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
-import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
 import { type SearchRequestType, type SearchResponseType } from '@/types/searchTypes'
 import { Field, Form, Formik, type FormikValues } from 'formik'
 import { useSearchParams } from 'next/navigation'
-import React, { type FC, useEffect, useState } from 'react'
+import React, { type FC } from 'react'
 
 interface FilterProps {
   searchResults: SearchResponseType
@@ -16,17 +15,7 @@ interface FilterProps {
 const Filter: FC<FilterProps> = ({ searchResults }) => {
   const searchParams = useSearchParams()
   const { queryParams, setQueryParams } = useQueryParams<SearchRequestType>()
-  const { get } = useApi()
-  const [categoriesWithSubcategories, setCategoriesWithSubcategories] = useState<CategoryWithSubcategoriesType[]>([])
-
-  async function getCategoriesWithSubcategories () {
-    const categoriesData = await get<CategoryWithSubcategoriesType[]>('/api/category')
-    setCategoriesWithSubcategories(categoriesData)
-  }
-
-  useEffect(() => {
-    void getCategoriesWithSubcategories()
-  }, [])
+  const { categories } = useCategories()
 
   interface FilterFormValues {
     category: string
@@ -87,9 +76,9 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                       onChange={handleChange}
                     >
                       <option value="default">All</option>
-                      {categoriesWithSubcategories.map((categoryWithSubcategories, index) => (
-                        <option key={index} value={categoryWithSubcategories.category}>
-                          {categoryWithSubcategories.category}
+                      {categories.map(({ category, subcategories }, index) => (
+                        <option key={index} value={category}>
+                          {category}
                         </option>
                       ))}
                     </select>
@@ -108,7 +97,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                           disabled={(values.category === '') || values.category === 'default'}
                       >
                         <option value="default">All</option>
-                        {categoriesWithSubcategories.find((categoryWithSubcategories) => categoryWithSubcategories.category === values.category)?.subcategories.map((subcategory, index) => (
+                        {categories.find(({ category }) => category === values.category)?.subcategories.map((subcategory, index) => (
                             <option key={index} value={subcategory}>
                               {subcategory}
                             </option>

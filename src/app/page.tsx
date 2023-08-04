@@ -72,7 +72,7 @@ export default async function Home () {
             <p className="text-xl underline">SHOP BY CATEGORY</p>
           </div>
 
-          <div className={'grid grid-cols-1 gap-5 md:grid-cols-6 min-h-[50vh] items-center'}>
+          <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categories.length} min-h-[50vh] items-center`}>
             {categories.map((category, index) => (
                 <Category key={index} category={category} className="odd:h-full even:h-[80%]"/>
             ))}

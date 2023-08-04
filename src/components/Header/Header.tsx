@@ -60,7 +60,6 @@ const Header = () => {
                           <li key={index} className="cursor-pointer">
                             <div
                                   onMouseEnter={() => { setActiveView(menuItem) }}
-                                  onClick={() => { setActiveView(null) }}
                             >
                               <button type="button" aria-haspopup="menu">{menuItem}</button>
                             </div>
