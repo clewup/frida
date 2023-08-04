@@ -20,7 +20,8 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="border-[1px] rounded-md flex flex-col justify-between overflow-hidden items-center">
           <Link href={`/product/${id}`} className="p-10 z-0">
-            <m.img src={image} alt={name} className="rounded-md" variants={{ hover: { scale: 1.2, transition: { duration: 1.5 } }, initial: { scale: 1 } }} initial="initial" whileHover="hover"/>
+              {/* TODO: convert to next/image */}
+              <img src={image} alt={name} className="rounded-md transition-zoom"/>
           </Link>
           <div className="flex flex-col gap-3 text-center z-20 px-5">
               <h2>{subcategory}</h2>

@@ -16,7 +16,7 @@ const ShopSection: FC<ShopViewProps> = ({ closeView, categories }) => {
                       (<li key={index}>
                             <div className="flex flex-col gap-5 items-center w-full h-full border-b-[2px] border-theme-gray pb-5 relative">
                                 <div className="w-full aspect-video relative overflow-hidden">
-                                    <Image src={image} alt={category} fill={true} className="object-cover transition-transform duration-1000 hover:scale-[1.2]"/>
+                                    <Image src={image} alt={category} fill={true} className="object-cover transition-zoom"/>
                                 </div>
 
                                 <div className="flex flex-col justify-between w-full">

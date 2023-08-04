@@ -18,3 +18,13 @@
     font-display: swap;
 }
 
+@layer utilities {
+    .transition-zoom {
+        transition-property: transform;
+        transition-duration: 1000ms;
+    }
+    .transition-zoom:hover {
+        transform: scale(1.2);
+    }
+}
+
