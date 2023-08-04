@@ -1,10 +1,10 @@
 'use client'
 
+import ShopSection from '@/components/Header/components/Shop/ShopSection'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import { type CategoryWithSubcategoriesType } from '@/types/categoryTypes'
-import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Marquee from 'react-fast-marquee'
@@ -19,10 +19,15 @@ import { motion as m } from 'framer-motion'
 const Header = () => {
   const { user } = useLockr()
   const { signIn } = useAuth({ redirectUri: constants.APP_URL })
-  const { get } = useApi()
 
   const [categories, setCategories] = useState<CategoryWithSubcategoriesType[]>([])
-  const [hoveredCategory, setHoveredCategory] = useState<number | null>(null)
+  const [activeMenuItem, setActiveMenuItem] = useState<MenuItems | null>(null)
+
+  function closeSection () {
+    setActiveMenuItem(null)
+  }
+
+  const { get } = useApi()
 
   async function getCategoriesWithSubcategories () {
     const categories = await get<CategoryWithSubcategoriesType[]>('/api/category')
@@ -32,6 +37,14 @@ const Header = () => {
   useEffect(() => {
     void getCategoriesWithSubcategories()
   }, [])
+
+  enum MenuItems {
+    SHOP = 'Shop',
+  }
+
+  const menuItems = [
+    MenuItems.SHOP
+  ]
 
   return (
       <div className="w-full bg-theme-black">
@@ -45,7 +58,7 @@ const Header = () => {
           </div>
         </Marquee>
 
-        <div className="flex items-center justify-between pb-5 md:px-40">
+        <div className="flex items-center justify-between pb-5 relative md:px-20">
           <div className="flex gap-20 items-center pr-5 md:pr-0">
             <m.div variants={{
               hidden: { opacity: 0, y: -75 },
@@ -56,25 +69,23 @@ const Header = () => {
               </Link>
             </m.div>
 
-            {categories.length > 0 &&
-                <m.ul variants={{
-                  hidden: { opacity: 0, x: -75 },
-                  visible: { opacity: 1, transition: { delay: 0.5 }, x: 0 }
-                }} initial="hidden" animate="visible" className="flex gap-10 text-white">
-                  {categories.map(({ category, subcategories }, index) => {
-                    return (
-                        <li key={index} className="cursor-pointer">
-                          <Link href={`/search?category=${category}`}
-                                onMouseEnter={() => { setHoveredCategory(index) }}
-                                onClick={() => { setHoveredCategory(null) }}
-                          >
-                            <button type="button" aria-haspopup="menu" className="text-lg">{category}</button>
-                          </Link>
-                        </li>
-                    )
-                  })}
-                </m.ul>
-            }
+            <div className="absolute left-[50%] -translate-x-[50%]">
+                  <ul className="flex gap-10 text-white">
+                    {menuItems.map((menuItem, index) => {
+                      return (
+                          <li key={index} className="cursor-pointer">
+                            <div
+                                  onMouseEnter={() => { setActiveMenuItem(menuItem) }}
+                                  onClick={() => { setActiveMenuItem(null) }}
+                            >
+                              <button type="button" aria-haspopup="menu">{menuItem}</button>
+                            </div>
+                          </li>
+                      )
+                    })}
+                  </ul>
+            </div>
+
           </div>
 
           <div className="flex justify-end items-center gap-2 h-full">
@@ -102,32 +113,18 @@ const Header = () => {
           </div>
         </div>
 
-        {hoveredCategory != null &&
-            <div className="absolute bg-white text-black w-[100vw] min-h-[40vh] py-10 text-lg z-50 px-40" onMouseLeave={() => { setHoveredCategory(null) }}>
-              <ul className="flex flex-col gap-3">
-                <div className="grid grid-cols-5">
-                  {categories[hoveredCategory].subcategories.map((subcategory, index) =>
-                    (<li key={index}>
-                        <div className="flex gap-5 items-center w-full justify-between border-b-[2px] border-theme-gray pb-2">
-                          <div className="flex gap-5 items-center">
-                            <div className="w-6 h-6 relative">
-                              <Image src={categories[hoveredCategory].image} alt={categories[hoveredCategory].category} fill={true} className="rounded-[50%]"/>
-                            </div>
-                            <h3>{subcategory}</h3>
-                          </div>
-                          <Link href={`/search?category=${categories[hoveredCategory].category}&subcategory=${subcategory}`} onClick={() => { setHoveredCategory(null) }}>
-                            <button type="button" className="text-sm">View all</button>
-                          </Link>
-                        </div>
-
-                      </li>)
-                  )}
-                </div>
-              </ul>
+        {activeMenuItem &&
+            <div className="absolute bg-white text-black w-[100vw] py-10 z-50 px-40">
+              {
+                {
+                  [MenuItems.SHOP]: <ShopSection closeSection={closeSection} categories={categories}/>
+                }[activeMenuItem]
+              }
             </div>
         }
       </div>
 
   )
 }
+
 export default Header

@@ -52,7 +52,7 @@ export default function Account () {
   ]
 
   return (
-    <PageWrapper className="gap-10 px-40">
+    <PageWrapper className="gap-10 px-20">
       <div className="border-b-[2px] border-b-theme-gray">
         <h1 className="text-2xl">Welcome back, {user?.name}.</h1>
       </div>
