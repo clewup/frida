@@ -17,6 +17,9 @@ import { motion as m } from 'framer-motion'
 
 enum MenuItems {
   SHOP = 'Shop',
+  TRENDING = 'Trending',
+  ABOUT = 'About',
+  CONTACT = 'Contact'
 }
 
 const Header = () => {
@@ -97,10 +100,13 @@ const Header = () => {
         </div>
 
         {activeView &&
-            <div className="absolute bg-white text-black w-[100vw] py-10 z-50 px-40">
+            <div className="absolute bg-white text-black w-[100vw] z-50 px-40">
               {
                 {
-                  [MenuItems.SHOP]: <ShopSection closeView={closeView} categories={categories}/>
+                  [MenuItems.SHOP]: <ShopSection closeView={closeView} categories={categories}/>,
+                  [MenuItems.TRENDING]: <></>,
+                  [MenuItems.ABOUT]: <></>,
+                  [MenuItems.CONTACT]: <></>
                 }[activeView]
               }
             </div>

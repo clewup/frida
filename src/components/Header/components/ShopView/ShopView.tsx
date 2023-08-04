@@ -10,7 +10,7 @@ interface ShopViewProps {
 
 const ShopSection: FC<ShopViewProps> = ({ closeView, categories }) => {
   return (
-            <ul className="flex flex-col gap-3" onMouseLeave={closeView}>
+            <ul className="flex flex-col gap-3 py-10" onMouseLeave={closeView}>
                 <div className="grid grid-cols-5 gap-10">
                     {categories.map(({ name: category, subcategories, image }, index) =>
                       (<li key={index}>
