@@ -91,7 +91,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   {() => (
                       <select
                           name="subcategory"
-                          className="border-b-[2px] border-gray-400 py-2 w-52 md:w-60 focus:outline-0"
+                          className="border-b-[2px] border-gray-400 py-2 w-52 md:w-60 focus:outline-0 disabled:opacity-40 disabled:cursor-not-allowed"
                           value={values.subcategory}
                           onChange={handleChange}
                           disabled={(values.category === '') || values.category === 'default'}
