@@ -20,7 +20,7 @@ const Product: FC<ProductProps> = ({ product }) => {
         <div className="border-[1px] rounded-md flex flex-col w-full md:flex-row">
             <div className="p-10 md:w-1/2">
                 {/* TODO: convert to next/image */}
-                <img src={image} alt={name} className="rounded-md transition-zoom" />
+                <img src={image} alt={name} className="rounded-md" />
             </div>
             <div className="flex flex-col justify-between p-10 md:w-1/2">
                 <div className="text-center">

@@ -10,7 +10,8 @@ import React from 'react'
 
 async function getProductById (id: number): Promise< PrismaProduct & { category: Category, subcategory: Subcategory }> {
   const productResponse = await fetch(`${constants.APP_URL}/api/product?id=${id}`, {
-    method: 'GET'
+    method: 'GET',
+    cache: 'no-store'
   })
   return await productResponse.json()
 }
@@ -33,12 +34,12 @@ export default async function ProductSlug ({ params }: PageContext) {
   return (
       <PageWrapper className="flex flex-col gap-5">
         <div className="text-sm">
-          <ul className="flex gap-2">
+          <ul className="flex gap-1">
             <li>
-              <Link href="/search">Products</Link>
+              <Link href="/search">Products</Link> {'>'}
             </li>
             <li>
-              <Link href={`/search?category=${product.category.name}`}>{product.category.name}</Link>
+              <Link href={`/search?category=${product.category.name}`}>{product.category.name}</Link> {'>'}
             </li>
             <li>
               <Link href={`/search?category=${product.category.name}&subcategory=${product.subcategory.name}`}>{product.subcategory.name}</Link>
