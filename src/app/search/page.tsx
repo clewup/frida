@@ -81,19 +81,19 @@ export default function Search () {
           (_, index) => index + 1
         ).map((pageNumber, index) => {
           return (
-            <Button
+            <button
               key={index}
-              className={cx('aspect-square rounded-none text-black',
-                pageNumber === searchResults.pagination.page ? 'bg-theme-black' : 'bg-gray-400'
+              className={cx('rounded-none text-black w-10 aspect-square',
+                pageNumber === searchResults.pagination.page ? 'bg-theme-black text-white' : 'bg-theme-white'
               )}
-              isLoading={searchResults.pagination.page > 1 && isLoading}
+              disabled={searchResults.pagination.page > 1 && isLoading}
               onClick={() => {
                 const updatedQuery = { ...queryParams, page: pageNumber }
                 setQueryParams(updatedQuery)
               }}
             >
               {pageNumber}
-            </Button>
+            </button>
           )
         })}
       </div>
