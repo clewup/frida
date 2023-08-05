@@ -1,8 +1,7 @@
 import constants from '@/constants/constants'
-import { OrderStatus } from '@prisma/client'
+import { cartService, orderService, productService } from '@/db/handler'
 import { type NextRequest, NextResponse as response } from 'next/server'
 import Stripe from 'stripe'
-import prisma from '@/lib/prisma'
 
 const stripe = new Stripe(constants.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
@@ -10,9 +9,9 @@ const stripe = new Stripe(constants.STRIPE_SECRET_KEY, {
 
 export async function GET (request: NextRequest) {
   const user = request.headers.get('x-user')
-  if (user === null) return response.json({ error: 'Missing user' }, { status: 400 })
+  if (user === null) return response.error()
 
-  const orders = await prisma.order.findMany({ orderBy: { createdAt: 'desc' }, where: { createdBy: user } })
+  const orders = await orderService.getOrdersByUser(user)
 
   return response.json(orders)
 }
@@ -20,86 +19,30 @@ export async function GET (request: NextRequest) {
 export async function POST (request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const sessionId = searchParams.get('session_id')
-  if (sessionId === null) return response.json({ error: 'Missing session' }, { status: 400 })
+  if (sessionId === null) return response.error()
 
   const session = await stripe.checkout.sessions.retrieve(sessionId)
 
-  const existingOrder = await prisma.order.findUnique({
-    include: {
-      items: {
-        include: {
-          product: true
-        }
-      }
-    },
-    where: { transaction: sessionId }
-  })
+  const existingOrder = await orderService.getOrderByTransaction(sessionId)
   if (existingOrder != null) return response.json(existingOrder)
 
-  if ((session.metadata?.cart) == null) return response.json({ error: 'Missing cart' }, { status: 400 })
-  const cart = await prisma.cart.findUnique({
-    include: {
-      items: {
-        include: {
-          product: true
-        }
-      }
-    },
-    where: { id: session.metadata.cart }
-  })
-  if (cart == null) return response.json({ error: 'Cart not found' }, { status: 400 })
+  if ((session.metadata?.cart) == null) return response.error()
 
-  const order = await prisma.order.create({
-    data: {
-      createdBy: cart.user,
-      email: session.customer_details?.email ?? cart.user,
-      items: {
-        createMany: {
-          data: cart.items.map((item) => ({
-            createdBy: cart.user,
-            productId: Number(item.product.id),
-            quantity: item.quantity,
-            updatedBy: cart.user
-          }))
-        }
-      },
-      name: session.customer_details?.name ?? cart.user,
-      status: sanitizeOrderStatus(session.status),
-      total: Number(session.amount_total) / 100,
-      transaction: session.id,
-      updatedBy: cart.user
-    },
-    include: {
-      items: {
-        include: {
-          product: true
-        }
-      }
-    }
-  })
+  const cart = await cartService.getCartById(session.metadata.cart)
+  if (cart == null) return response.error()
+
+  const order = await orderService.createOrder(session, cart)
 
   // reduce product stock
-  for (const item of cart.items) {
-    const product = await prisma.product.findUnique({ where: { id: item.product.id } })
+  for (const cartItem of cart.items) {
+    const product = await productService.getProductById(cartItem.product.id)
     if (product == null) return
 
-    await prisma.product.update({
-      data: {
-        stock: product.stock - item.quantity
-      },
-      where: { id: item.product.id }
-    })
+    await productService.reduceStock(product, cartItem)
   }
 
-  await prisma.cart.delete({ where: { id: cart.id } })
+  // delete the cart
+  await cartService.deleteCart(cart)
 
   return response.json(order)
-}
-
-function sanitizeOrderStatus (status: string | null) {
-  if (status === 'complete') {
-    return OrderStatus.Complete
-  } else {
-    return OrderStatus.Pending
-  }
 }

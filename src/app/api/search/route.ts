@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma'
+import { productService } from '@/db/handler'
 import { type NextRequest, NextResponse as response } from 'next/server'
 
 export async function GET (request: NextRequest) {
@@ -12,45 +12,40 @@ export async function GET (request: NextRequest) {
   const sort = searchParams.get('sort')
   const subcategory = searchParams.get('subcategory')
 
-  const products = await prisma.product.findMany({
-    include: { category: true, subcategory: true },
-    orderBy: { createdAt: 'desc' }
-  })
-
-  let filteredProducts = products
+  let products = await productService.getProducts()
   if (search != null) {
-    filteredProducts = filteredProducts.filter((product) =>
+    products = products.filter((product) =>
       product.name.toLowerCase().includes(search.toLowerCase())
     )
   }
   if (category != null) {
-    filteredProducts = filteredProducts.filter((product) =>
+    products = products.filter((product) =>
       product.category.name.toLowerCase() === category.toLowerCase()
     )
   }
   if (subcategory != null) {
-    filteredProducts = filteredProducts.filter((product) =>
+    products = products.filter((product) =>
       product.subcategory.name.toLowerCase() === subcategory.toLowerCase()
     )
   }
   if (sort != null) {
     if (sort === 'price-asc') {
-      filteredProducts = filteredProducts.sort(
+      products = products.sort(
         (a, b) => Number(a.price) - Number(b.price)
       )
     }
     if (sort === 'price-desc') {
-      filteredProducts = filteredProducts.sort(
+      products = products.sort(
         (a, b) => Number(b.price) - Number(a.price)
       )
     }
   }
 
-  const paginatedProducts = filteredProducts.slice(
+  const paginatedProducts = products.slice(
     (Number(page) - 1) * PAGE_SIZE,
     Number(page) * PAGE_SIZE
   )
-  const totalPages = Math.ceil(filteredProducts.length / PAGE_SIZE)
+  const totalPages = Math.ceil(products.length / PAGE_SIZE)
 
   return response.json({
     pagination: {
@@ -58,7 +53,7 @@ export async function GET (request: NextRequest) {
       pageResults: paginatedProducts.length,
       resultsPerPage: PAGE_SIZE,
       totalPages,
-      totalResults: filteredProducts.length
+      totalResults: products.length
     },
     results: paginatedProducts
   })

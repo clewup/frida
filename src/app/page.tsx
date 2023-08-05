@@ -2,28 +2,14 @@ import Hero from '@/components/Hero/Hero'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import Testimonial from '@/components/Testimonial/Testimonial'
-import constants from '@/constants/constants'
-import { type CategoryType } from '@/types/categoryTypes'
+import { categoryService, productService } from '@/db/handler'
 import { type TestimonialType } from '@/types/testimonialTypes'
-import { type Category as PrismaCategory, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
 import React from 'react'
 import Category from '@/components/Category/Category'
 
-async function getLatestProducts (): Promise<Array<PrismaProduct & { category: PrismaCategory, subcategory: Subcategory }>> {
-  const productsResponse = await fetch(`${constants.APP_URL}/api/product?latest=true`, {
-    cache: 'no-store'
-  })
-  return await productsResponse.json()
-}
-
-async function getCategoriesWithSubcategories (): Promise<CategoryType[]> {
-  const productsResponse = await fetch(`${constants.APP_URL}/api/category`)
-  return await productsResponse.json()
-}
-
 export default async function Home () {
-  const latestProducts = await getLatestProducts()
-  const categories = await getCategoriesWithSubcategories()
+  const latestProducts = await productService.getLatestProducts()
+  const categories = await categoryService.getCategories()
 
   const mockTestimonials: TestimonialType[] = [
     {

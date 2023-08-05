@@ -49,7 +49,7 @@ export default function Cart () {
                   </div>
                 )}
 
-                {!isLoading && ((cart?.items?.length) == null) && (
+                {!isLoading && (((cart?.items?.length) == null) || cart?.items?.length === 0) && (
                     <div className="flex flex-col gap-5 p-10 items-center">
                       <CartIcon className="my-5 text-theme-black"/>
                       <p className="text-2xl text-center">Your cart is empty.</p>
