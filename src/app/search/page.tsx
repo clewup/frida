@@ -1,6 +1,5 @@
 'use client'
 
-import Button from '@/components/Button/Button'
 import Filter from '@/components/Filter/Filter'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'

@@ -1,7 +1,6 @@
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Product from '@/components/Product/Product'
 import RelatedProducts from '@/components/RelatedProducts/RelatedProducts'
-import constants from '@/constants/constants'
 import { productService } from '@/db/handler'
 import { type PageContext } from '@/lib/common/types/nextTypes'
 import { type Metadata, type ResolvingMetadata } from 'next'
