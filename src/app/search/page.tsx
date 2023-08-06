@@ -56,9 +56,12 @@ export default function Search () {
     void getFilteredProducts(formattedQuery)
   }, [searchParams])
 
+  const category = searchParams.get('category')
+  const heading = `Shop ${(category !== null ? category : 'furniture').toLowerCase()}`
+
   return (
     <PageWrapper>
-      <Heading className="py-20">Shop furniture</Heading>
+      <Heading className="py-20">{heading}</Heading>
 
       <div className="flex gap-5">
         <div className="w-1/5">
