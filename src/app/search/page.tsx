@@ -11,7 +11,6 @@ import cx from 'classnames'
 import { useSearchParams } from 'next/navigation'
 import { stringify } from 'querystring'
 import React, { useEffect, useState } from 'react'
-import { TailSpin } from 'react-loader-spinner'
 
 export default function Search () {
   const { queryParams, setQueryParams } = useQueryParams()
