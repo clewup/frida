@@ -23,7 +23,7 @@ export default async function ProductSlug ({ params }: PageContext) {
   }
 
   return (
-      <PageWrapper className="flex flex-col gap-5">
+      <PageWrapper className="flex flex-col gap-5 px-20">
         <div className="text-sm">
           <ul className="flex gap-1">
             <li>

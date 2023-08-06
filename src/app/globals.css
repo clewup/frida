@@ -28,3 +28,6 @@
     }
 }
 
+html {
+    @apply bg-theme-white;
+}
