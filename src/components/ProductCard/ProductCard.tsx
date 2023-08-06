@@ -24,7 +24,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           </Link>
           <div className="flex flex-col gap-3 text-center z-20 px-5">
               <h2 className="text-gray-400">{subcategory}</h2>
-              <h1 className="text-xl ">{name}</h1>
+              <h1 className="text-xl">{name}</h1>
 
               <p className="text-xl text-gray-400">£{Number(price).toFixed(2)}</p>
           </div>

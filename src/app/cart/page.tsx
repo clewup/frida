@@ -76,6 +76,7 @@ export default function Cart () {
               </div>
 
                   <Button
+                      type="submit"
                       className="text-2xl mt-5"
                       isLoading={isRedirecting}
                       disabled={((cart?.items) == null) || cart?.items?.length === 0}

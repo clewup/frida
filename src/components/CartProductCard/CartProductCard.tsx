@@ -23,9 +23,9 @@ const CartProductCard: FC<CartProductCardProps> = ({ product, quantity }) => {
           <img src={image} alt={name} className="rounded-md" />
         </span>
         <span>
-            <h1 className="text-2xl">{name}</h1>
-            <p className="text-2xl">£{Number(price).toFixed(2)}</p>
-            <p className="text-2xl">x{quantity}</p>
+            <h1 className="text-xl">{name}</h1>
+            <p className="text-xl">£{Number(price).toFixed(2)}</p>
+            <p className="text-xl">x{quantity}</p>
         </span>
       </div>
 
