@@ -5,6 +5,7 @@ export interface SearchRequestType extends Dict<string | number | boolean | read
   search?: string | null
   category?: string | null
   subcategory?: string | null
+  colour?: string | null
   page?: string | null
   sort?: string | null
 }

@@ -44,6 +44,7 @@ export default function Search () {
     const subcategory = searchParams.get('subcategory')
     const page = searchParams.get('page')
     const sort = searchParams.get('sort')
+    const colour = searchParams.get('colour')
 
     const queryObject: SearchRequestType = {}
     if (search != null) queryObject.search = search
@@ -51,6 +52,7 @@ export default function Search () {
     if (subcategory != null) queryObject.subcategory = subcategory
     if (page != null) queryObject.page = page
     if (sort != null) queryObject.sort = sort
+    if (colour != null) queryObject.colour = colour
 
     const formattedQuery = stringify(queryObject)
     void getFilteredProducts(formattedQuery)

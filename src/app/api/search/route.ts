@@ -11,6 +11,7 @@ export async function GET (request: NextRequest) {
   const page = searchParams.get('page') ?? '1'
   const sort = searchParams.get('sort')
   const subcategory = searchParams.get('subcategory')
+  const colour = searchParams.get('colour')
 
   let products = await productService.getProducts()
   if (search != null) {
@@ -26,6 +27,11 @@ export async function GET (request: NextRequest) {
   if (subcategory != null) {
     products = products.filter((product) =>
       product.subcategory.name.toLowerCase() === subcategory.toLowerCase()
+    )
+  }
+  if (colour != null) {
+    products = products.filter((product) =>
+      product.colour.toLowerCase() === colour.toLowerCase()
     )
   }
   if (sort != null) {

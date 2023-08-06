@@ -22,6 +22,7 @@ model Product {
   image         String
   price         Decimal
   stock         Int
+  colour        Colour      @default(NA)
   category      Category    @relation(fields: [categoryId], references: [id])
   categoryId    Int
   subcategory   Subcategory @relation(fields: [subcategoryId], references: [id])
@@ -110,4 +111,19 @@ enum OrderStatus {
   Refunded
   Returned
   Complete
+}
+
+enum Colour {
+  White
+  Black
+  Gray
+  Red
+  Blue
+  Green
+  Yellow
+  Orange
+  Purple
+  Pink
+  Brown
+  NA
 }

@@ -1,9 +1,11 @@
 'use client'
 
+import { colourMap } from '@/components/Filter/utils/colourMap'
 import useCategories from '@/hooks/useCategories/useCategories'
 import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type SearchRequestType, type SearchResponseType } from '@/types/searchTypes'
+import { Colour } from '@prisma/client'
 import { Field, Form, Formik, type FormikValues } from 'formik'
 import { useSearchParams } from 'next/navigation'
 import React, { type FC } from 'react'
@@ -21,13 +23,15 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
     category: string
     subcategory: string
     sort: string
+    colour: string
   }
 
   const initialValues: FilterFormValues = {
     category: searchParams.get('category') ?? 'default',
     sort: searchParams.get('sort') ?? 'default',
     // order is specific so that reset can occur
-    subcategory: searchParams.get('subcategory') ?? 'default'
+    subcategory: searchParams.get('subcategory') ?? 'default',
+    colour: searchParams.get('colour') ?? 'default'
   }
 
   function onSubmit (formValues: FormikValues) {
@@ -61,7 +65,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
       enableReinitialize={true}
       onSubmit={onSubmit}
     >
-      {({ handleChange, values }) => {
+      {({ handleChange, values, setFieldValue }) => {
         return (
           <Form className="flex flex-col w-full items-center justify-between rounded-md p-5 gap-5 md:gap-20">
             <div className="flex flex-col gap-5 w-full">
@@ -92,6 +96,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   )}
                 </Field>
               </span>
+
               <span className="flex flex-col gap-2">
                 <label >Subcategory</label>
                 <Field name="subcategory">
@@ -130,6 +135,27 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                       </select>
                   )}
                 </Field>
+              </span>
+
+              <span className="flex flex-col gap-2">
+                <label >Colour</label>
+
+                <div className="grid grid-cols-7 gap-2">
+                  {Object.entries(colourMap).map(([key, value], index) => {
+                    const className = `w-full aspect-square rounded-[50%] ${value}`
+
+                    return (
+                        <div key={index} className="rounded-[50%] overflow-hidden w-full aspect-square">
+                          <button className={className} onClick={async () => await setFieldValue('colour', key)}/>
+                        </div>
+                    )
+                  })}
+                  <div className="rounded-[50%] overflow-hidden w-full aspect-square flex items-center justify-center">
+                          <button className="text-gray-400" onClick={async () => await setFieldValue('colour', 'default')}>
+                            All
+                          </button>
+                        </div>
+                </div>
               </span>
             </div>
             <AutoSubmit />
