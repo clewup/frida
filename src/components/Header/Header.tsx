@@ -35,29 +35,16 @@ const Header = () => {
 
   return (
       <div className="w-full bg-theme-black">
-        <Marquee>
-          <div className="py-5 flex gap-20 items-center">
-            <p className="text-white">FREE SHIPPING ON ORDERS OVER £30</p>
-            <div className="h-[1px] bg-white w-10"/>
-            <p className="text-white">SUMMER SALE DISCOUNT 20% OFF</p>
-            <div className="h-[1px] bg-white w-10"/>
-            <p className="text-white">FREE WORLDWIDE SHIPPING</p>
-          </div>
-        </Marquee>
-
-        <div className="flex items-center justify-between pb-5 relative md:px-20">
-          <div className="flex gap-20 items-center pr-5 md:pr-0">
-            <m.div variants={{
-              hidden: { opacity: 0, y: -75 },
-              visible: { opacity: 1, y: 0 }
-            }} initial="hidden" animate="visible">
-              <Link href="/" className="flex flex-col items-center">
+        <div className="flex items-center justify-between py-5 relative md:px-20">
+          <div className="flex gap-20 items-center pr-5 md:pr-0 h-full">
+            <div className="absolute left-[50%] -translate-x-[50%] h-full">
+              <Link href="/" className="flex flex-col items-center h-full justify-center">
                 <h1 className="font-druk text-white text-4xl">FRIDA</h1>
               </Link>
-            </m.div>
+            </div>
 
-            <div className="absolute left-[50%] -translate-x-[50%] h-full">
-                  <ul className="flex gap-10 text-white items-center h-full">
+            <div className="">
+                  <ul className="flex gap-10 text-white items-center h-full text-xl">
                     {Object.values(MenuItems).map((menuItem, index) => {
                       return (
                           <li key={index} className="cursor-pointer">
@@ -74,7 +61,7 @@ const Header = () => {
 
           </div>
 
-          <div className="flex justify-end items-center gap-2 h-full">
+          <div className="flex justify-end items-center gap-5 h-full">
             {(user == null)
               ? (
               <button className="text-white" onClick={signIn}>
@@ -83,16 +70,19 @@ const Header = () => {
                 )
               : (
                     <>
-                      <Link href="/search" className="text-white">
+                      <Link href="/search" className="text-white flex gap-2">
                         <SearchIcon size={20}/>
+                        <p>Search</p>
                       </Link>
 
-                      <Link href="/cart" className="text-white">
+                      <Link href="/cart" className="text-white flex gap-2">
                         <CartIcon size={20}/>
+                        <p>Cart</p>
                       </Link>
 
-                      <Link href="/account" className="text-white">
+                      <Link href="/account" className="text-white flex gap-2">
                         <UserIcon size={20}/>
+                        <p>Account</p>
                       </Link>
                     </>
                 )}
