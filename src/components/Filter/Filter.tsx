@@ -63,15 +63,22 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
     >
       {({ handleChange, values }) => {
         return (
-          <Form className="flex flex-col items-center justify-between bg-theme-gray rounded-md p-2 px-5 gap-5 md:flex-row md:gap-20">
-            <div className="flex flex-col gap-5 md:flex-row">
-              <span className="flex gap-2 items-center">
+          <Form className="flex flex-col w-full items-center justify-between rounded-md p-5 gap-5 md:gap-20">
+            <div className="flex flex-col gap-5 w-full">
+              <p className="text-gray-400">
+                {searchResults.pagination.pageResults +
+                    searchResults.pagination.resultsPerPage *
+                    (searchResults.pagination.page - 1)}
+                /{searchResults.pagination.totalResults} results
+              </p>
+
+              <span className="flex flex-col gap-2">
                 <label>Category</label>
                 <Field name="category">
                   {() => (
                     <select
                       name="category"
-                      className="border-b-[2px] border-gray-400 py-2 w-52 md:w-60 focus:outline-0"
+                      className="px-2 py-2 focus:outline-0"
                       value={values.category}
                       onChange={handleChange}
                     >
@@ -85,13 +92,13 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   )}
                 </Field>
               </span>
-              <span className="flex gap-2 items-center">
+              <span className="flex flex-col gap-2">
                 <label >Subcategory</label>
                 <Field name="subcategory">
                   {() => (
                       <select
                           name="subcategory"
-                          className="border-b-[2px] border-gray-400 py-2 w-52 md:w-60 focus:outline-0 disabled:opacity-40 disabled:cursor-not-allowed"
+                          className="px-2 py-2 focus:outline-0 disabled:opacity-40 disabled:cursor-not-allowed"
                           value={values.subcategory}
                           onChange={handleChange}
                           disabled={(values.category === '') || values.category === 'default'}
@@ -106,34 +113,25 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                   )}
                 </Field>
               </span>
-            </div>
 
-            <div className="flex gap-5 items-center">
-              <span className="flex gap-2 items-center">
+              <span className="flex flex-col gap-2">
                 <label className="label">Sort</label>
                 <Field name="sort">
                   {() => (
-                    <select
-                      name="sort"
-                      className="border-b-[2px] border-gray-400 py-2 md:w-40 focus:outline-0"
-                      value={values.sort}
-                      onChange={handleChange}
-                    >
-                      <option value="default">Any</option>
-                      <option value="price-asc">Price Low-High</option>
-                      <option value="price-desc">Price High-Low</option>
-                    </select>
+                      <select
+                          name="sort"
+                          className="px-2 py-2 focus:outline-0"
+                          value={values.sort}
+                          onChange={handleChange}
+                      >
+                        <option value="default">Any</option>
+                        <option value="price-asc">Price Low-High</option>
+                        <option value="price-desc">Price High-Low</option>
+                      </select>
                   )}
                 </Field>
               </span>
-              <p className="text-lg">
-                {searchResults.pagination.pageResults +
-                  searchResults.pagination.resultsPerPage *
-                    (searchResults.pagination.page - 1)}
-                /{searchResults.pagination.totalResults} results
-              </p>
             </div>
-
             <AutoSubmit />
           </Form>
         )

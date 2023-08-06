@@ -1,6 +1,7 @@
 'use client'
 
 import Filter from '@/components/Filter/Filter'
+import Heading from '@/components/Heading/Heading'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import useApi from '@/lib/common/hooks/useApi/useApi'
@@ -57,44 +58,51 @@ export default function Search () {
   }, [searchParams])
 
   return (
-    <PageWrapper className="relative flex flex-col gap-5 pb-24 min-h-screen-header">
-      <Filter searchResults={searchResults} />
+    <PageWrapper>
+      <Heading className="py-20">Shop furniture</Heading>
 
-      {isLoading
-        ? (
-        <div className="w-full h-60 flex justify-center items-center">
-          <TailSpin color="#111111" />
+      <div className="flex gap-5">
+        <div className="w-1/5">
+          <Filter searchResults={searchResults} />
         </div>
-          )
-        : (
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
-          {searchResults.results.map((product, index) => (
-            <ProductCard product={product} key={index} />
-          ))}
-        </div>
-          )}
 
-      <div className="flex my-5 absolute bottom-0 left-[50%] -translate-x-[50%]">
-        {Array.from(
-          { length: searchResults.pagination.totalPages },
-          (_, index) => index + 1
-        ).map((pageNumber, index) => {
-          return (
-            <button
-              key={index}
-              className={cx('rounded-none text-black w-10 aspect-square',
-                pageNumber === searchResults.pagination.page ? 'bg-theme-black text-white' : 'bg-theme-white'
+        <div className="w-4/5 h-full relative min-h-screen pb-24">
+          {isLoading
+            ? (
+                  <></>
+              )
+            : (
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
+                    {searchResults.results.map((product, index) => (
+                        <ProductCard product={product} key={index} />
+                    ))}
+                  </div>
               )}
-              disabled={searchResults.pagination.page > 1 && isLoading}
-              onClick={() => {
-                const updatedQuery = { ...queryParams, page: pageNumber }
-                setQueryParams(updatedQuery)
-              }}
-            >
-              {pageNumber}
-            </button>
-          )
-        })}
+
+          <div className="flex my-5 absolute bottom-0 left-[50%] -translate-x-[50%]">
+            {Array.from(
+              { length: searchResults.pagination.totalPages },
+              (_, index) => index + 1
+            ).map((pageNumber, index) => {
+              return (
+                  <button
+                      key={index}
+                      className={cx('rounded-none text-black w-10 aspect-square',
+                        pageNumber === searchResults.pagination.page ? 'bg-theme-gray rounded-[50%]' : 'bg-theme-white'
+                      )}
+                      disabled={searchResults.pagination.page > 1 && isLoading}
+                      onClick={() => {
+                        const updatedQuery = { ...queryParams, page: pageNumber }
+                        setQueryParams(updatedQuery)
+                      }}
+                  >
+                    {pageNumber}
+                  </button>
+              )
+            })}
+          </div>
+        </div>
+
       </div>
     </PageWrapper>
   )
