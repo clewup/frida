@@ -6,6 +6,7 @@ import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type SearchRequestType, type SearchResponseType } from '@/types/searchTypes'
 import { Colour } from '@prisma/client'
+import cx from 'classnames'
 import { Field, Form, Formik, type FormikValues } from 'formik'
 import { useSearchParams } from 'next/navigation'
 import React, { type FC } from 'react'
@@ -145,7 +146,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                     const className = `w-full aspect-square rounded-[50%] ${value}`
 
                     return (
-                        <div key={index} className="rounded-[50%] overflow-hidden w-full aspect-square">
+                        <div key={index} className={cx('rounded-[50%] overflow-hidden w-full aspect-square transition-transform duration-300', values.colour !== 'default' && values.colour !== key ? 'scale-[0.9] opacity-75' : 'scale-[1] opacity-100')}>
                           <button className={className} onClick={async () => await setFieldValue('colour', key)}/>
                         </div>
                     )

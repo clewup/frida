@@ -43,6 +43,9 @@ module.exports = {
       },
       minHeight: {
         'screen-header': '90vh'
+      },
+      backgroundImage: {
+        na: 'url("/images/na.png")'
       }
     }
   }

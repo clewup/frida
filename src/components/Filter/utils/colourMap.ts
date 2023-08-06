@@ -1,7 +1,7 @@
 import { Colour } from '@prisma/client'
 
 export const colourMap = {
-  [Colour.White]: 'bg-filter-white border-[2px] border-gray-400',
+  [Colour.White]: 'bg-filter-white border-[1px] border-black',
   [Colour.Black]: 'bg-filter-black',
   [Colour.Gray]: 'bg-filter-gray',
   [Colour.Red]: 'bg-filter-red',
@@ -12,5 +12,5 @@ export const colourMap = {
   [Colour.Purple]: 'bg-filter-purple',
   [Colour.Pink]: 'bg-filter-pink',
   [Colour.Brown]: 'bg-filter-brown',
-  [Colour.NA]: 'bg-filter-na'
+  [Colour.NA]: 'bg-na bg-gray-100 bg-cover border-[1px] border-black'
 }
