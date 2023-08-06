@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero/Hero'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'
+import ServiceBenefits from '@/components/ServiceBenefits/ServiceBenefits'
 import Testimonial from '@/components/Testimonial/Testimonial'
 import { categoryService, productService } from '@/db/handler'
 import { type TestimonialType } from '@/types/testimonialTypes'
@@ -36,12 +37,14 @@ export default async function Home () {
     <PageWrapper>
       <Hero/>
 
-      <div className="flex flex-col gap-20 mt-10">
+      <ServiceBenefits/>
+
+      <div className="flex flex-col gap-20">
         <div className="flex flex-col gap-10">
 
-          <div className="flex flex-col items-center gap-5">
-            <p className="text-xl underline">JUST DROPPED</p>
-            <p className="text-5xl">Our new arrivals</p>
+          <div className="flex flex-col items-center">
+            <p className="text-5xl">Fresh <strong>arrivals</strong></p>
+            <p className="text-xl text-gray-400">Just dropped</p>
           </div>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
@@ -53,7 +56,7 @@ export default async function Home () {
 
         <div className="flex flex-col gap-10">
           <div className="flex flex-col items-center">
-            <p className="text-xl underline">SHOP BY CATEGORY</p>
+            <p className="text-xl text-gray-400">Shop by category</p>
           </div>
 
           <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categories.length} min-h-[50vh] items-center`}>
