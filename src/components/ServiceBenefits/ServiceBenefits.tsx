@@ -1,5 +1,5 @@
 import React from 'react'
-import { DollarSign, MessageSquare, Package, Tag } from 'react-feather'
+import { MessageSquare, Package, ShoppingCart, Tag } from 'react-feather'
 
 const ServiceBenefits = () => {
   return (
@@ -22,7 +22,7 @@ const ServiceBenefits = () => {
                 </div>
 
                 <div className="flex gap-5 items-center">
-                    <DollarSign size={40}/>
+                    <ShoppingCart size={40}/>
                     <div>
                         <h1 className="text-2xl">Buyers protection</h1>
                         <p className="text-gray-400 text-xl">Secure payment</p>

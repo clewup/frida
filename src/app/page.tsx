@@ -1,3 +1,4 @@
+import Heading from '@/components/Heading/Heading'
 import Hero from '@/components/Hero/Hero'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'
@@ -42,10 +43,9 @@ export default async function Home () {
       <div className="flex flex-col gap-20">
         <div className="flex flex-col gap-10">
 
-          <div className="flex flex-col items-center">
-            <p className="text-5xl">Fresh <strong>arrivals</strong></p>
-            <p className="text-xl text-gray-400">Just dropped</p>
-          </div>
+          <Heading>
+            Fresh arrivals
+          </Heading>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
             {latestProducts.splice(0, 4).map((product, index) => (
@@ -67,8 +67,8 @@ export default async function Home () {
         </div>
 
         <div className="bg-theme-gray rounded-md py-20 px-5 flex flex-col gap-10 relative overflow-hidden">
-          <h1 className="text-5xl pl-40 font-semibold">Happy customers</h1>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-20">
+          <Heading className="absolute left-40">Happy customers</Heading>
+          <div className="grid grid-cols-1 gap-5 mt-20 md:grid-cols-3 md:gap-20">
             {mockTestimonials.map((testimonial, index) => (<Testimonial key={index} testimonial={testimonial}/>))}
           </div>
           <p className="text-sm">* Fictional testimonials</p>
