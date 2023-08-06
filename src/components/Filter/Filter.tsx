@@ -5,7 +5,6 @@ import useCategories from '@/hooks/useCategories/useCategories'
 import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type SearchRequestType, type SearchResponseType } from '@/types/searchTypes'
-import { Colour } from '@prisma/client'
 import cx from 'classnames'
 import { Field, Form, Formik, type FormikValues } from 'formik'
 import { useSearchParams } from 'next/navigation'
@@ -147,12 +146,16 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
 
                     return (
                         <div key={index} className={cx('rounded-[50%] overflow-hidden w-full aspect-square transition-transform duration-300', values.colour !== 'default' && values.colour !== key ? 'scale-[0.9] opacity-75' : 'scale-[1] opacity-100')}>
-                          <button className={className} onClick={async () => await setFieldValue('colour', key)}/>
+                          <button className={className} onClick={() => {
+                            void setFieldValue('colour', key)
+                          }}/>
                         </div>
                     )
                   })}
                   <div className="rounded-[50%] overflow-hidden w-full aspect-square flex items-center justify-center">
-                          <button className="text-gray-400" onClick={async () => await setFieldValue('colour', 'default')}>
+                          <button className="text-gray-400" onClick={() => {
+                            void setFieldValue('colour', 'default')
+                          }}>
                             All
                           </button>
                         </div>
