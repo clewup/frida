@@ -6,14 +6,12 @@ import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import Marquee from 'react-fast-marquee'
 import {
   ShoppingCart as CartIcon,
   Search as SearchIcon,
   User as UserIcon
 } from 'react-feather'
 import constants from '@/constants/constants'
-import { motion as m } from 'framer-motion'
 
 enum MenuItems {
   SHOP = 'Shop',
