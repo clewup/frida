@@ -1,9 +1,8 @@
 'use client'
 
-import Button from '@/components/Button/Button'
 import OrderList from '@/components/OrderList/OrderList'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
-import UserForm from '@/components/UserForm/UserForm'
+import UserDetails from '@/components/UserDetails/UserDetails'
 import constants from '@/constants/constants'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
@@ -11,7 +10,7 @@ import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import { type Order } from '@prisma/client'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
-import { Map, Package, User } from 'react-feather'
+import { ArrowLeft, Map, Package, User } from 'react-feather'
 
 export default function Account () {
   const { get } = useApi()
@@ -32,44 +31,47 @@ export default function Account () {
 
   const menuItems = [
     {
+      label: 'Account',
+      icon: <User size={20}/>,
+      component: <UserDetails/>,
+      disabled: false
+    },
+    {
       label: 'Orders',
-      icon: <Package/>,
+      icon: <Package size={20}/>,
       component: <OrderList orders={orders}/>,
       disabled: false
     },
     {
-      label: 'Account',
-      icon: <User/>,
-      component: <UserForm/>,
-      disabled: false
-    },
-    {
       label: 'Address Book',
-      icon: <Map/>,
+      icon: <Map size={20}/>,
       component: <div/>,
       disabled: true
     }
   ]
 
   return (
-    <PageWrapper className="gap-10 px-20">
-      <div className="border-b-[2px] border-b-theme-gray">
-        <h1 className="text-2xl">Welcome back, {user?.name}.</h1>
+    <PageWrapper className="gap-10">
+      <div className="border-b-[2px] border-b-theme-gray pt-5">
       </div>
 
-      <div className="flex w-full">
+      <div className="flex w-full px-40">
         <div className="w-1/4">
-          <ul className="flex flex-col gap-10">
+          <ul className="flex flex-col gap-2">
             {menuItems.map((menuItem, index) => (
                 <li key={index}>
-                  <button className={cx('text-xl flex gap-5', menuItem.disabled ? 'cursor-not-allowed' : 'cursor-pointer')} onClick={() => { setActiveMenuItem(index) }} disabled={menuItem.disabled}>
+                  <button className={cx('flex gap-5 items-center', menuItem.disabled ? 'cursor-not-allowed' : 'cursor-pointer')} onClick={() => { setActiveMenuItem(index) }} disabled={menuItem.disabled}>
                     {menuItem.icon}
                     <p>{menuItem.label}</p>
                   </button>
                 </li>
             ))}
             <li>
-              <Button onClick={signOut}>Log out</Button>
+              <button className="flex gap-5 items-center" onClick={signOut}>
+                <ArrowLeft size={20}/>
+                <p>Log out</p>
+              </button>
+
             </li>
           </ul>
         </div>
