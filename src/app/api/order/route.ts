@@ -38,7 +38,7 @@ export async function POST (request: NextRequest) {
     const product = await productService.getProductById(cartItem.product.id)
     if (product == null) return
 
-    await productService.reduceStock(product, cartItem)
+    await productService.reduceProductStock(product, cartItem)
   }
 
   // delete the cart

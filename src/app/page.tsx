@@ -12,6 +12,7 @@ import Category from '@/components/Category/Category'
 export default async function Home () {
   const latestProducts = await productService.getLatestProducts()
   const categories = await categoryService.getCategories()
+  const trendingProducts = await productService.getTrendingProducts()
 
   const mockTestimonials: TestimonialType[] = [
     {
@@ -41,18 +42,17 @@ export default async function Home () {
       <ServiceBenefits/>
 
       <div className="flex flex-col gap-20">
-        <div className="flex flex-col gap-10">
-
+         <div className="flex flex-col gap-10">
           <Heading>
-            Fresh arrivals
+            Trending products
           </Heading>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
-            {latestProducts.splice(0, 4).map((product, index) => (
+            {trendingProducts.splice(0, 4).map((product, index) => (
                 <ProductCard product={product} key={index} />
             ))}
           </div>
-        </div>
+         </div>
 
         <div className="flex flex-col gap-10">
           <div className="flex flex-col items-center">
@@ -62,6 +62,18 @@ export default async function Home () {
           <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categories.length} min-h-[50vh] items-center`}>
             {categories.map((category, index) => (
                 <Category key={index} category={category} className="odd:h-full even:h-[80%]"/>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-10">
+          <Heading>
+            Fresh arrivals
+          </Heading>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
+            {latestProducts.splice(0, 4).map((product, index) => (
+                <ProductCard product={product} key={index} />
             ))}
           </div>
         </div>

@@ -1,7 +1,9 @@
 'use client'
 
-import ShopSection from '@/components/Header/components/ShopView/ShopView'
+import ShopView from '@/components/Header/components/ShopView/ShopView'
+import TrendingView from '@/components/Header/components/TrendingView/TrendingView'
 import useCategories from '@/hooks/useCategories/useCategories'
+import useTrendingProducts from '@/hooks/useTrendingProducts/useTrendingProducts'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import Link from 'next/link'
@@ -28,7 +30,7 @@ const menuItems = [
   },
   {
     label: MenuItems.TRENDING,
-    route: '/'
+    route: '/search'
   },
   {
     label: MenuItems.ABOUT,
@@ -43,8 +45,9 @@ const menuItems = [
 const Header = () => {
   const { user } = useLockr()
   const { signIn } = useAuth({ redirectUri: constants.APP_URL })
-  const { categories } = useCategories()
   const router = useRouter()
+  const { categories } = useCategories()
+  const { trendingProducts } = useTrendingProducts()
 
   const [activeView, setActiveView] = useState<MenuItems | null>(null)
 
@@ -107,11 +110,11 @@ const Header = () => {
         </div>
 
         {activeView &&
-            <div className="absolute bg-white text-black w-[100vw] z-50 px-40">
+            <div className="absolute bg-gradient-to-b from-theme-white to-white text-black w-[100vw] z-50 px-40">
               {
                 {
-                  [MenuItems.SHOP]: <ShopSection closeView={closeView} categories={categories}/>,
-                  [MenuItems.TRENDING]: <></>,
+                  [MenuItems.SHOP]: <ShopView closeView={closeView} categories={categories}/>,
+                  [MenuItems.TRENDING]: <TrendingView closeView={closeView} trendingProducts={trendingProducts}/>,
                   [MenuItems.ABOUT]: <></>,
                   [MenuItems.CONTACT]: <></>
                 }[activeView]

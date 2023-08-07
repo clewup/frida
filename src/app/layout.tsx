@@ -17,7 +17,7 @@ export default function RootLayout ({
   return (
     <html lang="en">
       <LockrProvider>
-          <CartProvider>
+              <CartProvider>
                   <body>
                   <div>
                       <Header />
@@ -27,7 +27,7 @@ export default function RootLayout ({
                       <Footer/>
                   </div>
                   </body>
-          </CartProvider>
+              </CartProvider>
       </LockrProvider>
     </html>
   )

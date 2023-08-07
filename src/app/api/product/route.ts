@@ -7,21 +7,27 @@ export async function GET (request: NextRequest) {
   const id = searchParams.get('id')
   const category = searchParams.get('category')
   const subcategory = searchParams.get('subcategory')
+  const trending = searchParams.get('trending')
 
-  if (id != null) {
+  if (id !== null) {
     const product = await productService.getProductById(parseInt(id))
-    if (product == null) return response.json({}, { status: 404 })
+    if (product === null) return response.json({}, { status: 404 })
 
     return response.json(product)
   }
 
-  if (category != null) {
+  if (category !== null) {
     const products = await productService.getProductsByCategory(category)
     return response.json(products)
   }
 
-  if (subcategory != null) {
+  if (subcategory !== null) {
     const products = await productService.getProductsBySubcategory(subcategory)
+    return response.json(products)
+  }
+
+  if (trending !== null && trending === 'true') {
+    const products = await productService.getTrendingProducts()
     return response.json(products)
   }
 
