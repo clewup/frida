@@ -41,11 +41,10 @@ const Filter: FC<FilterProps> = ({ categories }) => {
       const isNotFiltered = reservedValues.includes(value)
 
       // reset the subcategory search if the category is not queried
-      if (updatedQuery.category == null) { console.log('1'); updatedQuery.subcategory = null }
+      if (updatedQuery.category == null) { updatedQuery.subcategory = null }
 
       // reset the subcategory search if the category is changed
       if (key === 'category' && value !== queryParams.category) {
-        console.log('2')
         updatedQuery.subcategory = null
       }
 
