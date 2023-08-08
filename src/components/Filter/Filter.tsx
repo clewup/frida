@@ -20,17 +20,17 @@ const Filter: FC<FilterProps> = ({ categories }) => {
   const router = useRouter()
 
   interface FilterFormValues {
-    category: string
     sort: string
     colour: string
     subcategory: string
+    category: string
   }
 
   const initialValues: FilterFormValues = {
-    category: searchParams.get('category') ?? 'default',
     sort: searchParams.get('sort') ?? 'default',
     colour: searchParams.get('colour') ?? 'default',
-    subcategory: searchParams.get('subcategory') ?? 'default'
+    subcategory: searchParams.get('subcategory') ?? 'default',
+    category: searchParams.get('category') ?? 'default'
   }
 
   function onSubmit (formValues: FormikValues) {
