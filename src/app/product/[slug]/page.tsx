@@ -38,8 +38,10 @@ export default async function ProductSlug ({ params }: PageContext) {
           </ul>
         </div>
 
-          <Product product={product} />
-          <RelatedProducts product={product} />
+        <Product product={product} />
+
+        {/* @ts-expect-error Server Component */}
+        <RelatedProducts product={product} />
       </PageWrapper>
   )
 }
