@@ -13,6 +13,11 @@ export default class ProductService {
     return await prisma.product.findUnique({ include: { category: true, subcategory: true }, where: { id } })
   }
 
+  async getProductByName (name: string): Promise<ProductType | null> {
+    const decodedName = decodeURIComponent(name)
+    return await prisma.product.findFirst({ include: { category: true, subcategory: true }, where: { name: decodedName } })
+  }
+
   async getLatestProducts (): Promise<ProductType[]> {
     return await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' } })
   }

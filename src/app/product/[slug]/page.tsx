@@ -1,3 +1,4 @@
+import Heading from '@/components/Heading/Heading'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Product from '@/components/Product/Product'
 import RelatedProducts from '@/components/RelatedProducts/RelatedProducts'
@@ -8,7 +9,7 @@ import Link from 'next/link'
 import React from 'react'
 
 export async function generateMetadata ({ params }: PageContext, parent: ResolvingMetadata): Promise<Metadata> {
-  const product = await productService.getProductById(parseInt(params.slug))
+  const product = await productService.getProductByName(params.slug)
 
   return {
     title: `Store - ${product != null ? product.name : '404'}`
@@ -16,10 +17,17 @@ export async function generateMetadata ({ params }: PageContext, parent: Resolvi
 }
 
 export default async function ProductSlug ({ params }: PageContext) {
-  const product = await productService.getProductById(parseInt(params.slug))
+  const product = await productService.getProductByName(params.slug)
 
   if (product === null) {
-    return <p>Not found.</p>
+    return (
+        <div className="w-full h-screen-header flex items-center justify-center">
+          <div className="text-center w-1/5 bg-white rounded-md p-10">
+            <Heading>404</Heading>
+            <p className="mt-5">{decodeURIComponent(params.slug)} was not found.</p>
+          </div>
+        </div>
+    )
   }
 
   return (

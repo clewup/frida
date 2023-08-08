@@ -16,11 +16,11 @@ interface ProductCardProps {
 const ProductCard: FC<ProductCardProps> = ({ product, showAddToCartButton = true }) => {
   const { addToCart, isLoading } = useCart()
 
-  const { id, image, name, price, stock, subcategory: { name: subcategory } } = product
+  const { image, name, price, stock, subcategory: { name: subcategory } } = product
 
   return (
     <div className="bg-white rounded-md flex flex-col justify-between overflow-hidden items-center">
-          <Link href={`/product/${id}`} className="p-10 w-full z-0">
+          <Link href={`/product/${name}`} className="p-10 w-full z-0">
               <div className="relative w-full aspect-square">
                   <Image src={image} alt={name} fill={true} className="rounded-md transition-zoom"/>
               </div>
