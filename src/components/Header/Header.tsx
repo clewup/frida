@@ -7,8 +7,8 @@ import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import { type CategoryType } from '@/types/categoryTypes'
 import { type ProductType } from '@/types/productTypes'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import React, { type FC, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import React, { type FC, useEffect, useState } from 'react'
 import {
   ShoppingCart as CartIcon,
   Search as SearchIcon,
@@ -51,12 +51,17 @@ const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
   const { user } = useLockr()
   const { signIn } = useAuth({ redirectUri: constants.APP_URL })
   const router = useRouter()
+  const pathname = usePathname()
 
   const [activeView, setActiveView] = useState<MenuItems | null>(null)
 
   function closeView () {
     setActiveView(null)
   }
+
+  useEffect(() => {
+    closeView()
+  }, [pathname])
 
   return (
       <div className="w-full">
