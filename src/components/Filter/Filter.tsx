@@ -30,6 +30,7 @@ const Filter: FC<FilterProps> = ({ categories }) => {
     sort: searchParams.get('sort') ?? 'default',
     colour: searchParams.get('colour') ?? 'default',
     subcategory: searchParams.get('subcategory') ?? 'default',
+    // category needs to be last for the reset to function
     category: searchParams.get('category') ?? 'default'
   }
 
