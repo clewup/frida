@@ -2,13 +2,13 @@
 
 import ShopView from '@/components/Header/components/ShopView/ShopView'
 import TrendingView from '@/components/Header/components/TrendingView/TrendingView'
-import useCategories from '@/hooks/useCategories/useCategories'
-import useTrendingProducts from '@/hooks/useTrendingProducts/useTrendingProducts'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
+import { type CategoryType } from '@/types/categoryTypes'
+import { type ProductType } from '@/types/productTypes'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { type FC, useState } from 'react'
 import {
   ShoppingCart as CartIcon,
   Search as SearchIcon,
@@ -42,12 +42,15 @@ const menuItems = [
   }
 ]
 
-const Header = () => {
+interface HeaderProps {
+  categories: CategoryType[]
+  trendingProducts: ProductType[]
+}
+
+const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
   const { user } = useLockr()
   const { signIn } = useAuth({ redirectUri: constants.APP_URL })
   const router = useRouter()
-  const { categories } = useCategories()
-  const { trendingProducts } = useTrendingProducts()
 
   const [activeView, setActiveView] = useState<MenuItems | null>(null)
 
@@ -69,13 +72,13 @@ const Header = () => {
                   <ul className="flex gap-10 items-center h-full text-xl">
                     {menuItems.map(({ label, route }, index) => {
                       return (
-                          <li key={index} className="cursor-pointer">
-                            <div
-                                  onMouseEnter={() => { setActiveView(label) }}
-                                  onClick={() => { router.push(route); setActiveView(null) }}
-                            >
-                              <button type="button" aria-haspopup="menu">{label}</button>
-                            </div>
+                          <li key={index}>
+                              <Link href={route}
+                                    onMouseEnter={() => { setActiveView(label) }}
+                                    onClick={() => { router.push(route); setActiveView(null) }}
+                                    aria-haspopup="menu">
+                                {label}
+                              </Link>
                           </li>
                       )
                     })}

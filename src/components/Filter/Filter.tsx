@@ -1,37 +1,36 @@
 'use client'
 
 import { colourMap } from '@/components/Filter/utils/colourMap'
-import useCategories from '@/hooks/useCategories/useCategories'
 import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
-import { type SearchRequestType, type SearchResponseType } from '@/types/searchTypes'
+import { type CategoryType } from '@/types/categoryTypes'
+import { type SearchType } from '@/types/searchTypes'
 import cx from 'classnames'
 import { Field, Form, Formik, type FormikValues } from 'formik'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import React, { type FC } from 'react'
 
 interface FilterProps {
-  searchResults: SearchResponseType
+  categories: CategoryType[]
 }
 
-const Filter: FC<FilterProps> = ({ searchResults }) => {
+const Filter: FC<FilterProps> = ({ categories }) => {
   const searchParams = useSearchParams()
-  const { queryParams, setQueryParams } = useQueryParams<SearchRequestType>()
-  const { categories } = useCategories()
+  const { queryParams, setQueryParams } = useQueryParams<SearchType>()
+  const router = useRouter()
 
   interface FilterFormValues {
     category: string
-    subcategory: string
     sort: string
     colour: string
+    subcategory: string
   }
 
   const initialValues: FilterFormValues = {
     category: searchParams.get('category') ?? 'default',
     sort: searchParams.get('sort') ?? 'default',
-    // order is specific so that reset can occur
-    subcategory: searchParams.get('subcategory') ?? 'default',
-    colour: searchParams.get('colour') ?? 'default'
+    colour: searchParams.get('colour') ?? 'default',
+    subcategory: searchParams.get('subcategory') ?? 'default'
   }
 
   function onSubmit (formValues: FormikValues) {
@@ -42,10 +41,11 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
       const isNotFiltered = reservedValues.includes(value)
 
       // reset the subcategory search if the category is not queried
-      if (updatedQuery.category == null) { updatedQuery.subcategory = null }
+      if (updatedQuery.category == null) { console.log('1'); updatedQuery.subcategory = null }
 
       // reset the subcategory search if the category is changed
       if (key === 'category' && value !== queryParams.category) {
+        console.log('2')
         updatedQuery.subcategory = null
       }
 
@@ -57,6 +57,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
     })
 
     setQueryParams(updatedQuery)
+    router.refresh()
   }
 
   return (
@@ -69,12 +70,12 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
         return (
           <Form className="flex flex-col w-full items-center justify-between rounded-md p-5 gap-5 md:gap-20">
             <div className="flex flex-col gap-5 w-full">
-              <p className="text-gray-400">
-                {searchResults.pagination.pageResults +
-                    searchResults.pagination.resultsPerPage *
-                    (searchResults.pagination.page - 1)}
-                /{searchResults.pagination.totalResults} results
-              </p>
+              {/* <p className="text-gray-400"> */}
+              {/*  {searchResults.pagination.pageResults + */}
+              {/*      searchResults.pagination.resultsPerPage **/}
+              {/*      (searchResults.pagination.page - 1)} */}
+              {/*  /{searchResults.pagination.totalResults} results */}
+              {/* </p> */}
 
               <span className="flex flex-col gap-2">
                 <label>Category</label>

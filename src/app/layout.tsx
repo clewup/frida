@@ -1,6 +1,6 @@
 import './globals.css'
 import Footer from '@/components/Footer/Footer'
-import Header from '@/components/Header/Header'
+import RSCHeader from '@/components/Header/RSCHeader'
 import { CartProvider } from '@/contexts/CartContext/CartContext'
 import { LockrProvider } from '@/lib/common/contexts/LockrContext/LockrContext'
 import React from 'react'
@@ -20,7 +20,8 @@ export default function RootLayout ({
               <CartProvider>
                   <body>
                   <div>
-                      <Header />
+                      {/* @ts-expect-error Server Component */}
+                      <RSCHeader />
                       <div className="min-h-screen">
                           {children}
                       </div>
