@@ -41,10 +41,9 @@ const SearchResults: FC<SearchResultsProps> = ({
               return (
                   <button
                       key={index}
-                      className={cx('rounded-none text-black w-10 aspect-square',
-                        pageNumber === searchResults.pagination.page ? 'bg-theme-gray rounded-[50%]' : 'bg-theme-white'
+                      className={cx('rounded-[50%] text-black w-10 aspect-square hover:bg-theme-gray transition-colors',
+                        pageNumber === searchResults.pagination.page ? 'bg-theme-gray' : 'bg-theme-white'
                       )}
-                      disabled={searchResults.pagination.page > 1}
                       onClick={() => {
                         const updatedQuery = { ...queryParams, page: pageNumber }
                         setQueryParams(updatedQuery)
