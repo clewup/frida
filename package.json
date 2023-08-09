@@ -23,7 +23,6 @@
     "eslint": "^8.0.1",
     "eslint-config-next": "13.4.4",
     "formik": "^2.4.0",
-    "framer-motion": "^10.12.16",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
     "next": "^13.4.12",
