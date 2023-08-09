@@ -33,4 +33,4 @@ Frida aims to provide users with a seamless online shopping experience. The plat
 
 ## Screenshots
 
-![Screenshot](https://res.cloudinary.com/dliog6kq6/image/upload/v1689628898/SqueakyClean_Condensed_zgrv4e.jpg)
+![Screenshot](https://res.cloudinary.com/dliog6kq6/image/upload/v1691619017/Screenshot_acndmb.jpg)
