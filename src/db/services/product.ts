@@ -37,7 +37,7 @@ export default class ProductService {
     return mapProducts(products)
   }
 
-  async reduceProductStock (product: ProductEntityType, cartItem: CartItemType): Promise<ProductType> {
+  async reduceProductStock (product: ProductType, cartItem: CartItemType): Promise<ProductType> {
     const updatedProduct = await prisma.product.update({
       include: {
         category: true,
