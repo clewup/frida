@@ -1,36 +1,51 @@
+import { mapCart } from '@/db/mappers/cart'
 import prisma from '@/lib/prisma'
 import { type CartItemType, type CartType } from '@/types/cartTypes'
 import { type ProductType } from '@/types/productTypes'
 
 export default class CartService {
   async getCartByUser (user: string): Promise<CartType | null> {
-    return await prisma.cart.findUnique({
+    const cart = await prisma.cart.findUnique({
       include: {
         items: {
           include: {
-            product: true
+            product: {
+              include: {
+                category: true,
+                subcategory: true
+              }
+            }
           }
         }
       },
       where: { user }
     })
+
+    return (cart != null) ? mapCart(cart) : null
   }
 
   async getCartById (id: string): Promise<CartType | null> {
-    return await prisma.cart.findUnique({
+    const cart = await prisma.cart.findUnique({
       include: {
         items: {
           include: {
-            product: true
+            product: {
+              include: {
+                category: true,
+                subcategory: true
+              }
+            }
           }
         }
       },
       where: { id }
     })
+
+    return (cart != null) ? mapCart(cart) : null
   }
 
   async createCart (user: string, product: ProductType, liveProduct: ProductType): Promise<CartType> {
-    return await prisma.cart.create({
+    const cart = await prisma.cart.create({
       data: {
         createdBy: user,
         items: {
@@ -50,11 +65,18 @@ export default class CartService {
       include: {
         items: {
           include: {
-            product: true
+            product: {
+              include: {
+                category: true,
+                subcategory: true
+              }
+            }
           }
         }
       }
     })
+
+    return mapCart(cart)
   }
 
   async addToCart (user: string, cart: CartType, product: ProductType, cartItem?: CartItemType) {

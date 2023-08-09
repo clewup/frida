@@ -1,6 +1,5 @@
 import constants from '@/constants/constants'
-import { type ProductType } from '@/types/productTypes'
-import { type Cart, type CartItem } from '@prisma/client'
+import { type CartType } from '@/types/cartTypes'
 import { type NextRequest, NextResponse as response } from 'next/server'
 import Stripe from 'stripe'
 
@@ -9,7 +8,7 @@ const stripe = new Stripe(constants.STRIPE_SECRET_KEY, {
 })
 
 export async function POST (request: NextRequest) {
-  const body = await request.json() as Cart & { items: Array<CartItem & { product: ProductType }> }
+  const body = await request.json() as CartType
 
   const user = request.headers.get('x-user')
   if (user === null) return response.error()
@@ -26,7 +25,7 @@ export async function POST (request: NextRequest) {
     automatic_tax: { enabled: true },
     cancel_url: `${constants.APP_URL}`,
     customer_email: user,
-    line_items: body.items.map((item: (CartItem & { product: ProductType })) => ({
+    line_items: body.items.map((item) => ({
       adjustable_quantity: {
         enabled: false
       },

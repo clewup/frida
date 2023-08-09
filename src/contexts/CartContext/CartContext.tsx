@@ -1,8 +1,8 @@
 'use client'
 
 import useApi from '@/lib/common/hooks/useApi/useApi'
+import { type CartType } from '@/types/cartTypes'
 import { type ProductType } from '@/types/productTypes'
-import { type Cart, type CartItem } from '@prisma/client'
 import React, {
   createContext,
   type Dispatch,
@@ -14,8 +14,8 @@ import React, {
 } from 'react'
 
 interface CartContextValues {
-  cart: (Cart & { items: Array<CartItem & { product: ProductType }> }) | null
-  setCart: Dispatch<SetStateAction<(Cart & { items: Array<CartItem & { product: ProductType }> }) | null>>
+  cart: CartType | null
+  setCart: Dispatch<SetStateAction<CartType | null>>
 }
 
 const CartContext = createContext<CartContextValues>({
@@ -28,7 +28,7 @@ interface CartProviderProps {
 }
 
 const CartProvider: FC<CartProviderProps> = ({ children }) => {
-  const [cart, setCart] = useState<(Cart & { items: Array<CartItem & { product: ProductType }> }) | null>(
+  const [cart, setCart] = useState<CartType | null>(
     null
   )
 
@@ -51,7 +51,7 @@ const useCart = () => {
 
   async function getCart () {
     setLoading(true)
-    const cart = await get<Cart & { items: Array<CartItem & { product: ProductType }> }>('/api/cart')
+    const cart = await get<CartType>('/api/cart')
     setCart(cart)
     setLoading(false)
     return cart
@@ -59,7 +59,7 @@ const useCart = () => {
 
   async function addToCart (product: ProductType) {
     setLoading(true)
-    const updatedCart = await patch<Cart & { items: Array<CartItem & { product: ProductType }> }>(
+    const updatedCart = await patch<CartType>(
       '/api/cart',
       {
         action: 'add',
@@ -76,7 +76,7 @@ const useCart = () => {
     if (cart != null) {
       setLoading(true)
 
-      const updatedCart = await patch<Cart & { items: Array<CartItem & { product: ProductType }> }>(
+      const updatedCart = await patch<CartType>(
         '/api/cart',
         {
           action: 'remove',
@@ -94,7 +94,7 @@ const useCart = () => {
     if (cart != null) {
       setLoading(true)
 
-      const updatedCart = await patch<Cart & { items: Array<CartItem & { product: ProductType }> }>(
+      const updatedCart = await patch<CartType>(
         '/api/cart',
         {
           action: 'clear'
