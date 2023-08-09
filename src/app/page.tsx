@@ -10,6 +10,7 @@ import React from 'react'
 import Category from '@/components/Category/Category'
 
 export default async function Home () {
+  const spotlightedProducts = await productService.getSpotlightedProducts([12, 19, 27])
   const latestProducts = await productService.getLatestProducts()
   const categories = await categoryService.getCategories()
   const trendingProducts = await productService.getTrendingProducts()
@@ -37,7 +38,7 @@ export default async function Home () {
 
   return (
     <PageWrapper>
-      <Hero/>
+      <Hero spotlightedProducts={spotlightedProducts}/>
 
       <ServiceBenefits/>
 

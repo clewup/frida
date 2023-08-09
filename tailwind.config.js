@@ -17,7 +17,6 @@ module.exports = {
           white: '#fbfbfb',
           gray: '#efefef',
           black: '#1c211f',
-          mint: '#ddece0',
         },
         filter: {
           white: '#ffffff',
@@ -32,6 +31,11 @@ module.exports = {
           pink: '#ff70a6',
           brown: '#a52a2a',
           na: '#808080'
+        },
+        banner: {
+          mint: '#ddece0',
+          blue: '#bedbfe',
+          cream: '#f4eee0'
         }
       },
       fontFamily: {

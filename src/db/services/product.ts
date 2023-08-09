@@ -125,4 +125,18 @@ export default class ProductService {
       results: paginatedProducts
     }
   }
+
+  async getSpotlightedProducts (ids: number[]): Promise<ProductType[]> {
+    const spotlightedProducts: ProductType[] = []
+
+    for (const id of ids) {
+      const product = await this.getProductById(id)
+
+      if (product != null) {
+        spotlightedProducts.push(product)
+      }
+    }
+
+    return spotlightedProducts
+  }
 }
