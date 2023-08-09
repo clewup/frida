@@ -1,6 +1,7 @@
+import { type ProductType } from '@/types/productTypes'
+
 export interface TestimonialType {
-  name: string
-  image: string
   review: string
   rating: number
+  product: ProductType
 }
