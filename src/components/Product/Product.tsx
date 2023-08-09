@@ -2,13 +2,12 @@
 
 import Button from '@/components/Button/Button'
 import { useCart } from '@/contexts/CartContext/CartContext'
-import { type Category, type Subcategory } from '@prisma/client'
+import { type ProductType } from '@/types/productTypes'
 import React, { type FC } from 'react'
 import { Package as PackageIcon, ShoppingCart as CartIcon } from 'react-feather'
-import { type Product as PrismaProduct } from '.prisma/client'
 
 interface ProductProps {
-  product: PrismaProduct & { category: Category, subcategory: Subcategory }
+  product: ProductType
 }
 
 const Product: FC<ProductProps> = ({ product }) => {

@@ -1,11 +1,11 @@
 import Heading from '@/components/Heading/Heading'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import { productService } from '@/db/handler'
-import { type Category, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
+import { type ProductType } from '@/types/productTypes'
 import React from 'react'
 
 interface RelatedProductsProps {
-  product: PrismaProduct & { category: Category, subcategory: Subcategory }
+  product: ProductType
 }
 
 export default async function RelatedProducts ({ product }: RelatedProductsProps) {

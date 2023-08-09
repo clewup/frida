@@ -5,13 +5,14 @@ import OrderProductCard from '@/components/OrderProductCard/OrderProductCard'
 import metadata from '@/constants/metadata'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { runFireworks } from '@/lib/confetti'
+import { type ProductType } from '@/types/productTypes'
 import Link from 'next/link'
 import React, { type FC, useEffect } from 'react'
 import { CheckCircle as CheckIcon } from 'react-feather'
-import { type Order as PrismaOrder, type OrderItem, type Product } from '@prisma/client'
+import { type Order as PrismaOrder, type OrderItem } from '@prisma/client'
 
 interface OrderProps {
-  order: PrismaOrder & { items: Array<OrderItem & { product: Product }> }
+  order: PrismaOrder & { items: Array<OrderItem & { product: ProductType }> }
 }
 
 const Order: FC<OrderProps> = ({ order }) => {

@@ -2,14 +2,14 @@
 
 import Button from '@/components/Button/Button'
 import { useCart } from '@/contexts/CartContext/CartContext'
-import { type Category, type Product as PrismaProduct, type Subcategory } from '@prisma/client'
+import { type ProductType } from '@/types/productTypes'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { type FC } from 'react'
 import { ShoppingCart as CartIcon } from 'react-feather'
 
 interface ProductCardProps {
-  product: PrismaProduct & { category: Category, subcategory: Subcategory }
+  product: ProductType
   showAddToCartButton?: boolean
 }
 

@@ -2,12 +2,12 @@
 
 import Button from '@/components/Button/Button'
 import { useCart } from '@/contexts/CartContext/CartContext'
-import { type Product } from '@prisma/client'
+import { type ProductType } from '@/types/productTypes'
 import React, { type FC } from 'react'
 import { Trash2 as RemoveIcon } from 'react-feather'
 
 interface CartProductCardProps {
-  product: Product
+  product: ProductType
   quantity: number
 }
 

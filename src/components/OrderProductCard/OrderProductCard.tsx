@@ -1,10 +1,10 @@
 'use client'
 
-import { type Product } from '@prisma/client'
+import { type ProductType } from '@/types/productTypes'
 import React, { type FC } from 'react'
 
 interface OrderProductCardProps {
-  product: Product
+  product: ProductType
   quantity: number
 }
 
