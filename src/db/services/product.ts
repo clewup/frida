@@ -1,42 +1,54 @@
 import { productService } from '@/db/handler'
+import { mapProduct, mapProducts } from '@/db/mappers/product'
 import prisma from '@/lib/prisma'
 import { type CartItemType } from '@/types/cartTypes'
-import { type ProductType } from '@/types/productTypes'
+import { type ProductEntityType, type ProductType } from '@/types/productTypes'
 import { type SearchResultsType, type SearchType } from '@/types/searchTypes'
 
 export default class ProductService {
   async getProducts (): Promise<ProductType[]> {
-    return await prisma.product.findMany({ include: { category: true, subcategory: true } })
+    const products = await prisma.product.findMany({ include: { category: true, subcategory: true } })
+    return mapProducts(products)
   }
 
   async getProductById (id: number): Promise<ProductType | null> {
-    return await prisma.product.findUnique({ include: { category: true, subcategory: true }, where: { id } })
+    const product = await prisma.product.findUnique({ include: { category: true, subcategory: true }, where: { id } })
+    return (product != null) ? mapProduct(product) : null
   }
 
   async getProductByName (name: string): Promise<ProductType | null> {
     const decodedName = decodeURIComponent(name)
-    return await prisma.product.findFirst({ include: { category: true, subcategory: true }, where: { name: decodedName } })
+    const product = await prisma.product.findFirst({ include: { category: true, subcategory: true }, where: { name: decodedName } })
+    return (product != null) ? mapProduct(product) : null
   }
 
   async getLatestProducts (): Promise<ProductType[]> {
-    return await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' } })
+    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' } })
+    return mapProducts(products)
   }
 
   async getProductsByCategory (category: string): Promise<ProductType[]> {
-    return await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' }, where: { category: { name: category } } })
+    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' }, where: { category: { name: category } } })
+    return mapProducts(products)
   }
 
   async getProductsBySubcategory (subcategory: string): Promise<ProductType[]> {
-    return await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' }, where: { subcategory: { name: subcategory } } })
+    const products = await prisma.product.findMany({ include: { category: true, subcategory: true }, orderBy: { createdAt: 'desc' }, where: { subcategory: { name: subcategory } } })
+    return mapProducts(products)
   }
 
-  async reduceProductStock (product: ProductType, cartItem: CartItemType) {
-    return await prisma.product.update({
+  async reduceProductStock (product: ProductEntityType, cartItem: CartItemType): Promise<ProductType> {
+    const updatedProduct = await prisma.product.update({
+      include: {
+        category: true,
+        subcategory: true
+      },
       data: {
         stock: product.stock - cartItem.quantity
       },
       where: { id: cartItem.product.id }
     })
+    return mapProduct(updatedProduct)
   }
 
   async getTrendingProducts (): Promise<ProductType[]> {
@@ -54,8 +66,9 @@ export default class ProductService {
       trendingCartItems.map(async ({ productId }) =>
         await prisma.product.findUnique({ include: { category: true, subcategory: true }, where: { id: productId } }))
     )
+    const filteredTrendingCartItems = mappedTrendingCartItems.filter((product) => product !== null) as ProductEntityType[]
 
-    return mappedTrendingCartItems.filter((product) => product !== null) as ProductType[]
+    return mapProducts(filteredTrendingCartItems)
   }
 
   async getSearchedProducts ({ search, category, subcategory, sort, colour, page }: SearchType): Promise<SearchResultsType> {

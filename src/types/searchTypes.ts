@@ -1,4 +1,4 @@
-import { type Category, type Product, type Subcategory } from '@prisma/client'
+import { type ProductType } from '@/types/productTypes'
 import Dict = NodeJS.Dict
 
 export interface SearchType extends Dict<string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null> {
@@ -11,7 +11,7 @@ export interface SearchType extends Dict<string | number | boolean | readonly st
 }
 
 export interface SearchResultsType {
-  results: Array<Product & { category: Category, subcategory: Subcategory }>
+  results: ProductType[]
   pagination: Pagination
 }
 
