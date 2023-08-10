@@ -2,13 +2,11 @@
 
 import IconButton from '@/components/IconButton/IconButton'
 import { useRouter } from 'next/navigation'
-import { TailSpin } from 'react-loader-spinner'
-import { Tooltip } from 'react-tooltip'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type ProductType } from '@/types/productTypes'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { type FC, type ReactNode } from 'react'
+import React, { type FC } from 'react'
 import { Eye, Heart, ShoppingCart } from 'react-feather'
 import { motion as m, type Variants } from 'framer-motion'
 
