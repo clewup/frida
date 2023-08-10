@@ -32,7 +32,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ product, quantity }) => {
   }
 
   return (
-    <m.div variants={containerVariants} initial="hidden" whileHover="hover" className="flex justify-between">
+    <m.div variants={containerVariants} initial="hidden" whileHover="hover" className="bg-white rounded-md p-5 flex justify-between">
       <div className="flex gap-5 w-4/5">
         <span className="w-1/4 aspect-square">
           <img src={image} alt={name} className="rounded-md" />
