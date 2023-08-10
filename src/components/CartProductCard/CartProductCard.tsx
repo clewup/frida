@@ -1,10 +1,11 @@
 'use client'
 
-import Button from '@/components/Button/Button'
+import IconButton from '@/components/IconButton/IconButton'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type ProductType } from '@/types/productTypes'
 import React, { type FC } from 'react'
 import { Trash2 as RemoveIcon } from 'react-feather'
+import { motion as m, type Variants } from 'framer-motion'
 
 interface CartProductCardProps {
   product: ProductType
@@ -12,13 +13,27 @@ interface CartProductCardProps {
 }
 
 const CartProductCard: FC<CartProductCardProps> = ({ product, quantity }) => {
-  const { removeFromCart } = useCart()
+  const { removeFromCart, isLoading } = useCart()
 
-  const { image, name, price } = product
+  const { id, image, name, price } = product
+
+  const containerVariants: Variants = {
+    hidden: {},
+    hover: {
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  }
+
+  const ctaVariants: Variants = {
+    hidden: { y: 20, opacity: 0 },
+    hover: { y: 0, opacity: 1, transition: { duration: 0.5 } }
+  }
 
   return (
-    <div className="flex justify-between">
-      <div className="flex gap-5">
+    <m.div variants={containerVariants} initial="hidden" whileHover="hover" className="flex justify-between">
+      <div className="flex gap-5 w-4/5">
         <span className="w-1/4 aspect-square">
           <img src={image} alt={name} className="rounded-md" />
         </span>
@@ -29,16 +44,14 @@ const CartProductCard: FC<CartProductCardProps> = ({ product, quantity }) => {
         </span>
       </div>
 
-        <Button
-            type="button"
-            className="h-fit bg-transparent text-black hover:border-transparent"
-            onClick={() => {
+        <m.div variants={ctaVariants}>
+            <IconButton tooltipId={`cart-remove-tooltip-${id}`} tooltipText="Remove from cart" onClick={() => {
               void removeFromCart(product)
-            }}
-        >
-            <RemoveIcon size={20} />
-        </Button>
-    </div>
+            }} isLoading={isLoading}>
+                <RemoveIcon size={20} />
+            </IconButton>
+        </m.div>
+    </m.div>
   )
 }
 

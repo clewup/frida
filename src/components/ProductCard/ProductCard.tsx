@@ -1,5 +1,6 @@
 'use client'
 
+import IconButton from '@/components/IconButton/IconButton'
 import { useRouter } from 'next/navigation'
 import { TailSpin } from 'react-loader-spinner'
 import { Tooltip } from 'react-tooltip'
@@ -71,9 +72,9 @@ const ProductCard: FC<ProductCardProps> = ({ product, showAddToCartButton = true
             <div className="flex justify-center gap-2 items-center">
                 {ctaButtons.map(({ icon, onClick, isLoading, tooltipId, tooltipText }, index) => (
                     <m.div variants={ctaVariants} key={index}>
-                        <CtaButton onClick={onClick} isLoading={isLoading} tooltipId={tooltipId} tooltipText={tooltipText}>
+                        <IconButton onClick={onClick} isLoading={isLoading} tooltipId={tooltipId} tooltipText={tooltipText}>
                             {icon}
-                        </CtaButton>
+                        </IconButton>
                     </m.div>
                 ))
                 }
@@ -86,39 +87,6 @@ const ProductCard: FC<ProductCardProps> = ({ product, showAddToCartButton = true
               <p className="text-xl text-gray-400">£{Number(price).toFixed(2)}</p>
           </div>
     </m.div>
-  )
-}
-
-interface CtaButtonProps {
-  children: ReactNode
-  onClick?: () => void
-  isLoading?: boolean
-  tooltipId: string
-  tooltipText: string
-}
-
-const CtaButton: FC<CtaButtonProps> = ({ children, onClick, isLoading, tooltipId, tooltipText }) => {
-  return (
-        <>
-            <button
-                data-tooltip-id={tooltipId}
-                className="shadow-md bg-white rounded-[50%] p-3 aspect-square flex items-center justify-center hover:bg-black hover:text-white"
-                onClick={onClick}
-                disabled={isLoading}>
-                <>
-                    {(isLoading === true)
-                      ? (<TailSpin color="#fff" height={20} width={20}/>)
-                      : (children)
-                    }
-                </>
-            </button>
-
-            <Tooltip
-                id={tooltipId}
-                place="top"
-                content={tooltipText}
-            />
-        </>
   )
 }
 
