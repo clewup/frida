@@ -34,7 +34,7 @@ export default function Cart () {
   }
 
   return (
-    <PageWrapper className="min-h-screen-header flex justify-center items-center">
+    <PageWrapper className="min-h-screen-header flex justify-center items-center px-40">
       <Formik
         initialValues={cart ?? {}}
         onSubmit={onSubmit}
@@ -44,7 +44,7 @@ export default function Cart () {
           return (
               <div className="w-full flex flex-col items-center mb-10">
                 <Heading className="my-10">Shopping cart</Heading>
-                <Form className="flex rounded-md  md:w-2/3 gap-5">
+                <Form className="flex rounded-md gap-5 w-full">
                   <div className="flex flex-col gap-5 w-2/3">
                     {isLoading && (
                         <div className="w-full h-60 flex justify-center items-center">

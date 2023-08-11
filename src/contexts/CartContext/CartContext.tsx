@@ -57,13 +57,30 @@ const useCart = () => {
     return cart
   }
 
-  async function addToCart (product: ProductType) {
+  async function addToCart (product: ProductType, quantity?: number) {
     setLoading(true)
     const updatedCart = await patch<CartType>(
       '/api/cart',
       {
         action: 'add',
-        product
+        product,
+        quantity: quantity ?? 1
+      }
+    )
+
+    setCart(updatedCart)
+    setLoading(false)
+    return cart
+  }
+
+  async function updateCartItem (product: ProductType, quantity: number) {
+    setLoading(true)
+    const updatedCart = await patch<CartType>(
+      '/api/cart',
+      {
+        action: 'update',
+        product,
+        quantity
       }
     )
 
@@ -110,6 +127,7 @@ const useCart = () => {
   return {
     ...context,
     addToCart,
+    updateCartItem,
     clearCart,
     getCart,
     isLoading,

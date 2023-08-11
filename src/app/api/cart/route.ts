@@ -1,4 +1,5 @@
 import { cartService, productService } from '@/db/handler'
+import { type ProductType } from '@/types/productTypes'
 import { type NextRequest, NextResponse as response } from 'next/server'
 
 export async function GET (request: NextRequest) {
@@ -25,8 +26,9 @@ export async function PATCH (request: NextRequest) {
   const user = request.headers.get('x-user')
   if (user === null) return response.error()
 
-  const action = body.action
-  const product = body.product
+  const action: string = body.action
+  const product: ProductType = body.product
+  const quantity: number = body.quantity
 
   const liveProduct = await productService.getProductById(product.id)
   if (liveProduct == null) return response.error()
@@ -44,7 +46,10 @@ export async function PATCH (request: NextRequest) {
 
   switch (action) {
     case 'add':
-      await cartService.addToCart(user, cart, product, cartItem)
+      await cartService.addToCart(user, cart, product, quantity, cartItem)
+      break
+    case 'update':
+      await cartService.updateCartItem(user, cart, quantity, cartItem)
       break
     case 'remove':
       await cartService.removeFromCart(cart, cartItem)

@@ -3,8 +3,9 @@
 import Button from '@/components/Button/Button'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { type ProductType } from '@/types/productTypes'
+import { Field, Form, Formik } from 'formik'
 import React, { type FC } from 'react'
-import { Package as PackageIcon, ShoppingCart as CartIcon } from 'react-feather'
+import { Minus, Package as PackageIcon, Plus, ShoppingCart as CartIcon } from 'react-feather'
 
 interface ProductProps {
   product: ProductType
@@ -14,6 +15,18 @@ const Product: FC<ProductProps> = ({ product }) => {
   const { addToCart, isLoading } = useCart()
 
   const { description, image, name, price, stock } = product
+
+  interface ProductFormValues {
+    quantity: number
+  }
+
+  const initialValues: ProductFormValues = {
+    quantity: 1
+  }
+
+  function handleSubmit ({ quantity }: ProductFormValues) {
+    void addToCart(product, quantity)
+  }
 
   return (
         <div className="bg-white rounded-md flex flex-col w-full md:flex-row">
@@ -40,18 +53,39 @@ const Product: FC<ProductProps> = ({ product }) => {
                     <p className="text-3xl">£{Number(price).toFixed(2)}</p>
                     {stock > 0
                       ? (
-                            <Button
-                                isLoading={isLoading}
-                                onClick={() => {
-                                  void addToCart(product)
-                                }}
-                            >
-                                <CartIcon />
-                                Add to cart
-                            </Button>
+                          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                              {({ values, setFieldValue }) =>
+                                  <Form className="flex h-full gap-10">
+                                      <div className="flex border-theme-gray border-[2px] rounded-md h-full px-2">
+                                          <button type="button"
+                                                onClick={() => { void setFieldValue('quantity', values.quantity - 1) }}
+                                          >
+                                              <Minus size={20} className="text-gray-400"/>
+                                          </button>
+                                          <Field name="quantity" className="focus:outline-0 w-10 text-center py-2"/>
+                                          <button type="button"
+                                                  onClick={() => { void setFieldValue('quantity', values.quantity + 1) }}
+                                          >
+                                              <Plus size={20} className="text-gray-400"/>
+                                          </button>
+                                      </div>
+
+                                      <div>
+                                          <Button
+                                              type="submit"
+                                              isLoading={isLoading}
+                                          >
+                                              <CartIcon />
+                                              Add to cart
+                                          </Button>
+                                      </div>
+                                  </Form>
+                              }
+                          </Formik>
+
                         )
                       : (
-                            <p>Out of Stock</p>
+                            <p>Out of stock</p>
                         )}
                 </div>
             </div>

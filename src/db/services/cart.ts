@@ -15,6 +15,9 @@ export default class CartService {
                 subcategory: true
               }
             }
+          },
+          orderBy: {
+            createdAt: 'asc'
           }
         }
       },
@@ -25,7 +28,7 @@ export default class CartService {
   }
 
   async getCartById (id: string): Promise<CartType | null> {
-    const cart = await prisma.cart.findUnique({
+    const cart = await prisma.cart.findFirst({
       include: {
         items: {
           include: {
@@ -35,6 +38,9 @@ export default class CartService {
                 subcategory: true
               }
             }
+          },
+          orderBy: {
+            createdAt: 'asc'
           }
         }
       },
@@ -79,7 +85,7 @@ export default class CartService {
     return mapCart(cart)
   }
 
-  async addToCart (user: string, cart: CartType, product: ProductType, cartItem?: CartItemType) {
+  async addToCart (user: string, cart: CartType, product: ProductType, quantity: number, cartItem?: CartItemType) {
     // add to the quantity if product already exists in the cart, otherwise create it
     if (cartItem !== undefined) {
       await prisma.cart.update({
@@ -87,7 +93,7 @@ export default class CartService {
           items: {
             update: {
               data: {
-                quantity: cartItem.quantity + 1
+                quantity: cartItem.quantity + quantity
               },
               where: {
                 id: cartItem.id
@@ -114,6 +120,24 @@ export default class CartService {
         where: { id: cart?.id }
       })
     }
+  }
+
+  async updateCartItem (user: string, cart: CartType, quantity: number, cartItem?: CartItemType) {
+    await prisma.cart.update({
+      data: {
+        items: {
+          update: {
+            data: {
+              quantity
+            },
+            where: {
+              id: cartItem?.id
+            }
+          }
+        }
+      },
+      where: { id: cart?.id }
+    })
   }
 
   async clearCart (cart: CartType) {
