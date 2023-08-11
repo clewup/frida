@@ -1,13 +1,11 @@
 'use client'
 
-import Button from '@/components/Button/Button'
 import IconButton from '@/components/IconButton/IconButton'
 import { useCart } from '@/contexts/CartContext/CartContext'
-import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
 import { type ProductType } from '@/types/productTypes'
 import { Field, Form, Formik } from 'formik'
 import React, { type FC } from 'react'
-import { Minus, Plus, ShoppingCart as CartIcon, Trash2 as RemoveIcon } from 'react-feather'
+import { Minus, Plus, Trash2 as RemoveIcon } from 'react-feather'
 import { motion as m, type Variants } from 'framer-motion'
 
 interface CartProductCardProps {
