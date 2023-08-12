@@ -25,6 +25,7 @@ Frida aims to provide users with a seamless online shopping experience. The plat
 - Stripe (Payment Gateway)
 - Prisma
 - Postgres
+- GSAP
 - Framer Motion
 - Dexie
 - Tailwind
