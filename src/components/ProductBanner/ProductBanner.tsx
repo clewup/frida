@@ -73,7 +73,7 @@ const ProductBanner: FC<ProductBannerProps> = ({ product: { price, name, image, 
 
             <div className="w-2/5 h-full md:bg-white"/>
 
-            <div className="absolute bottom-[10%] h-[50%] md:right-[10%] md:h-full flex items-center">
+            <div className="absolute bottom-[10%] h-[50%] md:right-[10%] md:h-[100%] md:-bottom-[0%] flex items-center">
                 <div ref={imageRef} className="h-[80%] aspect-square relative">
                     <Image src={image} alt="product" fill={true} className="object-contain"/>
                 </div>
