@@ -49,7 +49,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                         </span>
                 </div>
 
-                <div className="p-10 flex justify-between items-center">
+                <div className="p-10 flex flex-col justify-between items-center gap-5 md:gap-0 md:flex-row ">
                     <p className="text-3xl">£{Number(price).toFixed(2)}</p>
                     {stock > 0
                       ? (

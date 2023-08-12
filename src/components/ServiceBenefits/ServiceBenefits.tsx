@@ -5,8 +5,8 @@ import { MessageSquare, Package, ShoppingCart, Tag } from 'react-feather'
 
 const ServiceBenefits = () => {
   return (
-        <div className="flex justify-center items-center px-40 py-20">
-            <div className="flex gap-20 w-fit">
+        <div className="flex justify-center items-center md:px-40 py-20">
+            <div className="flex flex-col gap-5 w-fit md:flex-row md:gap-20">
                 <div className="flex gap-5 items-center">
                     <Package size={40}/>
                     <div>

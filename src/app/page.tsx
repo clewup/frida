@@ -41,7 +41,7 @@ export default async function Home () {
 
           <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categories.length} min-h-[50vh] items-center`}>
             {categories.map((category, index) => (
-                <Category key={index} category={category} className="odd:h-full even:h-[80%]"/>
+                <Category key={index} category={category} className="h-[30vh] md:odd:h-full md:even:h-[80%]"/>
             ))}
           </div>
         </div>
@@ -59,7 +59,7 @@ export default async function Home () {
         </div>
 
         <div className="bg-theme-gray rounded-md py-20 px-5 flex flex-col gap-10 relative overflow-hidden">
-          <Heading className="absolute left-40">Happy customers</Heading>
+          <Heading className="md:absolute md:left-40">Happy customers</Heading>
           <div className="grid grid-cols-1 gap-5 my-20 md:grid-cols-3 md:gap-10">
             {testimonials.map((testimonial, index) => (<Testimonial key={index} testimonial={testimonial}/>))}
           </div>

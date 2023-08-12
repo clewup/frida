@@ -12,7 +12,7 @@ const Heading: FC<HeadingProps> = ({ children, className }) => {
   const emphasisedWord = words[words.length - 1]
 
   return (
-        <div className={cx('flex gap-2 justify-center text-5xl', className)}>
+        <div className={cx('flex gap-2 justify-center text-4xl md:text-5xl', className)}>
             <p>{nonEmphasisedWords}</p>
             <div className="relative">
                 <p className=" font-bold">{emphasisedWord}</p>

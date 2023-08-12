@@ -34,7 +34,7 @@ export default function Cart () {
   }
 
   return (
-    <PageWrapper className="min-h-screen-header flex justify-center items-center px-40">
+    <PageWrapper className="min-h-screen-header flex justify-center items-center md:px-40">
       <Formik
         initialValues={cart ?? {}}
         onSubmit={onSubmit}
@@ -43,8 +43,8 @@ export default function Cart () {
         {() => {
           return (
               <div className="w-full flex flex-col my-10">
-                <Form className="flex rounded-md gap-5 min-h-screen-header w-full">
-                  <div className="flex flex-col gap-5 w-2/3 p-5 rounded-md bg-white">
+                <Form className="flex flex-col rounded-md gap-5 min-h-screen-header w-full md:flex-row">
+                  <div className="flex flex-col gap-5 p-5 rounded-md bg-white md:w-2/3">
                     <table>
                       <thead>
                       <tr className="border-b-theme-gray border-b-[2px]">
@@ -69,7 +69,7 @@ export default function Cart () {
                     </div>
                   </div>
 
-                  <div className="w-1/3 flex flex-col gap-5 bg-theme-gray p-5 rounded-md">
+                  <div className="flex flex-col gap-5 bg-theme-gray p-5 rounded-md md:w-1/3">
                     <div className="flex w-full justify-between">
                       <p className="text-2xl">
                         Subtotal:

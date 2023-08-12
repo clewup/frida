@@ -35,7 +35,7 @@ const CartItemRow: FC<CartItemRowProps> = ({ product, quantity }) => {
         <td className="flex py-5">
           <div className="flex gap-5 items-center">
               <Link href={`/product/${name}`}>
-                  <div className="w-16 aspect-square relative">
+                  <div className="w-5 aspect-square relative md:w-16">
                       <Image src={image} alt={name} fill={true}/>
                   </div>
               </Link>

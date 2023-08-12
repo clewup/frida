@@ -73,7 +73,7 @@ const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
               </Link>
             </div>
 
-            <div className="">
+            <div className="hidden md:block">
                   <ul className="flex gap-10 items-center h-full text-xl">
                     {menuItems.map(({ label, route }, index) => {
                       return (
@@ -92,7 +92,7 @@ const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
 
           </div>
 
-          <div className="flex justify-end items-center gap-5 h-full">
+          <div className="justify-end items-center gap-5 h-full hidden md:block md:flex">
             {(user == null)
               ? (
               <button onClick={signIn}>

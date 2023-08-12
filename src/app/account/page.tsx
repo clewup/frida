@@ -55,8 +55,8 @@ export default function Account () {
       <div className="border-b-[2px] border-b-theme-gray pt-5">
       </div>
 
-      <div className="flex w-full px-40">
-        <div className="w-1/4">
+      <div className="flex w-full flex-col gap-10 md:gap-0 md:flex-row md:px-40">
+        <div className="md:w-1/4">
           <ul className="flex flex-col gap-2">
             {menuItems.map((menuItem, index) => (
                 <li key={index}>
@@ -75,7 +75,7 @@ export default function Account () {
             </li>
           </ul>
         </div>
-        <div className="w-3/4">
+        <div className="md:w-3/4">
           {menuItems[activeMenuItem].component}
         </div>
       </div>

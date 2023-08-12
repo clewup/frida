@@ -23,12 +23,12 @@ export default async function Search ({ searchParams }: PageContext) {
     <PageWrapper>
       <Heading className="py-20">{heading}</Heading>
 
-      <div className="flex gap-5">
-        <div className="w-1/5">
+      <div className="flex flex-col md:flex-row gap-5">
+        <div className="md:w-1/5">
           <Filter categories={categories}/>
         </div>
 
-        <div className="w-4/5">
+        <div className="md:w-4/5">
           <SearchResults searchResults={searchResults}/>
         </div>
       </div>
