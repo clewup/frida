@@ -154,34 +154,16 @@ export default class CartService {
   async removeFromCart (cart: CartType, cartItem?: CartItemType) {
     // deduct a quantity from the item if more than one, otherwise remove it
     if (cartItem !== undefined) {
-      if (cartItem.quantity > 1) {
-        return await prisma.cart.update({
-          data: {
-            items: {
-              update: {
-                data: {
-                  quantity: cartItem.quantity - 1
-                },
-                where: {
-                  id: cartItem.id
-                }
-              }
+      return await prisma.cart.update({
+        data: {
+          items: {
+            delete: {
+              id: cartItem.id
             }
-          },
-          where: { id: cart?.id }
-        })
-      } else {
-        return await prisma.cart.update({
-          data: {
-            items: {
-              delete: {
-                id: cartItem.id
-              }
-            }
-          },
-          where: { id: cart.id }
-        })
-      }
+          }
+        },
+        where: { id: cart.id }
+      })
     } else {
       return await this.getCartById(cart.id)
     }
