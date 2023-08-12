@@ -30,10 +30,10 @@ export async function PATCH (request: NextRequest) {
   const product: ProductType = body.product
   const quantity: number = body.quantity
 
+  const cart = await cartService.getCartByUser(user)
+
   const liveProduct = await productService.getProductById(product.id)
   if (liveProduct == null) return response.error()
-
-  const cart = await cartService.getCartByUser(user)
 
   // create a new cart if one does not exist
   if (cart == null) {

@@ -1,22 +1,22 @@
 'use client'
 
 import Button from '@/components/Button/Button'
-import CartProductCard from '@/components/CartProductCard/CartProductCard'
-import Heading from '@/components/Heading/Heading'
+import CartItemRow from '@/components/CartItemRow/CartItemRow'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import { useCart } from '@/contexts/CartContext/CartContext'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import getStripe from '@/lib/stripe'
 import { Form, Formik, type FormikValues } from 'formik'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { TailSpin } from 'react-loader-spinner'
-import { Info, ShoppingCart as CartIcon } from 'react-feather'
+import { Info } from 'react-feather'
 
 export default function Cart () {
   const { cart, getCart, isLoading } = useCart()
   const { user } = useLockr()
   const { post } = useApi()
+  const router = useRouter()
 
   const [isRedirecting, setRedirecting] = useState(false)
 
@@ -42,29 +42,31 @@ export default function Cart () {
       >
         {() => {
           return (
-              <div className="w-full flex flex-col items-center mb-10">
-                <Heading className="my-10">Shopping cart</Heading>
-                <Form className="flex rounded-md gap-5 w-full">
-                  <div className="flex flex-col gap-5 w-2/3">
-                    {isLoading && (
-                        <div className="w-full h-60 flex justify-center items-center">
-                          <TailSpin color="#111111" />
-                        </div>
-                    )}
+              <div className="w-full flex flex-col my-10">
+                <Form className="flex rounded-md gap-5 min-h-screen-header w-full">
+                  <div className="flex flex-col gap-5 w-2/3 p-5 rounded-md bg-white">
+                    <table>
+                      <thead>
+                      <tr className="border-b-theme-gray border-b-[2px]">
+                        <th className="pb-5">ITEM</th>
+                        <th className="pb-5">PRICE</th>
+                        <th className="pb-5">QUANTITY</th>
+                        <th className="pb-5">SUBTOTAL</th>
+                        <th className="pb-5">REMOVE</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {cart?.items.map(({ product, quantity }, index) => (
+                          <CartItemRow key={index} product={product} quantity={quantity}/>
+                      ))}
+                      </tbody>
+                    </table>
 
-                    {!isLoading && (((cart?.items?.length) == null) || cart?.items?.length === 0) && (
-                        <div className="flex flex-col gap-5 p-10 items-center">
-                          <CartIcon className="my-5 text-theme-black"/>
-                          <p className="text-2xl text-center">Your cart is empty.</p>
-                        </div>
-                    )}
-
-                    {!isLoading &&
-                        (cart != null) &&
-                        cart.items?.length > 0 &&
-                        cart.items.map((item, index) => (
-                            <CartProductCard key={index} product={item.product} quantity={item.quantity} />
-                        ))}
+                    <div className="w-full flex justify-between">
+                      <Button onClick={() => { router.push('/search') } }>
+                        Continue shopping
+                      </Button>
+                    </div>
                   </div>
 
                   <div className="w-1/3 flex flex-col gap-5 bg-theme-gray p-5 rounded-md">
@@ -87,7 +89,7 @@ export default function Cart () {
                     <Button
                         type="submit"
                         className="text-2xl w-full"
-                        isLoading={isRedirecting}
+                        isLoading={isRedirecting || isLoading}
                         disabled={((cart?.items) == null) || cart?.items?.length === 0}
                     >
                       Checkout

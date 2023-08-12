@@ -19,7 +19,7 @@ const OrderList: FC<OrderListProps> = ({ orders }) => {
 
                     )
                   : (
-                    <table className="table table-zebra">
+                    <table>
                         <thead>
                         <tr>
                             <th>ORDER</th>
