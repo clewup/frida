@@ -7,7 +7,7 @@ export async function GET (request: NextRequest) {
   if (user === null) return response.error()
 
   const cart = await cartService.getCartByUser(user)
-  if (cart == null) return response.json({}, { status: 404 })
+  if (cart == null) return response.json(undefined, { status: 404 })
 
   return response.json(cart)
 }

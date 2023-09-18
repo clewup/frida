@@ -1,11 +1,11 @@
 'use client'
 
-import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
+import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
 import moment from 'moment/moment'
 import React from 'react'
 
 const UserDetails = () => {
-  const { user } = useLockr()
+  const { user } = useAuthKitty()
 
   if (user == null) return <></>
 
@@ -13,7 +13,7 @@ const UserDetails = () => {
         <div className="flex flex-col gap-10">
             <div className="flex gap-2">
                 <p className="text-xl text-gray-400">Hello,</p>
-                <p className="text-xl font-bold">{user.name}.</p>
+                <p className="text-xl font-bold">{user.firstName}.</p>
             </div>
 
             <div>
@@ -21,15 +21,11 @@ const UserDetails = () => {
 
                 <div className="w-full flex border-b-[2px] border-theme-gray py-5">
                     <p className="text-lg w-1/4">Name</p>
-                    <p className="text-lg text-gray-400">{user.name}</p>
+                    <p className="text-lg text-gray-400">{user.firstName} {user.lastName}</p>
                 </div>
                 <div className="w-full flex border-b-[2px] border-theme-gray py-5">
                     <p className="text-lg w-1/4">Email</p>
                     <p className="text-lg text-gray-400">{user.email}</p>
-                </div>
-                <div className="w-full flex border-b-[2px] border-theme-gray py-5">
-                    <p className="text-lg w-1/4">Joined</p>
-                    <p className="text-lg text-gray-400">{moment(user.createdAt).format('DD/MM/yyyy')}</p>
                 </div>
             </div>
 

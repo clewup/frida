@@ -2,8 +2,7 @@
 
 import ShopView from '@/components/Header/components/ShopView/ShopView'
 import TrendingView from '@/components/Header/components/TrendingView/TrendingView'
-import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
-import useAuth from '@/lib/common/hooks/useAuth/useAuth'
+import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
 import { type CategoryType } from '@/types/categoryTypes'
 import { type ProductType } from '@/types/productTypes'
 import Link from 'next/link'
@@ -48,8 +47,7 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
-  const { user } = useLockr()
-  const { signIn } = useAuth({ redirectUri: constants.APP_URL })
+  const { user, signIn } = useAuthKitty()
   const router = useRouter()
   const pathname = usePathname()
 
@@ -95,7 +93,7 @@ const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
           <div className="justify-end items-center gap-5 h-full hidden md:block md:flex">
             {(user == null)
               ? (
-              <button onClick={signIn}>
+              <button onClick={() => { signIn(constants.APP_URL) }}>
                   <UserIcon size={20}/>
               </button>
                 )

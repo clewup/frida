@@ -4,7 +4,7 @@ import Button from '@/components/Button/Button'
 import CartItemRow from '@/components/CartItemRow/CartItemRow'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import { useCart } from '@/contexts/CartContext/CartContext'
-import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
+import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import getStripe from '@/lib/stripe'
 import { Form, Formik, type FormikValues } from 'formik'
@@ -14,7 +14,7 @@ import { Info } from 'react-feather'
 
 export default function Cart () {
   const { cart, getCart, isLoading } = useCart()
-  const { user } = useLockr()
+  const { user } = useAuthKitty()
   const { post } = useApi()
   const router = useRouter()
 
@@ -56,7 +56,7 @@ export default function Cart () {
                       </tr>
                       </thead>
                       <tbody>
-                      {cart?.items.map(({ product, quantity }, index) => (
+                      {cart?.items?.map(({ product, quantity }, index) => (
                           <CartItemRow key={index} product={product} quantity={quantity}/>
                       ))}
                       </tbody>

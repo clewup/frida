@@ -4,9 +4,8 @@ import OrderList from '@/components/OrderList/OrderList'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import UserDetails from '@/components/UserDetails/UserDetails'
 import constants from '@/constants/constants'
-import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
+import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
-import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import { type Order } from '@prisma/client'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
@@ -14,8 +13,7 @@ import { ArrowLeft, Map, Package, User } from 'react-feather'
 
 export default function Account () {
   const { get } = useApi()
-  const { user } = useLockr()
-  const { signOut } = useAuth({ redirectUri: constants.APP_URL })
+  const { user, signOut } = useAuthKitty()
 
   const [orders, setOrders] = useState<Order[]>([])
   const [activeMenuItem, setActiveMenuItem] = useState(0)
@@ -67,7 +65,7 @@ export default function Account () {
                 </li>
             ))}
             <li>
-              <button className="flex gap-5 items-center" onClick={signOut}>
+              <button className="flex gap-5 items-center" onClick={() => { signOut(constants.APP_URL) }}>
                 <ArrowLeft size={20}/>
                 <p>Log out</p>
               </button>
