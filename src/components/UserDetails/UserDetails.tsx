@@ -1,7 +1,6 @@
 'use client'
 
 import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
-import moment from 'moment/moment'
 import React from 'react'
 
 const UserDetails = () => {
