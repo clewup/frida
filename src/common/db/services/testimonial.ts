@@ -1,6 +1,6 @@
-import { productService } from '@/db/handler'
-import { type ProductType } from '@/types/productTypes'
-import { type TestimonialType } from '@/types/testimonialTypes'
+import { productService } from '@/common/db/handler'
+import { type ProductType } from '@/common/types/productTypes'
+import { type TestimonialType } from '@/common/types/testimonialTypes'
 
 export default class TestimonialService {
   async getTestimonials (): Promise<TestimonialType[]> {

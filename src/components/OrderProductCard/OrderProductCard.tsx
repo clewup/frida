@@ -1,6 +1,6 @@
 'use client'
 
-import { type ProductType } from '@/types/productTypes'
+import { type ProductType } from '@/common/types/productTypes'
 import React, { type FC } from 'react'
 
 interface OrderProductCardProps {

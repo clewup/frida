@@ -1,7 +1,7 @@
 'use client'
 
-import { useCart } from '@/contexts/CartContext/CartContext'
-import { type ProductType } from '@/types/productTypes'
+import { useCart } from '@/common/contexts/CartContext/CartContext'
+import { type ProductType } from '@/common/types/productTypes'
 import { Field, Form, Formik } from 'formik'
 import Image from 'next/image'
 import Link from 'next/link'

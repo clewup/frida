@@ -1,5 +1,5 @@
-import { mapProduct } from '@/db/mappers/product'
-import { type CartEntityType, type CartType } from '@/types/cartTypes'
+import { mapProduct } from '@/common/db/mappers/product'
+import { type CartEntityType, type CartType } from '@/common/types/cartTypes'
 
 export function mapCart (cart: CartEntityType): CartType {
   return {

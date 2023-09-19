@@ -2,10 +2,10 @@
 
 import Button from '@/components/Button/Button'
 import OrderProductCard from '@/components/OrderProductCard/OrderProductCard'
-import metadata from '@/constants/metadata'
-import { useCart } from '@/contexts/CartContext/CartContext'
+import metadata from '@/common/constants/metadata'
+import { useCart } from '@/common/contexts/CartContext/CartContext'
 import { runFireworks } from '@/lib/confetti'
-import { type ProductType } from '@/types/productTypes'
+import { type ProductType } from '@/common/types/productTypes'
 import Link from 'next/link'
 import React, { type FC, useEffect } from 'react'
 import { CheckCircle as CheckIcon } from 'react-feather'

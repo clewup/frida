@@ -2,8 +2,8 @@
 
 import IconButton from '@/components/IconButton/IconButton'
 import { useRouter } from 'next/navigation'
-import { useCart } from '@/contexts/CartContext/CartContext'
-import { type ProductType } from '@/types/productTypes'
+import { useCart } from '@/common/contexts/CartContext/CartContext'
+import { type ProductType } from '@/common/types/productTypes'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { type FC } from 'react'

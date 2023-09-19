@@ -1,13 +1,14 @@
 'use client'
 
+import { fridaApi } from '@/common/api/handler'
+import { type CartType } from '@/common/types/cartTypes'
 import Button from '@/components/Button/Button'
 import CartItemRow from '@/components/CartItemRow/CartItemRow'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
-import { useCart } from '@/contexts/CartContext/CartContext'
+import { useCart } from '@/common/contexts/CartContext/CartContext'
 import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
-import useApi from '@/lib/common/hooks/useApi/useApi'
 import getStripe from '@/lib/stripe'
-import { Form, Formik, type FormikValues } from 'formik'
+import { Form, Formik } from 'formik'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { Info } from 'react-feather'
@@ -15,7 +16,6 @@ import { Info } from 'react-feather'
 export default function Cart () {
   const { cart, getCart, isLoading } = useCart()
   const { user } = useAuthKitty()
-  const { post } = useApi()
   const router = useRouter()
 
   const [isRedirecting, setRedirecting] = useState(false)
@@ -25,10 +25,12 @@ export default function Cart () {
     void getCart()
   }, [user, cart])
 
-  async function onSubmit (formValues: FormikValues) {
+  const initialValues = cart ?? {} as CartType
+
+  async function onSubmit (formValues: CartType) {
     setRedirecting(true)
     const stripe = await getStripe()
-    const stripeData = await post<{ id: string }>('/api/stripe', formValues)
+    const stripeData = await fridaApi.postOrder(formValues)
     void stripe.redirectToCheckout({ sessionId: stripeData.id })
     setRedirecting(false)
   }
@@ -36,7 +38,7 @@ export default function Cart () {
   return (
     <PageWrapper className="min-h-screen-header flex justify-center items-center md:px-40">
       <Formik
-        initialValues={cart ?? {}}
+        initialValues={initialValues}
         onSubmit={onSubmit}
         enableReinitialize={true}
       >

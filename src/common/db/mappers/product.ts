@@ -1,4 +1,4 @@
-import { type ProductEntityType, type ProductType } from '@/types/productTypes'
+import { type ProductEntityType, type ProductType } from '@/common/types/productTypes'
 
 export function mapProduct (product: ProductEntityType): ProductType {
   return { ...product, price: product.price.toNumber() }

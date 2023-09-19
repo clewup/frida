@@ -2,7 +2,7 @@ import Filter from '@/components/Filter/Filter'
 import Heading from '@/components/Heading/Heading'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import SearchResults from '@/components/SearchResults/SearchResults'
-import { categoryService, productService } from '@/db/handler'
+import { categoryService, productService } from '@/common/db/handler'
 import { type PageContext } from '@/lib/common/types/nextTypes'
 import React from 'react'
 

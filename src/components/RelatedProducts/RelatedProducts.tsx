@@ -1,7 +1,7 @@
 import Heading from '@/components/Heading/Heading'
 import ProductCard from '@/components/ProductCard/ProductCard'
-import { productService } from '@/db/handler'
-import { type ProductType } from '@/types/productTypes'
+import { productService } from '@/common/db/handler'
+import { type ProductType } from '@/common/types/productTypes'
 import React from 'react'
 
 interface RelatedProductsProps {

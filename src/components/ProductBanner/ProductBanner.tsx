@@ -1,7 +1,7 @@
 'use client'
 
 import Button from '@/components/Button/Button'
-import { type ProductType } from '@/types/productTypes'
+import { type ProductType } from '@/common/types/productTypes'
 import cx from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'

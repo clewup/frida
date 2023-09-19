@@ -1,4 +1,4 @@
-import { categoryService, productService } from '@/db/handler'
+import { categoryService, productService } from '@/common/db/handler'
 import React from 'react'
 import Header from './Header'
 

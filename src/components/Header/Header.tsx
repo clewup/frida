@@ -3,8 +3,8 @@
 import ShopView from '@/components/Header/components/ShopView/ShopView'
 import TrendingView from '@/components/Header/components/TrendingView/TrendingView'
 import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
-import { type CategoryType } from '@/types/categoryTypes'
-import { type ProductType } from '@/types/productTypes'
+import { type CategoryType } from '@/common/types/categoryTypes'
+import { type ProductType } from '@/common/types/productTypes'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { type FC, useEffect, useState } from 'react'
@@ -13,7 +13,7 @@ import {
   Search as SearchIcon,
   User as UserIcon
 } from 'react-feather'
-import constants from '@/constants/constants'
+import constants from '@/common/constants/constants'
 
 enum MenuItems {
   SHOP = 'Shop',

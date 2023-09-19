@@ -4,7 +4,7 @@ import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import ServiceBenefits from '@/components/ServiceBenefits/ServiceBenefits'
 import Testimonial from '@/components/Testimonial/Testimonial'
-import { categoryService, productService, testimonialService } from '@/db/handler'
+import { categoryService, productService, testimonialService } from '@/common/db/handler'
 import React from 'react'
 import Category from '@/components/Category/Category'
 

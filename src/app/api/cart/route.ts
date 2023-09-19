@@ -1,5 +1,5 @@
-import { cartService, productService } from '@/db/handler'
-import { type ProductType } from '@/types/productTypes'
+import { cartService, productService } from '@/common/db/handler'
+import { type ProductType } from '@/common/types/productTypes'
 import { type NextRequest, NextResponse as response } from 'next/server'
 
 export async function GET (request: NextRequest) {
@@ -24,7 +24,10 @@ export async function PATCH (request: NextRequest) {
   }
 
   const user = request.headers.get('x-user')
-  if (user === null) return response.error()
+  if (user === null) {
+    console.log('4')
+    return response.error()
+  }
 
   const action: string = body.action
   const product: ProductType = body.product
@@ -33,7 +36,10 @@ export async function PATCH (request: NextRequest) {
   const cart = await cartService.getCartByUser(user)
 
   const liveProduct = await productService.getProductById(product.id)
-  if (liveProduct == null) return response.error()
+  if (liveProduct == null) {
+    console.log('10')
+    return response.error()
+  }
 
   // create a new cart if one does not exist
   if (cart == null) {
@@ -60,10 +66,16 @@ export async function PATCH (request: NextRequest) {
   }
 
   const actionedCart = await cartService.getCartById(cart.id)
-  if (actionedCart == null) return response.error()
+  if (actionedCart == null) {
+    console.log('1')
+    return response.error()
+  }
 
   const totalledCart = await cartService.updateCartTotal(actionedCart)
-  if (totalledCart == null) return response.error()
+  if (totalledCart == null) {
+    console.log('2')
+    return response.error()
+  }
 
   return response.json(totalledCart)
 }

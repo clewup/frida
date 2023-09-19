@@ -1,6 +1,6 @@
 'use client'
 
-import { type CategoryType } from '@/types/categoryTypes'
+import { type CategoryType } from '@/common/types/categoryTypes'
 import cx from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'

@@ -1,4 +1,4 @@
-import { type ProductType } from '@/types/productTypes'
+import { type ProductType } from '@/common/types/productTypes'
 import Dict = NodeJS.Dict
 
 export interface SearchType extends Dict<string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null> {

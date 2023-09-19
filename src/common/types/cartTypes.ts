@@ -1,4 +1,4 @@
-import { type ProductEntityType, type ProductType } from '@/types/productTypes'
+import { type ProductEntityType, type ProductType } from '@/common/types/productTypes'
 import { type CartItem, type Cart } from '@prisma/client'
 
 export type CartType = (Cart & { items: CartItemType[] })

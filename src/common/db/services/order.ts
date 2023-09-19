@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma'
-import { type CartType } from '@/types/cartTypes'
+import { type CartType } from '@/common/types/cartTypes'
 import { OrderStatus } from '@prisma/client'
 import type Stripe from 'stripe'
 

@@ -1,7 +1,7 @@
 'use client'
 
 import ProductBanner from '@/components/ProductBanner/ProductBanner'
-import { type ProductType } from '@/types/productTypes'
+import { type ProductType } from '@/common/types/productTypes'
 import React, { type FC } from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'

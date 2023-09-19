@@ -1,5 +1,5 @@
-import constants from '@/constants/constants'
-import { type CartType } from '@/types/cartTypes'
+import constants from '@/common/constants/constants'
+import { type CartType } from '@/common/types/cartTypes'
 import { type NextRequest, NextResponse as response } from 'next/server'
 import Stripe from 'stripe'
 

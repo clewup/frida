@@ -1,7 +1,7 @@
-import { mapCart } from '@/db/mappers/cart'
+import { mapCart } from '@/common/db/mappers/cart'
 import prisma from '@/lib/prisma'
-import { type CartItemType, type CartType } from '@/types/cartTypes'
-import { type ProductType } from '@/types/productTypes'
+import { type CartItemType, type CartType } from '@/common/types/cartTypes'
+import { type ProductType } from '@/common/types/productTypes'
 
 export default class CartService {
   async getCartByUser (user: string): Promise<CartType | null> {

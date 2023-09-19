@@ -1,4 +1,4 @@
-import { type TestimonialType } from '@/types/testimonialTypes'
+import { type TestimonialType } from '@/common/types/testimonialTypes'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { type FC } from 'react'

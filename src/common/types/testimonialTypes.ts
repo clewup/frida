@@ -1,4 +1,4 @@
-import { type ProductType } from '@/types/productTypes'
+import { type ProductType } from '@/common/types/productTypes'
 
 export interface TestimonialType {
   review: string

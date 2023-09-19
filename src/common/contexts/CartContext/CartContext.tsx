@@ -1,8 +1,9 @@
 'use client'
 
-import useApi from '@/lib/common/hooks/useApi/useApi'
-import { type CartType } from '@/types/cartTypes'
-import { type ProductType } from '@/types/productTypes'
+import { fridaApi } from '@/common/api/handler'
+import { type CartType } from '@/common/types/cartTypes'
+import { type ProductType } from '@/common/types/productTypes'
+import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
 import React, {
   createContext,
   type Dispatch,
@@ -41,17 +42,17 @@ const CartProvider: FC<CartProviderProps> = ({ children }) => {
 
 const useCart = () => {
   const context = useContext(CartContext)
+  const { user } = useAuthKitty()
 
   if (context === null) { throw new Error('useCart may only be used within the CartContext') }
 
   const { cart, setCart } = context
-  const { get, patch } = useApi()
 
   const [isLoading, setLoading] = useState(false)
 
   async function getCart () {
     setLoading(true)
-    const cart = await get<CartType>('/api/cart')
+    const cart = await fridaApi.getCart(user?.email)
     setCart(cart)
     setLoading(false)
     return cart
@@ -59,13 +60,13 @@ const useCart = () => {
 
   async function addToCart (product: ProductType, quantity?: number) {
     setLoading(true)
-    const updatedCart = await patch<CartType>(
-      '/api/cart',
+    const updatedCart = await fridaApi.patchCart(
       {
         action: 'add',
         product,
         quantity: quantity ?? 1
-      }
+      },
+      user?.email
     )
 
     setCart(updatedCart)
@@ -75,13 +76,13 @@ const useCart = () => {
 
   async function updateCartItem (product: ProductType, quantity: number) {
     setLoading(true)
-    const updatedCart = await patch<CartType>(
-      '/api/cart',
+    const updatedCart = await fridaApi.patchCart(
       {
         action: 'update',
         product,
         quantity
-      }
+      },
+      user?.email
     )
 
     setCart(updatedCart)
@@ -93,12 +94,12 @@ const useCart = () => {
     if (cart != null) {
       setLoading(true)
 
-      const updatedCart = await patch<CartType>(
-        '/api/cart',
+      const updatedCart = await fridaApi.patchCart(
         {
           action: 'remove',
           product
-        }
+        },
+        user?.email
       )
 
       setCart(updatedCart)
@@ -111,11 +112,11 @@ const useCart = () => {
     if (cart != null) {
       setLoading(true)
 
-      const updatedCart = await patch<CartType>(
-        '/api/cart',
+      const updatedCart = await fridaApi.patchCart(
         {
           action: 'clear'
-        }
+        },
+        user?.email
       )
 
       setCart(updatedCart)

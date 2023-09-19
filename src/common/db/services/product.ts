@@ -1,9 +1,9 @@
-import { productService } from '@/db/handler'
-import { mapProduct, mapProducts } from '@/db/mappers/product'
+import { productService } from '@/common/db/handler'
+import { mapProduct, mapProducts } from '@/common/db/mappers/product'
 import prisma from '@/lib/prisma'
-import { type CartItemType } from '@/types/cartTypes'
-import { type ProductEntityType, type ProductType } from '@/types/productTypes'
-import { type SearchResultsType, type SearchType } from '@/types/searchTypes'
+import { type CartItemType } from '@/common/types/cartTypes'
+import { type ProductEntityType, type ProductType } from '@/common/types/productTypes'
+import { type SearchResultsType, type SearchType } from '@/common/types/searchTypes'
 
 export default class ProductService {
   async getProducts (): Promise<ProductType[]> {

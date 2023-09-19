@@ -2,7 +2,7 @@
 
 import ProductCard from '@/components/ProductCard/ProductCard'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
-import { type SearchResultsType } from '@/types/searchTypes'
+import { type SearchResultsType } from '@/common/types/searchTypes'
 import cx from 'classnames'
 
 import React, { type FC } from 'react'

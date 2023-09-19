@@ -1,25 +1,24 @@
 'use client'
 
+import { fridaApi } from '@/common/api/handler'
 import OrderList from '@/components/OrderList/OrderList'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import UserDetails from '@/components/UserDetails/UserDetails'
-import constants from '@/constants/constants'
+import constants from '@/common/constants/constants'
 import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
-import useApi from '@/lib/common/hooks/useApi/useApi'
 import { type Order } from '@prisma/client'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { ArrowLeft, Map, Package, User } from 'react-feather'
 
 export default function Account () {
-  const { get } = useApi()
   const { user, signOut } = useAuthKitty()
 
   const [orders, setOrders] = useState<Order[]>([])
   const [activeMenuItem, setActiveMenuItem] = useState(0)
 
   async function getOrders () {
-    const orders = await get<Order[]>('/api/order')
+    const orders = await fridaApi.getOrders(user?.email)
     setOrders(orders)
   }
 

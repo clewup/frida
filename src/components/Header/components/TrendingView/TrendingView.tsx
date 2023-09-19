@@ -1,5 +1,5 @@
 import ProductCard from '@/components/ProductCard/ProductCard'
-import { type ProductType } from '@/types/productTypes'
+import { type ProductType } from '@/common/types/productTypes'
 import React, { type FC } from 'react'
 
 interface TrendingViewProps {

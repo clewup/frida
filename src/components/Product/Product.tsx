@@ -1,8 +1,8 @@
 'use client'
 
 import Button from '@/components/Button/Button'
-import { useCart } from '@/contexts/CartContext/CartContext'
-import { type ProductType } from '@/types/productTypes'
+import { useCart } from '@/common/contexts/CartContext/CartContext'
+import { type ProductType } from '@/common/types/productTypes'
 import { Field, Form, Formik } from 'formik'
 import React, { type FC } from 'react'
 import { Minus, Package as PackageIcon, Plus, ShoppingCart as CartIcon } from 'react-feather'

@@ -1,4 +1,4 @@
-import constants from '@/constants/constants'
+import constants from '@/common/constants/constants'
 import { loadStripe, type Stripe } from '@stripe/stripe-js'
 
 let stripePromise: any
