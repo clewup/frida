@@ -2,7 +2,7 @@
 
 import ShopView from '@/components/Header/components/ShopView/ShopView'
 import TrendingView from '@/components/Header/components/TrendingView/TrendingView'
-import { useAuthKitty } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
+import { useAuthKitty } from '@/lib/authkitty/contexts/AuthKittyContext/AuthKittyContext'
 import { type CategoryType } from '@/common/types/categoryTypes'
 import { type ProductType } from '@/common/types/productTypes'
 import Link from 'next/link'

@@ -2,7 +2,7 @@ import './globals.css'
 import Footer from '@/components/Footer/Footer'
 import RSCHeader from '@/components/Header/RSCHeader'
 import { CartProvider } from '@/common/contexts/CartContext/CartContext'
-import { AuthKittyContextProvider } from '@/lib/authkitty-helpers/contexts/AuthKittyContext/AuthKittyContext'
+import { AuthKittyContextProvider } from '@/lib/authkitty/contexts/AuthKittyContext/AuthKittyContext'
 import React from 'react'
 
 export const metadata = {

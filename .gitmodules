@@ -1,6 +1,6 @@
 [submodule "src/lib/common"]
 	path = src/lib/common
 	url = https://github.com/clewup/common
-[submodule "src/lib/authkitty-helpers"]
-    path = src/lib/authkitty-helpers
-    url = https://github.com/clewup/authkitty-helpers
+[submodule "src/lib/authkitty"]
+	path = src/lib/authkitty
+	url = https://github.com/clewup/authkitty-helpers
