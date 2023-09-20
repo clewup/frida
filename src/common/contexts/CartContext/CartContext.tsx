@@ -3,7 +3,6 @@
 import { fridaApi } from '@/common/api/handler'
 import { type CartType } from '@/common/types/cartTypes'
 import { type ProductType } from '@/common/types/productTypes'
-import { useAuthKitty } from '@/lib/authkitty/contexts/AuthKittyContext/AuthKittyContext'
 import React, {
   createContext,
   type Dispatch,
@@ -42,7 +41,6 @@ const CartProvider: FC<CartProviderProps> = ({ children }) => {
 
 const useCart = () => {
   const context = useContext(CartContext)
-  const { user } = useAuthKitty()
 
   if (context === null) { throw new Error('useCart may only be used within the CartContext') }
 
