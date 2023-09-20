@@ -1,5 +1,6 @@
 import constants from '@/common/constants/constants'
 import { type CartType } from '@/common/types/cartTypes'
+import { extractAndDecodeAccessToken } from '@/common/utils/auth'
 import { type NextRequest, NextResponse as response } from 'next/server'
 import Stripe from 'stripe'
 
@@ -10,7 +11,7 @@ const stripe = new Stripe(constants.STRIPE_SECRET_KEY, {
 export async function POST (request: NextRequest) {
   const body = await request.json() as CartType
 
-  const user = request.headers.get('x-user')
+  const user = extractAndDecodeAccessToken(request.headers.get('Authorization'))
   if (user === null) return response.error()
 
   // if cart total is £30 or more, apply free shipping rate
@@ -24,7 +25,7 @@ export async function POST (request: NextRequest) {
     allow_promotion_codes: true,
     automatic_tax: { enabled: true },
     cancel_url: `${constants.APP_URL}`,
-    customer_email: user,
+    customer_email: user.email,
     line_items: body.items.map((item) => ({
       adjustable_quantity: {
         enabled: false

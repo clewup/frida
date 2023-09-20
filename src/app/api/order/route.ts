@@ -1,5 +1,6 @@
 import constants from '@/common/constants/constants'
 import { cartService, orderService, productService } from '@/common/db/handler'
+import { extractAndDecodeAccessToken } from '@/common/utils/auth'
 import { type NextRequest, NextResponse as response } from 'next/server'
 import Stripe from 'stripe'
 
@@ -8,10 +9,10 @@ const stripe = new Stripe(constants.STRIPE_SECRET_KEY, {
 })
 
 export async function GET (request: NextRequest) {
-  const user = request.headers.get('x-user')
+  const user = extractAndDecodeAccessToken(request.headers.get('Authorization'))
   if (user === null) return response.error()
 
-  const orders = await orderService.getOrdersByUser(user)
+  const orders = await orderService.getOrdersByUser(user.email)
 
   return response.json(orders)
 }

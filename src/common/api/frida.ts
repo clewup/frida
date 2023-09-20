@@ -4,19 +4,19 @@ import ApiService from '@/lib/common/api/service'
 import { type Order } from '@prisma/client'
 
 export default class FridaApiService extends ApiService {
-  async getOrders (userEmail?: string) {
-    return await this.get<Order[]>('order', { headers: { 'x-user': userEmail ?? '' } })
+  async getOrders () {
+    return await this.get<Order[]>('order', { isAuthed: true })
   }
 
   async postOrder (req: CartType) {
     return await this.post<{ id: string }>('stripe', req)
   }
 
-  async getCart (userEmail?: string) {
-    return await this.get<CartType>('cart', { headers: { 'x-user': userEmail ?? '' } })
+  async getCart () {
+    return await this.get<CartType>('cart', { isAuthed: true })
   }
 
-  async patchCart (req: PatchCartRequest, userEmail?: string) {
-    return await this.patch<CartType>('cart', req, { headers: { 'x-user': userEmail ?? '' } })
+  async patchCart (req: PatchCartRequest) {
+    return await this.patch<CartType>('cart', req, { isAuthed: true })
   }
 }

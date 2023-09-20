@@ -52,7 +52,7 @@ const useCart = () => {
 
   async function getCart () {
     setLoading(true)
-    const cart = await fridaApi.getCart(user?.email)
+    const cart = await fridaApi.getCart()
     setCart(cart)
     setLoading(false)
     return cart
@@ -65,8 +65,7 @@ const useCart = () => {
         action: 'add',
         product,
         quantity: quantity ?? 1
-      },
-      user?.email
+      }
     )
 
     setCart(updatedCart)
@@ -81,8 +80,7 @@ const useCart = () => {
         action: 'update',
         product,
         quantity
-      },
-      user?.email
+      }
     )
 
     setCart(updatedCart)
@@ -98,8 +96,7 @@ const useCart = () => {
         {
           action: 'remove',
           product
-        },
-        user?.email
+        }
       )
 
       setCart(updatedCart)
@@ -115,8 +112,7 @@ const useCart = () => {
       const updatedCart = await fridaApi.patchCart(
         {
           action: 'clear'
-        },
-        user?.email
+        }
       )
 
       setCart(updatedCart)

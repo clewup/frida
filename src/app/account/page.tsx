@@ -18,7 +18,7 @@ export default function Account () {
   const [activeMenuItem, setActiveMenuItem] = useState(0)
 
   async function getOrders () {
-    const orders = await fridaApi.getOrders(user?.email)
+    const orders = await fridaApi.getOrders()
     setOrders(orders)
   }
 
