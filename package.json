@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@prisma/client": "4.11.0",
+    "@prisma/client": "^6.8.0",
     "@stripe/stripe-js": "^1.53.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
@@ -27,11 +27,11 @@
     "gsap": "^3.12.2",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
-    "next": "^13.4.12",
-    "postcss": "8.4.23",
+    "next": "^15.3.2",
+    "postcss": "8.4.31",
     "postinstall": "^0.8.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-easy-swipe": "^0.0.23",
     "react-fast-marquee": "^1.6.0",
     "react-feather": "^2.0.10",
@@ -43,7 +43,7 @@
     "stripe": "^12.7.0",
     "tailwindcss": "3.3.2",
     "typescript": "*",
-    "zod": "^3.21.4",
+    "zod": "3.22.3",
     "zustand": "^4.4.1"
   },
   "devDependencies": {
@@ -57,6 +57,6 @@
     "eslint-plugin-perfectionist": "^1.5.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.1",
-    "prisma": "4.11.0"
+    "prisma": "^6.8.0"
   }
 }
