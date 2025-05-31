@@ -9,8 +9,8 @@ interface TrendingViewProps {
 
 const TrendingView: FC<TrendingViewProps> = ({ closeView, trendingProducts }) => {
   return (
-        <ul className="flex flex-col gap-3 py-10" onMouseLeave={closeView}>
-            <div className="grid grid-cols-5 gap-10">
+        <ul className="flex flex-col gap-3 py-10">
+            <div className="grid grid-cols-5 gap-4">
                 {trendingProducts?.slice(0, 5).map((product, index) => (
                     <ProductCard key={index} product={product} showAddToCartButton={false}/>
                 ))}

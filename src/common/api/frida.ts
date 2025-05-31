@@ -1,7 +1,7 @@
 import { type PatchCartRequest } from '@/common/api/types/frida'
 import { type CartType } from '@/common/types/cartTypes'
-import ApiService from '@/lib/common/api/service'
 import { type Order } from '@prisma/client'
+import ApiService from '@/lib/api/service'
 
 export default class FridaApiService extends ApiService {
   async getOrders () {

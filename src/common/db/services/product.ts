@@ -68,7 +68,11 @@ export default class ProductService {
     )
     const filteredTrendingCartItems = mappedTrendingCartItems.filter((product) => product !== null) as ProductEntityType[]
 
-    return mapProducts(filteredTrendingCartItems)
+    if (filteredTrendingCartItems.length < 5) {
+      return await this.getSpotlightedProducts([2, 9, 32, 35, 43])
+    } else {
+      return mapProducts(filteredTrendingCartItems)
+    }
   }
 
   async getSearchedProducts ({ search, category, subcategory, sort, colour, page }: SearchType): Promise<SearchResultsType> {

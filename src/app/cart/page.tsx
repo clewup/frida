@@ -6,7 +6,6 @@ import Button from '@/components/Button/Button'
 import CartItemRow from '@/components/CartItemRow/CartItemRow'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import { useCart } from '@/common/contexts/CartContext/CartContext'
-import { useAuthKitty } from '@/lib/authkitty/contexts/AuthKittyContext/AuthKittyContext'
 import getStripe from '@/lib/stripe'
 import { Form, Formik } from 'formik'
 import { useRouter } from 'next/navigation'
@@ -15,15 +14,14 @@ import { Info } from 'react-feather'
 
 export default function Cart () {
   const { cart, getCart, isLoading } = useCart()
-  const { user } = useAuthKitty()
   const router = useRouter()
 
   const [isRedirecting, setRedirecting] = useState(false)
 
-  useEffect(() => {
-    if ((user == null) || (cart != null)) return
-    void getCart()
-  }, [user, cart])
+  // useEffect(() => {
+  //   if ((user == null) || (cart != null)) return
+  //   void getCart()
+  // }, [user, cart])
 
   const initialValues = cart ?? {} as CartType
 

@@ -2,7 +2,9 @@
 const nextConfig = {
   images: {
     domains: [
-      'res.cloudinary.com'
+        'isku.fi',
+        'i.ibb.co',
+        'images.unsplash.com'
     ]
   },
 }

@@ -2,7 +2,6 @@
 
 import ShopView from '@/components/Header/components/ShopView/ShopView'
 import TrendingView from '@/components/Header/components/TrendingView/TrendingView'
-import { useAuthKitty } from '@/lib/authkitty/contexts/AuthKittyContext/AuthKittyContext'
 import { type CategoryType } from '@/common/types/categoryTypes'
 import { type ProductType } from '@/common/types/productTypes'
 import Link from 'next/link'
@@ -11,7 +10,7 @@ import React, { type FC, useEffect, useState } from 'react'
 import {
   ShoppingCart as CartIcon,
   Search as SearchIcon,
-  User as UserIcon
+  User as UserIcon, ChevronDown, ChevronUp
 } from 'react-feather'
 import constants from '@/common/constants/constants'
 
@@ -47,7 +46,6 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
-  const { user, signIn } = useAuthKitty()
   const router = useRouter()
   const pathname = usePathname()
 
@@ -61,8 +59,10 @@ const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
     closeView()
   }, [pathname])
 
+  const hasDropdown = (label: MenuItems) => [MenuItems.SHOP, MenuItems.TRENDING].includes(label)
+
   return (
-      <div className="w-full">
+      <div className="w-full ">
         <div className="flex items-center justify-between py-7 relative md:px-20">
           <div className="flex gap-20 items-center pr-5 md:pr-0 h-full">
             <div className="absolute left-[50%] -translate-x-[50%] h-full">
@@ -76,11 +76,18 @@ const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
                     {menuItems.map(({ label, route }, index) => {
                       return (
                           <li key={index}>
-                              <Link href={route}
-                                    onMouseEnter={() => { setActiveView(label) }}
-                                    onClick={() => { router.push(route); setActiveView(null) }}
-                                    aria-haspopup="menu">
+                              <Link href={hasDropdown(label) ? '' : route}
+                                    onClick={() => { activeView === label ? closeView() : setActiveView(label) }}
+                                    aria-haspopup="menu"
+                              className="flex gap-2 items-center w-full h-full">
                                 {label}
+
+                                {
+                                  hasDropdown(label) &&
+                                  (activeView === label
+                                    ? <ChevronUp/>
+                                    : <ChevronDown/>)
+                                }
                               </Link>
                           </li>
                       )
@@ -91,9 +98,9 @@ const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
           </div>
 
           <div className="justify-end items-center gap-5 h-full hidden md:block md:flex">
-            {(user == null)
+            {true
               ? (
-              <button onClick={() => { signIn(constants.APP_URL) }}>
+              <button>
                   <UserIcon size={20}/>
               </button>
                 )
@@ -116,7 +123,7 @@ const Header: FC<HeaderProps> = ({ categories, trendingProducts }) => {
         </div>
 
         {activeView &&
-            <div className="absolute bg-gradient-to-b from-theme-white to-white text-black w-[100vw] z-50 px-40">
+            <div className="absolute  bg-theme-white  text-black w-[100vw] z-50 px-40 border-b-2 border-theme-gray">
               {
                 {
                   [MenuItems.SHOP]: <ShopView closeView={closeView} categories={categories}/>,

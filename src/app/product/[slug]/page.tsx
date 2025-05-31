@@ -3,12 +3,11 @@ import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Product from '@/components/Product/Product'
 import RelatedProducts from '@/components/RelatedProducts/RelatedProducts'
 import { productService } from '@/common/db/handler'
-import { type PageContext } from '@/lib/common/types/nextTypes'
 import { type Metadata, type ResolvingMetadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
-export async function generateMetadata ({ params }: PageContext, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata ({ params }: any, parent: ResolvingMetadata): Promise<Metadata> {
   const product = await productService.getProductByName(params.slug)
 
   return {
@@ -16,7 +15,7 @@ export async function generateMetadata ({ params }: PageContext, parent: Resolvi
   }
 }
 
-export default async function ProductSlug ({ params }: PageContext) {
+export default async function ProductSlug ({ params }: any) {
   const product = await productService.getProductByName(params.slug)
 
   if (product === null) {

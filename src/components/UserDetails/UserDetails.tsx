@@ -1,6 +1,5 @@
 'use client'
 
-import { useAuthKitty } from '@/lib/authkitty/contexts/AuthKittyContext/AuthKittyContext'
 import React from 'react'
 
 const UserDetails = () => {

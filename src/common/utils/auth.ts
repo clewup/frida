@@ -1,4 +1,3 @@
-import { type UserType } from '@/lib/authkitty/types/userType'
 import jwt from 'jsonwebtoken'
 
 export function extractAndDecodeAccessToken (authorizationHeader: string | null) {
@@ -7,5 +6,5 @@ export function extractAndDecodeAccessToken (authorizationHeader: string | null)
   }
 
   const token = authorizationHeader.split('Bearer ')?.[1]
-  return jwt.decode(token) as UserType
+  return jwt.decode(token)
 }

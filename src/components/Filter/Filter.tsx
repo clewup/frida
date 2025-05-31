@@ -1,14 +1,13 @@
 'use client'
 
 import { colourMap } from '@/components/Filter/utils/colourMap'
-import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
-import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { type CategoryType } from '@/common/types/categoryTypes'
 import { type SearchType } from '@/common/types/searchTypes'
 import cx from 'classnames'
 import { Field, Form, Formik, type FormikValues } from 'formik'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { type FC } from 'react'
+import useQueryParams from '@/common/hooks/useQueryParams'
 
 interface FilterProps {
   categories: CategoryType[]
@@ -163,7 +162,7 @@ const Filter: FC<FilterProps> = ({ categories }) => {
                 </div>
               </span>
             </div>
-            <AutoSubmit />
+            {/* <AutoSubmit /> */}
           </Form>
         )
       }}

@@ -9,7 +9,7 @@ import React from 'react'
 import Category from '@/components/Category/Category'
 
 export default async function Home () {
-  const spotlightedProducts = await productService.getSpotlightedProducts([12, 19, 27])
+  const spotlightedProducts = await productService.getSpotlightedProducts([19, 27, 41])
   const latestProducts = await productService.getLatestProducts()
   const categories = await categoryService.getCategories()
   const trendingProducts = await productService.getTrendingProducts()
@@ -39,7 +39,7 @@ export default async function Home () {
             <p className="text-xl text-gray-400">Shop by category</p>
           </div>
 
-          <div className={`grid grid-cols-1 gap-5 md:grid-cols-${categories.length} min-h-[50vh] items-center`}>
+          <div className={'grid grid-cols-1 gap-5 md:grid-cols-3 min-h-[70vh] items-center'}>
             {categories.map((category, index) => (
                 <Category key={index} category={category} className="h-[30vh] md:odd:h-full md:even:h-[80%]"/>
             ))}

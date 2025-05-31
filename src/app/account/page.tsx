@@ -1,30 +1,25 @@
 'use client'
 
-import { fridaApi } from '@/common/api/handler'
 import OrderList from '@/components/OrderList/OrderList'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import UserDetails from '@/components/UserDetails/UserDetails'
-import constants from '@/common/constants/constants'
-import { useAuthKitty } from '@/lib/authkitty/contexts/AuthKittyContext/AuthKittyContext'
 import { type Order } from '@prisma/client'
 import cx from 'classnames'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ArrowLeft, Map, Package, User } from 'react-feather'
 
 export default function Account () {
-  const { user, signOut } = useAuthKitty()
-
   const [orders, setOrders] = useState<Order[]>([])
   const [activeMenuItem, setActiveMenuItem] = useState(0)
 
-  async function getOrders () {
-    const orders = await fridaApi.getOrders()
-    setOrders(orders)
-  }
+  // async function getOrders () {
+  //   const orders = await fridaApi.getOrders()
+  //   setOrders(orders)
+  // }
 
-  useEffect(() => {
-    void getOrders()
-  }, [user])
+  // useEffect(() => {
+  //   void getOrders()
+  // }, [user])
 
   const menuItems = [
     {
@@ -64,7 +59,7 @@ export default function Account () {
                 </li>
             ))}
             <li>
-              <button className="flex gap-5 items-center" onClick={() => { signOut(constants.APP_URL) }}>
+              <button className="flex gap-5 items-center">
                 <ArrowLeft size={20}/>
                 <p>Log out</p>
               </button>

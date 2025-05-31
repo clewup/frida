@@ -3,10 +3,9 @@ import Heading from '@/components/Heading/Heading'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import SearchResults from '@/components/SearchResults/SearchResults'
 import { categoryService, productService } from '@/common/db/handler'
-import { type PageContext } from '@/lib/common/types/nextTypes'
 import React from 'react'
 
-export default async function Search ({ searchParams }: PageContext) {
+export default async function Search ({ searchParams }: any) {
   const categories = await categoryService.getCategories()
   const searchResults = await productService.getSearchedProducts({
     search: searchParams?.search,

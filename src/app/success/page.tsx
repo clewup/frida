@@ -1,7 +1,6 @@
 import Order from '@/components/Order/Order'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import constants from '@/common/constants/constants'
-import { type PageContext } from '@/lib/common/types/nextTypes'
 import React from 'react'
 
 async function getOrder (session: string) {
