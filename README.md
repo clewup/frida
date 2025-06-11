@@ -13,7 +13,7 @@ Frida aims to provide users with a seamless online shopping experience. The plat
 
 ## Features
 - User authentication using my authentication service, [Lockr](https://github.com/clewup/lockr).
-- Product catalogue with detailed information including images, descriptions and pricing.
+- ProductDetail catalogue with detailed information including images, descriptions and pricing.
 - Cart functionality to add, update and remove items.
 - Seamless Stripe checkout integration with support for various payment options.
 - Order management for users to track their purchases.

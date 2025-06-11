@@ -1,10 +1,10 @@
 'use client'
 
-import GenericError from '@/components/GenericError/GenericError'
+import {GenericError} from '@/components/generic-error'
 import React from 'react'
 
-export default function Error ({ error, reset }: ErrorPageContext) {
-  return (
+export default function Error({error, reset}: { error: Error, reset: () => void }) {
+    return (
         <GenericError error={error} reset={reset}/>
-  )
+    )
 }
