@@ -30,7 +30,7 @@ export const ProductCard: FC<Props> = ({product, showAddToCartButton = true}) =>
     return (
         <Card className="h-full flex flex-col overflow-hidden">
             <CardHeader className="p-0 ">
-                <div className="w-[70%] mx-auto m-10 aspect-square relative rounded-t-lg"
+                <div className="w-[70%] mx-auto m-10 aspect-square relative rounded-t-lg cursor-pointer"
                      onClick={() => router.push(`/product/${product.name}`)}>
                     <Image
                         src={product.image || "/placeholder.svg?height=300&width=300"}
@@ -41,21 +41,23 @@ export const ProductCard: FC<Props> = ({product, showAddToCartButton = true}) =>
                 </div>
             </CardHeader>
             <CardContent className="flex-1 p-4">
-                <CardTitle className="text-lg mb-5 lowercase">{product.name}</CardTitle>
+                <CardTitle className="text-2xl font-normal mb-2">{product.name}</CardTitle>
                 <div className="flex items-center justify-between relative w-full">
-                    <span className="text-4xl font-bold">£{product.price}</span>
+                    <span className="text-4xl">£{product.price}</span>
 
-                    {product.stock === 0
-                        ? <Badge variant="destructive">out of stock</Badge>
-                        : (
-                            <form action={handleAddToCart} className="absolute bottom-0 right-0">
+
+                    <form action={handleAddToCart} className="absolute bottom-0 right-0">
+                        {product.stock > 0
+                            ? (
                                 <Button type="submit" disabled={product.stock === 0}>
                                     <ShoppingCart className="w-4 h-4"/>
-                                    add to cart
+                                    Add to cart
                                 </Button>
-                            </form>
-                        )
-                    }
+                            )
+                            : <Badge variant="destructive" className="px-4 py-2">Out of stock</Badge>
+                        }
+                    </form>
+
                 </div>
             </CardContent>
         </Card>

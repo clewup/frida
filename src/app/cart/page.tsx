@@ -24,7 +24,7 @@ export default async function CartPage() {
 
     return (
         <div className="container mx-auto py-8">
-            <h1 className="text-5xl mb-8">your cart</h1>
+            <h1 className="text-5xl mb-8">Your cart</h1>
 
             <div className="grid lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-4">
@@ -39,32 +39,32 @@ export default async function CartPage() {
                 <div className="lg:col-span-1">
                     <Card>
                         <CardHeader>
-                            <CardTitle>order summary</CardTitle>
+                            <CardTitle>Order summary</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="flex justify-between">
-                                <span>subtotal ({cart?.items.reduce((total, item) => total + item.quantity, 0)} items)</span>
+                                <span>Subtotal ({cart?.items.reduce((total, item) => total + item.quantity, 0)} items)</span>
                                 <span>${subtotal.toFixed(2)}</span>
                             </div>
 
                             <div className="flex justify-between">
-                                <span>delivery</span>
+                                <span>Delivery</span>
                                 <span>£{delivery.toFixed(2)}</span>
                             </div>
 
                             <Separator/>
 
                             <div className="flex justify-between font-bold text-lg">
-                                <span>total</span>
+                                <span>Total</span>
                                 <span>£{total.toFixed(2)}</span>
                             </div>
 
                             <Button className="w-full" size="lg">
-                                proceed to checkout
+                                Proceed to checkout
                             </Button>
 
                             <Button variant="outline" className="w-full" asChild>
-                                <Link href="/">continue shopping</Link>
+                                <Link href="/">Continue shopping</Link>
                             </Button>
                         </CardContent>
                     </Card>

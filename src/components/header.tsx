@@ -46,16 +46,16 @@ export async function Header() {
                 <div className="flex">
                     <NavigationMenuItem>
                         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                            <Link href="/">home</Link>
+                            <Link href="/">Home</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                            <Link href="/search">shop</Link>
+                            <Link href="/search">Shop</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <NavigationMenuTrigger>furniture</NavigationMenuTrigger>
+                        <NavigationMenuTrigger>Furniture</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             <ul className="flex flex-col gap-3 bg-white p-5 mx-auto w-screen">
                                 <div className="grid grid-cols-5 px-[15%] gap-10 relative">
@@ -70,16 +70,16 @@ export async function Header() {
 
                                                 <div className="flex flex-col justify-between w-full">
                                                     <div className="flex w-full justify-between">
-                                                        <h3 className="lowercase">{category}</h3>
+                                                        <h3>{category}</h3>
                                                         <Link href={`/search?categories=${category}`}>
-                                                            <p className="text-gray-400">view all</p>
+                                                            <p className="text-gray-400">View all</p>
                                                         </Link>
                                                     </div>
 
                                                     {subcategories.map(({name: subcategory}, index) => (
                                                         <Link key={index}
                                                               href={`/search?categories=${category}&subcategories=${subcategory}`}>
-                                                            <h2 className="text-gray-400 lowercase">{subcategory}</h2>
+                                                            <h2 className="text-gray-400">{subcategory}</h2>
                                                         </Link>
                                                     ))}
                                                 </div>
@@ -92,7 +92,7 @@ export async function Header() {
                         </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <NavigationMenuTrigger>services</NavigationMenuTrigger>
+                        <NavigationMenuTrigger>Services</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             <div className="w-screen flex px-[15%] py-7 items-center">
                                 <ul className="w-[60%] grid grid-cols-2 gap-4">
@@ -171,22 +171,16 @@ export async function Header() {
                                     <IconShoppingCart size={20}/>
                                 </Link>
 
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger>
-                                        <Avatar className="w-7 h-7 text-sm">
-                                            <AvatarImage
-                                                src="https://lh3.googleusercontent.com/a/ACg8ocIipkRLlH2CjuPS2q30EM5CeRDM-FWxmi-DSPzyPoqhHAhPfg=s96-c"
-                                                alt={session.user.name!}/>
-                                            <AvatarFallback className="bg-blue-200">
-                                                {session.user?.name?.charAt(0)}
-                                            </AvatarFallback>
-                                        </Avatar>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent className="z-[999]">
-                                        <DropdownMenuItem><Link href="/account">my account</Link></DropdownMenuItem>
-                                        <DropdownMenuItem><Link href="/account/orders">orders</Link></DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
+                                <Link href="/account">
+                                    <Avatar className="w-7 h-7 text-sm">
+                                        <AvatarImage
+                                            src="https://lh3.googleusercontent.com/a/ACg8ocIipkRLlH2CjuPS2q30EM5CeRDM-FWxmi-DSPzyPoqhHAhPfg=s96-c"
+                                            alt={session.user.name!}/>
+                                        <AvatarFallback className="bg-blue-200">
+                                            {session.user?.name?.charAt(0)}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                </Link>
                             </>
                         )}
                 </div>

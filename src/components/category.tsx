@@ -19,7 +19,7 @@ export const Category: FC<Props> = ({category: {name: category, image}, classNam
                    className="absolute object-cover z-0 rounded-md transition-zoom"/>
             <div
                 className="absolute bottom-5 bg-theme-white py-3 px-5 text-xl rounded-md w-[90%] hover:bg-black hover:text-white transition-colors">
-                <p className="lowercase">{category}</p>
+                <p>{category}</p>
             </div>
         </Link>
     )

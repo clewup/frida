@@ -60,16 +60,16 @@ export const ProductBanner: FC<Props> = ({
                 <div className="flex flex-col gap-5 py-10 md:py-0">
                     <m.div variants={animationVariants} className="flex gap-5 items-center select-none">
                         <div className="h-[1px] bg-theme-black w-10"/>
-                        <p className="text-2xl md:text-3xl">only £{price}</p>
+                        <p className="text-2xl md:text-3xl">Now only £{price}</p>
                     </m.div>
 
                     <m.p variants={animationVariants}
-                         className="text-5xl select-none font-semibold text-left md:text-8xl lowercase">{name}</m.p>
+                         className="text-5xl select-none font-semibold text-left md:text-8xl">{name}</m.p>
 
                     <m.div variants={animationVariants} className="relative z-50">
                         <Link href={`/product/${name}`}>
                             <Button size="lg">
-                                shop now
+                                Shop now
                             </Button>
                         </Link>
                     </m.div>

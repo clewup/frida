@@ -18,7 +18,7 @@ export async function generateMetadata({params}: any, parent: ResolvingMetadata)
     const product = await getProductByName(params.slug)
 
     return {
-        title: `shop - ${product != null ? product.name.toLowerCase() : '404'}`
+        title: `Shop - ${product != null ? product.name : '404'}`
     }
 }
 
@@ -31,7 +31,7 @@ export default async function ProductSlug({params}: any) {
             <div className="w-full h-screen-header flex items-center justify-center">
                 <div className="text-center w-1/5 p-10">
                     <Heading>404</Heading>
-                    <p className="mt-5 lowercase">{decodeURIComponent(params.slug)} was not found.</p>
+                    <p className="mt-5">{decodeURIComponent(params.slug)} was not found.</p>
                 </div>
             </div>
         )
@@ -53,16 +53,14 @@ export default async function ProductSlug({params}: any) {
                 <header className="pt-8 pb-2">
                     <ul className="flex gap-1 text-sm">
                         <li>
-                            <Link href="/search">products</Link> {'>'}
+                            <Link href="/search">Products</Link> {'>'}
                         </li>
                         <li>
                             <Link
-                                className="lowercase"
                                 href={`/search?category=${product.category.name}`}>{product.category.name}</Link> {'>'}
                         </li>
                         <li>
                             <Link
-                                className="lowercase"
                                 href={`/search?category=${product.category.name}&subcategory=${product.subcategory.name}`}>{product.subcategory.name}</Link>
                         </li>
                     </ul>
@@ -87,7 +85,7 @@ export default async function ProductSlug({params}: any) {
                         {/* Product Info */}
                         <div className="space-y-6">
                             <div>
-                                <h1 className="text-3xl font-bold mb-2 lowercase">{product.name}</h1>
+                                <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
                                 <div className="flex items-center space-x-2 mb-4">
                                     <div className="flex items-center">
                                         {[...Array(5)].map((_, i) => (
@@ -96,7 +94,7 @@ export default async function ProductSlug({params}: any) {
                                         <span className="ml-2 text-sm text-muted-foreground">(4.8) • 124 reviews</span>
                                     </div>
                                 </div>
-                                <p className="text-4xl font-bold text-primary mb-4">${product.price}</p>
+                                <p className="text-4xl font-bold text-primary mb-4">£{product.price}</p>
                                 <Badge variant={product.stock > 0 ? "default" : "destructive"} className="mb-6">
                                     {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
                                 </Badge>
@@ -105,8 +103,8 @@ export default async function ProductSlug({params}: any) {
                             <Separator/>
 
                             <div>
-                                <h3 className="text-lg font-semibold mb-3">description</h3>
-                                <p className="text-muted-foreground leading-relaxed lowercase">
+                                <h3 className="text-lg font-semibold mb-3">Description</h3>
+                                <p className="text-muted-foreground leading-relaxed">
                                     {product.description || "No description available for this product."}
                                 </p>
                             </div>
@@ -115,11 +113,11 @@ export default async function ProductSlug({params}: any) {
 
                             {/* Features */}
                             <div>
-                                <h3 className="text-lg font-semibold mb-3">key features</h3>
+                                <h3 className="text-lg font-semibold mb-3">Key features</h3>
                                 <ul className="space-y-2 text-muted-foreground">
                                     <li className="flex items-center space-x-2">
                                         <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                                        <span>premium quality materials</span>
+                                        <span>Premium quality materials</span>
                                     </li>
                                     <li className="flex items-center space-x-2">
                                         <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
@@ -127,7 +125,7 @@ export default async function ProductSlug({params}: any) {
                                     </li>
                                     <li className="flex items-center space-x-2">
                                         <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                                        <span>free shipping on orders over £30</span>
+                                        <span>Free shipping on orders over £30</span>
                                     </li>
                                     <li className="flex items-center space-x-2">
                                         <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
@@ -145,15 +143,15 @@ export default async function ProductSlug({params}: any) {
                                         <Button type="submit" size="lg" className="w-full"
                                                 disabled={product.stock === 0}>
                                             <ShoppingCart className="w-5 h-5 mr-2"/>
-                                            {product.stock === 0 ? "out of stock" : "add to cart"}
+                                            {product.stock === 0 ? "Out of stock" : "Add to cart"}
                                         </Button>
                                     </form>
                                 ) : (
                                     <div className="space-y-3">
-                                        <p className="text-sm text-muted-foreground text-center">sign in to add items to
+                                        <p className="text-sm text-muted-foreground text-center">Sign in to add items to
                                             your cart</p>
                                         <Button asChild size="lg" className="w-full">
-                                            <Link href="/api/auth/signin">sign In to purchase</Link>
+                                            <Link href="/api/auth/signin">Sign In to purchase</Link>
                                         </Button>
                                     </div>
                                 )}
@@ -164,17 +162,17 @@ export default async function ProductSlug({params}: any) {
                                 <CardContent className="p-4">
                                     <div className="grid grid-cols-2 gap-4 text-sm">
                                         <div>
-                                            <span className="font-medium">category:</span>
+                                            <span className="font-medium">Category:</span>
                                             <span
-                                                className="ml-2 text-muted-foreground lowercase">{product.category.name}</span>
+                                                className="ml-2 text-muted-foreground">{product.category.name}</span>
                                         </div>
                                         <div>
-                                            <span className="font-medium">subcategory:</span>
+                                            <span className="font-medium">Subcategory:</span>
                                             <span
-                                                className="ml-2 text-muted-foreground lowercase">{product.subcategory.name}</span>
+                                                className="ml-2 text-muted-foreground">{product.subcategory.name}</span>
                                         </div>
                                         <div>
-                                            <span className="font-medium">shipping:</span>
+                                            <span className="font-medium">Shipping:</span>
                                             <span className="ml-2 text-muted-foreground">2-3 days</span>
                                         </div>
                                     </div>

@@ -4,12 +4,13 @@ import {revalidatePath} from "next/cache"
 import {auth} from "@/auth";
 import prisma from "@/lib/prisma";
 import {sanitizeProduct, sanitizeProducts} from "@/common/utils/mappers";
+import {redirect} from "next/navigation";
 
 export async function addToCart(productId: number, quantity = 1) {
     const session = await auth();
 
     if (!session?.user?.id) {
-        throw new Error("User not authenticated")
+        redirect('/api/auth/signin')
     }
 
     try {

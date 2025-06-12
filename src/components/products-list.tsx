@@ -15,6 +15,7 @@ export const ProductsList: FC<Props> = ({products}) => {
     const searchParams = useSearchParams()
 
     const selectedCategories = searchParams.get("categories")?.split(",") || []
+    const selectedSubcategories = searchParams.get("subcategories")?.split(",") || []
     const selectedColours = searchParams.get("colours")?.split(",") || []
     const selectedPriceRanges = searchParams.get("price")?.split(",") || []
     const sortBy = searchParams.get("sort") || "name"
@@ -25,6 +26,10 @@ export const ProductsList: FC<Props> = ({products}) => {
         // Filter by categories
         if (selectedCategories.length > 0) {
             filtered = filtered.filter((product) => selectedCategories.includes(product.category.name))
+        }
+
+        if (selectedSubcategories.length > 0) {
+            filtered = filtered.filter((product) => selectedSubcategories.includes(product.subcategory.name))
         }
 
         // Filter by colours
@@ -74,7 +79,7 @@ export const ProductsList: FC<Props> = ({products}) => {
 
     return (
         <div className="space-y-6">
-            <h1 className="text-5xl">shop furniture</h1>
+            <h1 className="text-5xl">Shop furniture</h1>
 
             <div className="flex items-center justify-between">
                 <p className="text-sm text-muted-foreground">
@@ -86,9 +91,9 @@ export const ProductsList: FC<Props> = ({products}) => {
                         <SelectValue placeholder="sort by"/>
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="name">name (a-z)</SelectItem>
-                        <SelectItem value="price-low">price (low to high)</SelectItem>
-                        <SelectItem value="price-high">price (high to low)</SelectItem>
+                        <SelectItem value="name">Name (a-z)</SelectItem>
+                        <SelectItem value="price-low">Price (low to high)</SelectItem>
+                        <SelectItem value="price-high">Price (high to low)</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

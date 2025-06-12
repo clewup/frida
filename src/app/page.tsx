@@ -28,7 +28,7 @@ export default async function Home() {
             <div className="flex flex-col gap-20">
                 <div className="flex flex-col gap-10">
                     <Heading>
-                        trending products
+                        Trending products
                     </Heading>
 
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
@@ -40,7 +40,7 @@ export default async function Home() {
 
                 <div className="flex flex-col gap-10">
                     <div className="flex flex-col items-center">
-                        <p className="text-xl text-gray-400">shop by category</p>
+                        <p className="text-xl text-gray-400">Shop by category</p>
                     </div>
 
                     <div className={'grid grid-cols-1 gap-5 md:grid-cols-3 min-h-[70vh] items-center'}>
@@ -53,7 +53,7 @@ export default async function Home() {
 
                 <div className="flex flex-col gap-10">
                     <Heading>
-                        fresh arrivals
+                        Fresh arrivals
                     </Heading>
 
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
@@ -64,7 +64,7 @@ export default async function Home() {
                 </div>
 
                 <div className="bg-banner-mint rounded-md py-20 px-5 flex flex-col gap-10 relative overflow-hidden">
-                    <Heading className="md:absolute md:left-40">happy customers</Heading>
+                    <Heading className="md:absolute md:left-40">Happy customers</Heading>
                     <div className="grid grid-cols-1 gap-5 my-20 md:grid-cols-3 md:gap-10">
                         {testimonials.map((testimonial, index) => (
                             <Testimonial key={`testimonial_${index}`} testimonial={testimonial}/>))}

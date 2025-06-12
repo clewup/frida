@@ -10,32 +10,32 @@ export const ServiceBenefits = () => {
                 <div className="flex gap-5 items-center">
                     <IconPackage size={40}/>
                     <div>
-                        <h1 className="text-xl">free shipping</h1>
-                        <p className="text-gray-400 text-lg">standard shipping</p>
+                        <h1 className="text-xl">Free shipping</h1>
+                        <p className="text-gray-400 text-lg">Standard shipping</p>
                     </div>
                 </div>
 
                 <div className="flex gap-5 items-center">
                     <IconTag size={40}/>
                     <div>
-                        <h1 className="text-xl">selected discounts</h1>
-                        <p className="text-gray-400 text-lg">guaranteed savings</p>
+                        <h1 className="text-xl">Selected discounts</h1>
+                        <p className="text-gray-400 text-lg">Guaranteed savings</p>
                     </div>
                 </div>
 
                 <div className="flex gap-5 items-center">
                     <IconShoppingCart size={40}/>
                     <div>
-                        <h1 className="text-xl">buyers protection</h1>
-                        <p className="text-gray-400 text-lg">secure payment</p>
+                        <h1 className="text-xl">Buyers protection</h1>
+                        <p className="text-gray-400 text-lg">Secure payment</p>
                     </div>
                 </div>
 
                 <div className="flex gap-5 items-center">
                     <IconMessage size={40}/>
                     <div>
-                        <h1 className="text-xl">customer service</h1>
-                        <p className="text-gray-400 text-lg">give us feedback</p>
+                        <h1 className="text-xl">Customer service</h1>
+                        <p className="text-gray-400 text-lg">Give us feedback</p>
                     </div>
                 </div>
             </div>

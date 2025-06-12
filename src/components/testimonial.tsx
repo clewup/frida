@@ -23,7 +23,7 @@ export const Testimonial: FC<Props> = ({testimonial: {product, rating, review}})
                 </Link>
             }
 
-            <div className="lowercase">
+            <div>
                 <h1 className="text-lg font-bold">{product?.name}</h1>
                 <div className="flex">
                     {ratingStars}

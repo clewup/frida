@@ -13,9 +13,12 @@ export async function RelatedProducts({product}: Props) {
 
     return (
         <div className="flex flex-col gap-5">
-            <Heading className="py-10">you might also like</Heading>
+            <Heading className="py-10">You might also like</Heading>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-5">
-                {relatedProducts.map((product, index) => (<ProductCard key={index} product={product}/>))}
+                {relatedProducts
+                    .filter(x => x.id !== product.id)
+                    .map((product, index) => (<ProductCard key={index} product={product}/>))
+                }
             </div>
         </div>
     )

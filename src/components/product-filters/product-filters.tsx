@@ -28,6 +28,7 @@ export const ProductFilters: FC<Props> = ({categories}) => {
     const searchParams = useSearchParams()
 
     const selectedCategories = searchParams.get("categories")?.split(",") || []
+    const selectedSubcategories = searchParams.get("subcategories")?.split(",") || []
     const selectedColours = searchParams.get("colours")?.split(",") || []
     const selectedPriceRanges = searchParams.get("price")?.split(",") || []
 
@@ -35,6 +36,10 @@ export const ProductFilters: FC<Props> = ({categories}) => {
         (key: string, value: string, checked: boolean) => {
             const params = new URLSearchParams(searchParams.toString())
             const currentValues = params.get(key)?.split(",") || []
+
+            if (key === 'categories') {
+                params.delete('subcategories')
+            }
 
             let newValues: string[]
             if (checked) {
@@ -51,7 +56,6 @@ export const ProductFilters: FC<Props> = ({categories}) => {
 
             // Reset to first page when filters change
             params.delete("page")
-
             router.push(`?${params.toString()}`)
         },
         [router, searchParams],
@@ -66,7 +70,7 @@ export const ProductFilters: FC<Props> = ({categories}) => {
     return (
         <div className="space-y-6 w-full">
             <div className="flex w-full items-center justify-between">
-                <h2 className="text-lg font-semibold underline">filters</h2>
+                <h2 className="text-lg font-semibold underline">Filters</h2>
                 {hasActiveFilters && (
                     <Button
                         variant="ghost"
@@ -74,7 +78,7 @@ export const ProductFilters: FC<Props> = ({categories}) => {
                         onClick={clearAllFilters}
                         className="h-auto p-0 text-sm text-muted-foreground hover:text-foreground"
                     >
-                        clear all
+                        Clear all
                         <X className="ml-1 h-3 w-3"/>
                     </Button>
                 )}
@@ -83,7 +87,7 @@ export const ProductFilters: FC<Props> = ({categories}) => {
             <div className="space-y-6">
                 {/* Categories */}
                 <div className="space-y-3">
-                    <h3 className="font-medium">categories</h3>
+                    <h3 className="font-medium">Categories</h3>
                     <div className="space-y-2">
                         {categories.map((category) => (
                             <div key={category.id} className="flex items-center space-x-2">
@@ -93,7 +97,7 @@ export const ProductFilters: FC<Props> = ({categories}) => {
                                     onCheckedChange={(checked) => updateFilters("categories", category.name, checked as boolean)}
                                 />
                                 <Label htmlFor={`category-${category.id}`}
-                                       className="text-sm font-normal cursor-pointer lowercase">
+                                       className="text-sm font-normal cursor-pointer">
                                     {category.name}
                                 </Label>
                             </div>
@@ -103,9 +107,34 @@ export const ProductFilters: FC<Props> = ({categories}) => {
 
                 <Separator/>
 
+                {/* Subcategories */}
+                <div className="space-y-3">
+                    <h3 className="font-medium">Subcategories</h3>
+                    <div className="space-y-2">
+                        {categories
+                            .filter(category => selectedCategories.length ? selectedCategories.includes(category.name) : true)
+                            .flatMap(category => category.subcategories)
+                            .map((subcategory) => (
+                                <div key={subcategory.id} className="flex items-center space-x-2">
+                                    <Checkbox
+                                        id={`subcategory-${subcategory.id}`}
+                                        checked={selectedSubcategories.includes(subcategory.name)}
+                                        onCheckedChange={(checked) => updateFilters("subcategories", subcategory.name, checked as boolean)}
+                                    />
+                                    <Label htmlFor={`subcategory-${subcategory.id}`}
+                                           className="text-sm font-normal cursor-pointer">
+                                        {subcategory.name}
+                                    </Label>
+                                </div>
+                            ))}
+                    </div>
+                </div>
+
+                <Separator/>
+
                 {/* Colours */}
                 <div className="space-y-3">
-                    <h3 className="font-medium">colours</h3>
+                    <h3 className="font-medium">Colours</h3>
                     <div className="space-y-2">
                         {Object.entries(colourMap).map(([colour, className]) => (
                             <div key={colour} className="flex items-center space-x-2">
@@ -115,7 +144,7 @@ export const ProductFilters: FC<Props> = ({categories}) => {
                                     onCheckedChange={(checked) => updateFilters("colours", colour, checked as boolean)}
                                 />
                                 <Label htmlFor={`colour-${colour}`}
-                                       className="text-sm font-normal cursor-pointer flex items-center lowercase gap-2">
+                                       className="text-sm font-normal cursor-pointer flex items-center gap-2">
                                     {colour}
 
                                     <div className={cx("w-4 h-4 aspect-square rounded-full", className)}></div>
@@ -129,7 +158,7 @@ export const ProductFilters: FC<Props> = ({categories}) => {
 
                 {/* Price Range */}
                 <div className="space-y-3">
-                    <h3 className="font-medium">price range</h3>
+                    <h3 className="font-medium">Price range</h3>
                     <div className="space-y-2">
                         {priceRanges.map((range) => (
                             <div key={range.id} className="flex items-center space-x-2">
@@ -139,7 +168,7 @@ export const ProductFilters: FC<Props> = ({categories}) => {
                                     onCheckedChange={(checked) => updateFilters("price", range.id, checked as boolean)}
                                 />
                                 <Label htmlFor={`price-${range.id}`}
-                                       className="text-sm font-normal lowercase cursor-pointer">
+                                       className="text-sm font-normal cursor-pointer">
                                     {range.label}
                                 </Label>
                             </div>

@@ -5,8 +5,8 @@ import React from 'react'
 
 export const Footer = () => {
     return (
-        <div>
-            <div className="bg-theme-black flex flex-col gap-20 text-white m-5 rounded-md px-20 py-10">
+        <div className="bg-theme-white relative z-[998]">
+            <div className="bg-theme-black flex flex-col gap-20 text-white m-5 rounded-md px-20 py-10 ">
                 <div className="flex flex-col gap-5 md:gap-0 md:flex-row justify-between">
                     <span className="flex flex-col gap-2">
                     <h1 className="text-xl font-bold">help and information</h1>

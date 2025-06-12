@@ -42,7 +42,7 @@ export default function CartItem({item}: CartItemProps) {
                     </div>
 
                     <div className="flex-1">
-                        <h3 className="font-semibold lowercase">{item.product.name}</h3>
+                        <h3 className="font-semibold">{item.product.name}</h3>
                         <p className="text-sm text-muted-foreground">£{item.product.price.toFixed(2)} each</p>
                     </div>
 
