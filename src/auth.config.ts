@@ -1,5 +1,6 @@
 import type {NextAuthConfig} from 'next-auth'
 import Google from 'next-auth/providers/google'
+import Twitter from 'next-auth/providers/twitter'
 import {PrismaAdapter} from "@auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import type {Provider} from "next-auth/providers"
@@ -9,6 +10,10 @@ const providers: Provider[] = [
     Google({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
+    Twitter({
+        clientId: process.env.TWITTER_CLIENT_ID,
+        clientSecret: process.env.TWITTER_CLIENT_SECRET
     })
 ];
 
