@@ -6,9 +6,10 @@ import localFont from 'next/font/local'
 import cx from 'classnames'
 import {TooltipProvider} from "@/components/ui/tooltip";
 import {Header} from "@/components/header";
+import {auth} from "@/auth";
 
 export const metadata = {
-    title: 'FRIDA | furniture & homeware'
+    title: 'FRIDA | Furniture & Homeware'
 }
 
 const druk = localFont({
@@ -21,16 +22,18 @@ const mabry = localFont({
     variable: '--font-mabry'
 })
 
-export default function RootLayout({
-                                       children
-                                   }: {
+export default async function RootLayout({
+                                             children
+                                         }: {
     children: React.ReactNode
 }) {
+    const session = await auth()
+
     return (
         <html lang="en" className={cx(mabry.variable, druk.variable, 'font-mabry')}>
-        <TooltipProvider>
-            <SessionProvider>
-                <body>
+        <body>
+        <SessionProvider session={session}>
+            <TooltipProvider>
                 <div className="bg-gray-50">
                     <Header/>
                     <div className="min-h-screen pt-16">
@@ -38,9 +41,9 @@ export default function RootLayout({
                     </div>
                     <Footer/>
                 </div>
-                </body>
-            </SessionProvider>
-        </TooltipProvider>
+            </TooltipProvider>
+        </SessionProvider>
+        </body>
         </html>
     )
 }

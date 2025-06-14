@@ -12,7 +12,7 @@ export default async function CartPage() {
     const session = await auth();
 
     if (!session) {
-        redirect("/api/auth/signin")
+        redirect("/signin")
     }
 
     const cart = await getCart()

@@ -18,7 +18,7 @@ async function getOrder(session: string) {
 }
 
 export const metadata = {
-    title: 'FRIDA - order successful'
+    title: 'FRIDA - Order successful'
 }
 
 export default async function Success({searchParams}: any) {

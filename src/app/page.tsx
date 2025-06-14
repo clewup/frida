@@ -43,7 +43,7 @@ export default async function Home() {
                         <p className="text-xl text-gray-400">Shop by category</p>
                     </div>
 
-                    <div className={'grid grid-cols-1 gap-5 md:grid-cols-3 min-h-[70vh] items-center'}>
+                    <div className={'grid grid-cols-1 gap-5 md:grid-cols-6 min-h-[70vh] px-20 items-center'}>
                         {categories.map((category, index) => (
                             <Category key={`category_${index}`} category={category}
                                       className="h-[30vh] md:odd:h-full md:even:h-[80%]"/>

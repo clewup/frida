@@ -41,23 +41,9 @@ export const ProductCard: FC<Props> = ({product, showAddToCartButton = true}) =>
                 </div>
             </CardHeader>
             <CardContent className="flex-1 p-4">
-                <CardTitle className="text-2xl font-normal mb-2">{product.name}</CardTitle>
-                <div className="flex items-center justify-between relative w-full">
-                    <span className="text-4xl">£{product.price}</span>
-
-
-                    <form action={handleAddToCart} className="absolute bottom-0 right-0">
-                        {product.stock > 0
-                            ? (
-                                <Button type="submit" disabled={product.stock === 0}>
-                                    <ShoppingCart className="w-4 h-4"/>
-                                    Add to cart
-                                </Button>
-                            )
-                            : <Badge variant="destructive" className="px-4 py-2">Out of stock</Badge>
-                        }
-                    </form>
-
+                <div className="flex justify-between relative w-full p-4 gap-10">
+                    <span className="text-2xl">{product.name}</span>
+                    <span className="text-4xl font-semibold">£{product.price}</span>
                 </div>
             </CardContent>
         </Card>

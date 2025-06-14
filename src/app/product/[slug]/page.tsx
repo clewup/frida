@@ -151,7 +151,7 @@ export default async function ProductSlug({params}: any) {
                                         <p className="text-sm text-muted-foreground text-center">Sign in to add items to
                                             your cart</p>
                                         <Button asChild size="lg" className="w-full">
-                                            <Link href="/api/auth/signin">Sign In to purchase</Link>
+                                            <Link href="/signin">Sign In to purchase</Link>
                                         </Button>
                                     </div>
                                 )}

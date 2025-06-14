@@ -10,7 +10,7 @@ export async function addToCart(productId: number, quantity = 1) {
     const session = await auth();
 
     if (!session?.user?.id) {
-        redirect('/api/auth/signin')
+        redirect('/signin')
     }
 
     try {

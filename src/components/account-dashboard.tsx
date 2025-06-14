@@ -25,8 +25,12 @@ import {OrdersSection} from "@/components/orders-section"
 import {SettingsSection} from "@/components/settings-section"
 import {PaymentsSection} from "@/components/payments-section"
 import {useSession} from "next-auth/react"
-import {signOut} from "@/auth";
+import {signOut} from "@/actions/auth-actions";
 import {UserDetail} from "@/components/user-detail";
+import {redirect} from "next/navigation";
+import {Session} from "next-auth";
+import {FC} from "react";
+import {IconLogout} from "@tabler/icons-react";
 
 const navigationItems = [
     {
@@ -51,22 +55,17 @@ const navigationItems = [
     },
 ]
 
-export function AccountDashboard() {
-    const session = useSession()
+interface Props {
+    session: Session
+}
+
+export const AccountDashboard: FC<Props> = ({session}) => {
     const [activeSection, setActiveSection] = React.useState("profile")
 
-    if (session.status === 'loading') {
-        return <></>
-    }
-
     const renderContent = () => {
-        if (!session.data?.user) {
-            return <></>
-        }
-
         switch (activeSection) {
             case "profile":
-                return <UserDetail user={session.data.user}/>
+                return <UserDetail user={session.user!}/>
             case "orders":
                 return <OrdersSection/>
             case "payment":
@@ -74,7 +73,7 @@ export function AccountDashboard() {
             case "settings":
                 return <SettingsSection title="Account Settings"/>
             default:
-                return <UserDetail user={session.data.user}/>
+                return <UserDetail user={session.user!}/>
         }
     }
 
@@ -86,13 +85,13 @@ export function AccountDashboard() {
                         <SidebarMenuItem>
                             <div className="flex items-center gap-3 px-3 py-2 pt-20">
                                 <Avatar className="h-8 w-8">
-                                    <AvatarImage src={session?.data?.user?.image || ""}
-                                                 alt={session?.data?.user?.name || ""}/>
-                                    <AvatarFallback>{session?.data?.user?.name?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
+                                    <AvatarImage src={session?.user?.image || ""}
+                                                 alt={session?.user?.name || ""}/>
+                                    <AvatarFallback>{session?.user?.name?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
                                 </Avatar>
                                 <div className="flex flex-col">
-                                    <span className="text-sm font-medium">{session?.data?.user?.name}</span>
-                                    <span className="text-xs text-muted-foreground">{session?.data?.user?.email}</span>
+                                    <span className="text-sm font-medium">{session?.user?.name}</span>
+                                    <span className="text-xs text-muted-foreground">{session?.user?.email}</span>
                                 </div>
                             </div>
                         </SidebarMenuItem>
@@ -115,10 +114,14 @@ export function AccountDashboard() {
                             </SidebarMenu>
                             <SidebarMenu>
                                 <SidebarMenuItem>
-                                    <SidebarMenuButton onClick={() => signOut()}>
-                                        <LogOut className="h-4 w-4"/>
-                                        <span>Sign Out</span>
-                                    </SidebarMenuButton>
+                                    <form action={async () => {
+                                        await signOut()
+                                    }}>
+                                        <SidebarMenuButton>
+                                            <IconLogout className="h-4 w-4"/>
+                                            Sign out
+                                        </SidebarMenuButton>
+                                    </form>
                                 </SidebarMenuItem>
                             </SidebarMenu>
                         </SidebarGroupContent>

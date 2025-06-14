@@ -9,7 +9,7 @@ import {
     IconMoneybag, IconPackage,
     IconPhone,
     IconSearch,
-    IconShoppingCart,
+    IconShoppingCart, IconUser,
 } from "@tabler/icons-react";
 import {
     NavigationMenu,
@@ -100,7 +100,7 @@ export async function Header() {
                                         <NavigationMenuLink asChild>
                                             <Link href="#" className="flex flex-row items-center gap-2">
                                                 <IconHelp size={17}/>
-                                                customer service
+                                                Customer service
                                             </Link>
                                         </NavigationMenuLink>
                                     </li>
@@ -108,7 +108,7 @@ export async function Header() {
                                         <NavigationMenuLink asChild>
                                             <Link href="#" className="flex flex-row items-center gap-2">
                                                 <IconPhone size={17}/>
-                                                contact us
+                                                Contact us
                                             </Link>
                                         </NavigationMenuLink>
                                     </li>
@@ -116,7 +116,7 @@ export async function Header() {
                                         <NavigationMenuLink asChild>
                                             <Link href="#" className="flex flex-row items-center gap-2">
                                                 <IconMoneybag size={17}/>
-                                                financing
+                                                Financing
                                             </Link>
                                         </NavigationMenuLink>
                                     </li>
@@ -124,7 +124,7 @@ export async function Header() {
                                         <NavigationMenuLink asChild>
                                             <Link href="#" className="flex flex-row items-center gap-2">
                                                 <IconChairDirector size={17}/>
-                                                interior design
+                                                Interior design
                                             </Link>
                                         </NavigationMenuLink>
                                     </li>
@@ -132,7 +132,7 @@ export async function Header() {
                                         <NavigationMenuLink asChild>
                                             <Link href="#" className="flex flex-row items-center gap-2">
                                                 <IconPackage size={17}/>
-                                                delivery information
+                                                Delivery information
                                             </Link>
                                         </NavigationMenuLink>
                                     </li>
@@ -140,7 +140,7 @@ export async function Header() {
                                         <NavigationMenuLink asChild>
                                             <Link href="#" className="flex flex-row items-center gap-2">
                                                 <IconBusinessplan size={17}/>
-                                                experts in the field
+                                                Experts in the field
                                             </Link>
                                         </NavigationMenuLink>
                                     </li>
@@ -155,34 +155,27 @@ export async function Header() {
                 </div>
 
                 <div className="flex justify-end items-center gap-2">
-                    {!session?.user
-                        ? (
-                            <Button type="submit" onClick={login}>
-                                log in
-                            </Button>
-                        )
-                        : (
-                            <>
-                                <Link href="/search" className="flex gap-2">
-                                    <IconSearch size={20}/>
-                                </Link>
+                    <Link href="/search" className="flex gap-2">
+                        <IconSearch size={20}/>
+                    </Link>
 
-                                <Link href="/cart" className="flex gap-2">
-                                    <IconShoppingCart size={20}/>
-                                </Link>
+                    <Link href="/cart" className="flex gap-2">
+                        <IconShoppingCart size={20}/>
+                    </Link>
 
-                                <Link href="/account">
-                                    <Avatar className="w-7 h-7 text-sm">
-                                        <AvatarImage
-                                            src="https://lh3.googleusercontent.com/a/ACg8ocIipkRLlH2CjuPS2q30EM5CeRDM-FWxmi-DSPzyPoqhHAhPfg=s96-c"
-                                            alt={session.user.name!}/>
-                                        <AvatarFallback className="bg-blue-200">
-                                            {session.user?.name?.charAt(0)}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                </Link>
-                            </>
+                    <Link href="/account">
+                        {session ? (<Avatar className="w-7 h-7 text-sm">
+                            <AvatarImage
+                                src={session?.user?.image!}
+                                alt={session?.user?.name!}/>
+                            <AvatarFallback className="bg-blue-200">
+                                {session?.user?.name?.charAt(0) ?? "U"}
+                            </AvatarFallback>
+                        </Avatar>) : (
+                            <IconUser size={20}/>
                         )}
+
+                    </Link>
                 </div>
 
             </NavigationMenuList>
